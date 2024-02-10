@@ -1,0 +1,43 @@
+<%= form_with(model: training_activity, local: true) do |form| %>
+    <% if training_activity.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(training_activity.errors.count, "error") %> prohibited this training activity from being saved:</h2>
+  
+        <ul>
+        <% training_activity.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+  
+    <div class="field">
+      <%= form.label :title %>
+      <%= form.text_field :title %>
+    </div>
+
+    <div class="field">
+        <%= form.label :activity_type %>
+        <%= form.select :activity_type, options_for_select(['Leaders of Character', 'Physical Fitness/Intramural Sports', 'Resiliency', 'Military', 'Career Readiness']) %>
+    </div>
+  
+    <div class="field">
+      <%= form.label :description %>
+      <%= form.text_area :description %>
+    </div>
+  
+    <div class="field">
+      <%= form.label :start_time %>
+      <%= form.datetime_local_field :start_time %>
+    </div>
+  
+    <div class="field">
+      <%= form.label :end_time %>
+      <%= form.datetime_local_field :end_time %>
+    </div>
+  
+    <div class="actions">
+      <%= form.submit %>
+    </div>
+  <% end %>
+  

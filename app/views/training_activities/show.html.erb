@@ -1,0 +1,33 @@
+<p>
+  <strong>Title:</strong>
+  <%= @training_activity.title %>
+</p>
+
+<p>
+  <strong>Activity Type:</strong>
+  <%= @training_activity.activity_type %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @training_activity.description %>
+</p>
+
+<p>
+  <strong>Start Time:</strong>
+  <%= @training_activity.start_time %>
+</p>
+
+<p>
+  <strong>End Time:</strong>
+  <%= @training_activity.end_time %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @training_activity.status %>
+</p>
+
+<%= link_to 'Edit', edit_training_activity_path(@training_activity) %> |
+<%= link_to 'Back', training_activities_path %> |
+<%= link_to 'Delete', @training_activity, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %>
