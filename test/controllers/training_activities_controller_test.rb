@@ -10,9 +10,19 @@ class TrainingActivitiesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should render index template" do
+    get training_activities_url
+    assert_template :index
+  end
+
   test "should get show" do
     get training_activity_url(@training_activity)
     assert_response :success
+  end
+
+  test "should render show template" do
+    get training_activity_url(@training_activity)
+    assert_template :show
   end
 
   test "should get new" do
@@ -20,9 +30,14 @@ class TrainingActivitiesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should render new template" do
+    get new_training_activity_url
+    assert_template :new
+  end
+
   test "should create training_activity" do
     assert_difference('TrainingActivity.count') do
-      post training_activities_url, params: { training_activity: { title: 'New Training', activity_type: 'Military', description: 'Description', start_time: '2024-02-09', end_time: '2024-02-10', status: 'Pending' } }
+      post training_activities_url, params: { training_activity: { title: 'New Training', activity_type: 'Military', description: 'Description', start_time: '2024-02-09', end_time: '2024-02-10' } }
     end
 
     assert_redirected_to training_activity_url(TrainingActivity.last)
@@ -31,6 +46,11 @@ class TrainingActivitiesControllerTest < ActionDispatch::IntegrationTest
   test "should get edit" do
     get edit_training_activity_url(@training_activity)
     assert_response :success
+  end
+
+  test "should render edit template" do
+    get edit_training_activity_url(@training_activity)
+    assert_template :edit
   end
 
   test "should update training_activity" do
