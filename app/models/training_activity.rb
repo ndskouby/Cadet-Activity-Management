@@ -9,9 +9,7 @@ class TrainingActivity < ApplicationRecord
   private
   
   def set_default_status
-    Rails.logger.debug("Setting default status to Pending")
     self.status ||= "Pending"
-    Rails.logger.debug("Status after assignment: #{self.status}")
   end
 
   def end_time_not_before_start_time
