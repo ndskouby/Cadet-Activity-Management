@@ -17,8 +17,6 @@ bin/rails db:migrate
 ## Repository
 
 ```
-sudo apt install postgresql
-sudo service postgresql start
 git clone git@github.com:jwonnyleaf/Cadet-Activity-Management.git
 git checkout dev
 git pull
