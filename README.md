@@ -1,5 +1,7 @@
 Cadet Activity Management
 
+To access the app, click [here](https://cadet-activity-management-7ed1c42c26df.herokuapp.com/).
+
 # Dev setup guide
 ## Database
 ```
@@ -27,3 +29,13 @@ bundle install
 ```
 ./bin/rails server
 ```
+# Deployment
+
+Currently Deployed to Heroku. [Heroku Dashboard](https://dashboard.heroku.com/apps/cadet-activity-management)
+
+## Deploy
+If you are a collaborator in the Heroku app, use following command from local:
+```
+$ git push heroku <yourbranch>:master
+```
+* Auto-deploy is enabled for 'main' branch.
