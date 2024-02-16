@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  training_activity_id: 1
+  status: 1
+  updated_by: MyString
+  reason: MyString
+
+two:
+  training_activity_id: 1
+  status: 1
+  updated_by: MyString
+  reason: MyString
