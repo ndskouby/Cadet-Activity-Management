@@ -40,13 +40,8 @@ class AuditActivitiesController < ApplicationController
     training_activity = TrainingActivity.find_by(id: params[:id])
     training_activity.update(status: "Improvement Needed")
     # insert into log
-    training_activity_status_log = TrainingActivityStatusLog.new(training_activity_id: params[:id], status: "Improvement Needed", updated_by: "user", reason: params[:reason])
-
-    if training_activity_status_log.save
-      redirect_to audit_activities_path, notice: "Improvement Asked."
-    else
-      redirect_to audit_activities_path, notice: "Failed."
-    end
+    training_activity_status_log = TrainingActivityStatusLog.create(training_activity_id: params[:id], status: "Improvement Needed", updated_by: "user", reason: params[:reason])
+    redirect_to audit_activities_path, notice: "Improvement Asked."
   end
 
 end
