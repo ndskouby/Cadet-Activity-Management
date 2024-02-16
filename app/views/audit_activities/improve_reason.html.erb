@@ -1,0 +1,28 @@
+<h3>
+<%= @training_activity.activity_type %>
+</h3>
+
+<p>
+  <strong>Title:</strong>
+  <%= @training_activity.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @training_activity.description %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @training_activity.status %>
+</p>
+
+<%= form_with url: improve_audit_activity_path do |f| %>
+  <strong><%= f.label :reason, "Reason" %></strong>
+  <%= f.text_area :reason %> <br />
+
+  <%= f.submit "Ask for Improvement"%>
+<% end %>
+
+<br>
+<<%= link_to 'Back', audit_activities_path %>>
