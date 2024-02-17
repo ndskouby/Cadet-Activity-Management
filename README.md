@@ -32,6 +32,7 @@ bundle install
 # Deployment
 
 Currently Deployed to Heroku. [Heroku Dashboard](https://dashboard.heroku.com/apps/cadet-activity-management)
+[Code Climate](https://codeclimate.com/github/jwonnyleaf/Cadet-Activity-Management)
 
 ## Deploy
 If you are a collaborator in the Heroku app, use following command from local:
