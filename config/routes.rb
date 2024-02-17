@@ -2,8 +2,12 @@ Rails.application.routes.draw do
   get 'audit_activities/index'
   get 'audit_activities/show'
   get 'audit_activities/update'
-  get 'home/index'
   root 'home#index'
+  get 'home/index', to: 'home#index', as: 'home'
+
+  get '/users/:id', to: 'users#show', as: 'user'
+  get '/logout', to: 'sessions#logout', as: 'logout'
+  get '/auth/google_oauth2/callback', to: 'sessions#omniauth'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   resources :training_activities
   resources :audit_activities, only: [:index, :show] do
