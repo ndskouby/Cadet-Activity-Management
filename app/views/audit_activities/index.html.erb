@@ -1,0 +1,35 @@
+<h1>Activity Management</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Unit</th>
+      <th>Title</th>
+      <th>Activity Type</th>
+      <th>Status</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @training_activities.each do |training_activity| %>
+      <tr>
+        <td></td>
+        <td><%= link_to training_activity.title, audit_activity_path(training_activity) %></td>
+        <td><%= training_activity.activity_type %></td>
+        <td><%= training_activity.status %></td>
+        <% if ["Pending", "2nd Approval Needed", "3rd Approval Needed", "Resubmitted"].include?(training_activity.status) %>
+        <td><%= link_to 'Approve', approve_audit_activity_path(training_activity), data: { turbo_method: :post, turbo_confirm: 'Are you sure?' }  %></td>
+        <td><%= link_to 'Improve', improve_reason_audit_activity_path(training_activity) %></td>
+        <% else %>
+          <td></td><td></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<<%= link_to 'Home', root_path %>>
+
+

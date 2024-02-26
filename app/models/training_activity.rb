@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class TrainingActivity < ApplicationRecord
+  has_many :training_activity_status_log
   before_create :set_default_status
   validate :end_time_not_before_start_time
   validates :title, presence: true
