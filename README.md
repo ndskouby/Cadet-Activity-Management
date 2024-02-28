@@ -9,9 +9,11 @@ Code Climate Report: [here](https://codeclimate.com/github/jwonnyleaf/Cadet-Acti
 sudo apt install postgresql
 sudo service postgresql start
 sudo -u postgres -i
-ALTER ROLE "ubuntu" WITH LOGIN;
+psql
+CREATE USER yourusername SUPERUSER;
+ALTER ROLE "yourusername" WITH LOGIN;
 ```
-...restart terminal...
+...restart terminal, and after following repository instructions...
 ```
 rake db:create
 bin/rails db:migrate
@@ -23,7 +25,7 @@ bin/rails db:migrate
 git clone git@github.com:jwonnyleaf/Cadet-Activity-Management.git
 git checkout dev
 git pull
-sudo apt install libpq-dev
+sudo apt update && sudo apt upgrade -y && sudo apt install libpq-dev -y
 bundle install
 ```
 ## Running
