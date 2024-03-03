@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   before_action :require_login
 
@@ -18,8 +20,8 @@ class ApplicationController < ActionController::Base
 
   def require_login
     # redirect to the welcome page unless user is logged in
-    unless logged_in?
-      redirect_to home_path, alert: 'You must be logged in to access this section.'
-    end
+    return if logged_in?
+
+    redirect_to home_path, alert: 'You must be logged in to access this section.'
   end
 end
