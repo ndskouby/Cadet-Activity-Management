@@ -1,33 +1,46 @@
 <p>
-  <strong>Title:</strong>
-  <%= @training_activity.title %>
+  <strong>Name:</strong>
+  <%= @training_activity.name %>
 </p>
-
 <p>
-  <strong>Activity Type:</strong>
-  <%= @training_activity.activity_type %>
+  <strong>Date:</strong>
+  <%= @training_activity.date %>
 </p>
-
 <p>
-  <strong>Description:</strong>
-  <%= @training_activity.description %>
+  <strong>Time:</strong>
+  <%= @training_activity.time %>
 </p>
-
 <p>
-  <strong>Start Time:</strong>
-  <%= @training_activity.start_time %>
+  <strong>Location:</strong>
+  <%= @training_activity.location %>
 </p>
-
 <p>
-  <strong>End Time:</strong>
-  <%= @training_activity.end_time %>
+  <strong>Priority:</strong>
+  <%= @training_activity.priority %>
 </p>
-
 <p>
-  <strong>Status:</strong>
-  <%= @training_activity.status %>
+  <strong>Justification:</strong>
+  <%= @training_activity.justification %>
 </p>
-
-<%= link_to 'Edit', edit_training_activity_path(@training_activity) %> |
-<%= link_to 'Back', training_activities_path %> |
-<%= link_to 'Delete', @training_activity, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %>
+<p>
+  <strong>Competencies</strong>
+  <ul>
+    <% @training_activity.competencies.each do |competency| %>
+      <li><%= competency.name %></li>
+    <% end %>
+  </ul>
+</p>
+<p>
+  <strong>OPORD:</strong>
+  <% if @training_activity.opord_upload.attached? %>
+    <%= link_to 'Download File', rails_blob_path(@training_activity.opord_upload, disposition: "attachment") %>
+  <% else %>
+    None
+  <% end %>
+  <p>
+    <strong>Status:</strong>
+    <%= @training_activity.aasm.human_state %>
+  </p>
+  <%= link_to 'Edit', edit_training_activity_path(@training_activity) %> |
+  <%= link_to 'Back', training_activities_path %> |
+  <%= link_to 'Delete', training_activity_path(@training_activity), method: :delete, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>

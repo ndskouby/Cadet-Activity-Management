@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 Rails.application.config.middleware.use OmniAuth::Builder do
   # Retrieve the Google credentials from Rails credentials
   google_credentials = Rails.application.credentials.google
