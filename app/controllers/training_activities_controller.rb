@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TrainingActivitiesController < ApplicationController
   before_action :set_training_activity, only: %i[show edit update destroy]
 
@@ -5,6 +7,8 @@ class TrainingActivitiesController < ApplicationController
   def index
     @training_activities = TrainingActivity.all
   end
+
+  def show; end
 
   def show; end
 
@@ -57,8 +61,13 @@ class TrainingActivitiesController < ApplicationController
     @training_activity = TrainingActivity.find(params[:id])
   end
 
+  def set_training_activity
+    @training_activity = TrainingActivity.find(params[:id])
+  end
+
   def training_activity_params
     params.require(:training_activity).permit(:name, :date, :time, :location, :priority, :justification,
                                               :opord_upload, competency_ids: [])
   end
 end
+
