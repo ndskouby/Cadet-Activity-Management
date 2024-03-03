@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class TrainingActivitiesController < ApplicationController
   before_action :set_training_activity, only: %i[show edit update destroy]
 
@@ -7,8 +5,6 @@ class TrainingActivitiesController < ApplicationController
   def index
     @training_activities = TrainingActivity.all
   end
-
-  def show; end
 
   def show; end
 
@@ -25,9 +21,7 @@ class TrainingActivitiesController < ApplicationController
       if @training_activity.save
         format.html { redirect_to @training_activity, notice: 'Training Activity was successfully created.' }
       else
-        if params[:training_activity][:competency_ids]
-          @training_activity.competency_ids = params[:training_activity][:competency_ids].reject(&:blank?)
-        end
+        @training_activity.competency_ids = params[:training_activity][:competency_ids].reject(&:blank?) if params[:training_activity][:competency_ids]
         format.html { render :new, status: :unprocessable_entity }
         format.turbo_stream do
           render turbo_stream: turbo_stream.replace('training_activity_form', partial: 'training_activities/form',
@@ -61,13 +55,8 @@ class TrainingActivitiesController < ApplicationController
     @training_activity = TrainingActivity.find(params[:id])
   end
 
-  def set_training_activity
-    @training_activity = TrainingActivity.find(params[:id])
-  end
-
   def training_activity_params
     params.require(:training_activity).permit(:name, :date, :time, :location, :priority, :justification,
                                               :opord_upload, competency_ids: [])
   end
 end
-
