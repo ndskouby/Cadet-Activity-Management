@@ -7,3 +7,22 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+COMPETENCIES = [
+  'Respect and Inclusion',
+  'Resilience',
+  'Financial Literacy',
+  'Ethical Leadership',
+  'Technology',
+  'Physical and Mental Wellness',
+  'Adaptability',
+  'Professionalism',
+  'Communication',
+  'Career and Self Development',
+  'Teamwork',
+  'Critical Thinking'
+]
+
+COMPETENCIES.each do |competency|
+  Competency.find_or_create_by(name: competency)
+end
