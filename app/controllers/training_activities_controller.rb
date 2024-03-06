@@ -16,6 +16,7 @@ class TrainingActivitiesController < ApplicationController
   # POST /training_activities
   def create
     @training_activity = TrainingActivity.new(training_activity_params)
+    @training_activity.update(user_id: session[:user_id])
 
     respond_to do |format|
       if @training_activity.save

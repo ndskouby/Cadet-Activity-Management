@@ -1,4 +1,5 @@
 class TrainingActivity < ApplicationRecord
+  belongs_to :user
   include AASM
 
   has_one_attached :opord_upload
