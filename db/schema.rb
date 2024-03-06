@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_06_182107) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_06_195729) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,6 +42,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_06_182107) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "commandants", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "competencies", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -53,6 +60,22 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_06_182107) do
     t.bigint "competency_id"
     t.index ["competency_id"], name: "index_competencies_training_activities_on_competency_id"
     t.index ["training_activity_id"], name: "index_competencies_training_activities_on_training_activity_id"
+  end
+
+  create_table "major_units", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "commandant_id"
+  end
+
+  create_table "minor_units", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "major_unit_id"
   end
 
   create_table "training_activities", force: :cascade do |t|
@@ -67,7 +90,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_06_182107) do
     t.string "location"
     t.string "priority"
     t.text "justification"
-    t.integer "user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -78,6 +100,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_06_182107) do
     t.datetime "updated_at", null: false
     t.string "uid"
     t.string "provider"
+    t.string "minor_unit_id"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

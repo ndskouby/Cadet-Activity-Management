@@ -13,6 +13,10 @@ class SessionsController < ApplicationController
       names = auth['info']['name'].split
       u.first_name = names[0]
       u.last_name = names[1..].join(' ')
+
+      # Making the default Minor Unit point to a Dummy entry
+      # for the time being, since the audit system isn't up yet.
+      u.minor_unit_id = "1"
     end
 
     if @user.valid?

@@ -1,0 +1,2 @@
+class Commandant < ApplicationRecord
+end
