@@ -73,7 +73,7 @@ Rails.application.configure do
   # config.active_job.queue_adapter = :resque
   # config.active_job.queue_name_prefix = "cadet_activity_management_production"
 
-  cconfig.action_mailer.delivery_method = :letter_opener
+  cconfig.action_mailer.delivery_method = :letter_opener_web
   config.action_mailer.perform_deliveries = true
   config.action_mailer.perform_caching = false
 
