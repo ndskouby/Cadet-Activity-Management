@@ -29,6 +29,6 @@ Scenario: Request improving event
 
 Scenario: Denying event 
     Given that I am on the approval details page for "Test Event"
-    And the status of "Test Event" is "Pending"
+    And that the status of "Test Event" is "Pending"
     When I press the "Deny Event" button
     Then the status of "Test Event" should be "Denied"
