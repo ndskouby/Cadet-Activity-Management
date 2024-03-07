@@ -9,6 +9,7 @@ FactoryBot.define do
        'Physical Fitness'].sample
     end
     justification { 'Required for development...' }
+    user_id { FactoryBot.create(:user).id }
 
     after(:build) do |training_activity|
       competencies = Competency.where(name: ['Respect and Inclusion', 'Resilience']).pluck(:id)
