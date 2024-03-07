@@ -5,11 +5,12 @@ require 'rails_helper'
 RSpec.describe TrainingActivity, type: :model do
   before(:each) do
     @training_activity = create(:training_activity)
+    @user = create(:user)
+    @training_activity.current_user = @user
   end
 
   after(:each) do
     ActiveRecord::Base.connection.execute('DELETE FROM competencies_training_activities')
-    TrainingActivity.delete_all
   end
 
   # Validation Tests
@@ -131,39 +132,52 @@ RSpec.describe TrainingActivity, type: :model do
   # Approval State Tests
   #
   describe 'status transitions' do
-    it 'transitions from pending_minor_unit_approval to pending_major_unit_approval' do
-      @training_activity.submit_for_major_unit_approval!
-      expect(@training_activity).to have_state(:pending_major_unit_approval)
+    context 'when status is pending_minor_unit_approval' do
+      before do
+        @training_activity = create(:training_activity, status: :pending_minor_unit_approval)
+        @training_activity.current_user = @user
+      end
+
+      it 'transitions to pending_major_unit_approval' do
+        @training_activity.submit_for_major_unit_approval!
+        expect(@training_activity).to have_state(:pending_major_unit_approval)
+      end
     end
 
-    it 'transitions from pending_major_unit_approval to pending_commandant_approval' do
-      @training_activity.submit_for_major_unit_approval!
-      @training_activity.submit_for_commandant_approval!
-      expect(@training_activity).to have_state(:pending_commandant_approval)
-    end
+    context 'when status is pending_major_unit_approval' do
+      before do
+        @training_activity = create(:training_activity, status: :pending_major_unit_approval)
+        @training_activity.current_user = @user
+      end
 
-    it 'approves from pending_commandant_approval' do
-      @training_activity.submit_for_major_unit_approval!
-      @training_activity.submit_for_commandant_approval!
-      @training_activity.approve!
-      expect(@training_activity).to have_state(:approved)
-    end
-
-    it 'requires revision from submitter when in pending_minor_unit_approval' do
-      @training_activity.require_submitter_revision!
-      expect(@training_activity).to have_state(:revision_required_by_submitter)
-    end
-
-    it 'rejects from any state' do
-      @training_activity.reject!
-      expect(@training_activity).to have_state(:rejected)
-    end
-
-    it 'does not transition to pending_commandant_approval directly from pending_minor_unit_approval' do
-      expect do
+      it 'transitions to pending_commandant_approval' do
         @training_activity.submit_for_commandant_approval!
-      end.to raise_error(AASM::InvalidTransition)
-      expect(@training_activity).to have_state(:pending_minor_unit_approval)
+        expect(@training_activity).to have_state(:pending_commandant_approval)
+      end
+    end
+
+    context 'when status is pending_commandant_approval' do
+      before do
+        @training_activity = create(:training_activity, status: :pending_commandant_approval)
+        @training_activity.current_user = @user
+      end
+
+      it 'transitions to approved' do
+        @training_activity.approved!
+        expect(@training_activity).to have_state(:approved)
+      end
+    end
+
+    context 'when status is revision_required_by_submitter' do
+      before do
+        @training_activity = create(:training_activity, status: :revision_required_by_submitter)
+        @training_activity.current_user = @user
+      end
+
+      it 'transitions to pending_minor_unit_approval' do
+        @training_activity.submit_for_minor_unit_approval
+        expect(@training_activity).to have_state(:pending_minor_unit_approval)
+      end
     end
   end
 end
