@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file should ensure the existence of records required to run the application in every environment (production,
 # development, test). The code here should be idempotent so that it can be executed at any point in every environment.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
@@ -21,23 +23,23 @@ COMPETENCIES = [
   'Career and Self Development',
   'Teamwork',
   'Critical Thinking'
-]
+].freeze
 
 COMPETENCIES.each do |competency|
   Competency.find_or_create_by(name: competency)
 end
 
 COMMANDANTS = [
-  { name: "Dummy Commandant", email: "dummy_commandant@tamu.edu" }
-]
+  { name: 'Dummy Commandant', email: 'dummy_commandant@tamu.edu' }
+].freeze
 
 MAJOR_UNITS = [
-  { name: "Dummy Major Unit", email: "dummy_major_unit@tamu.edu", commandant_id: "1" }
-]
+  { name: 'Dummy Major Unit', email: 'dummy_major_unit@tamu.edu', commandant_id: '1' }
+].freeze
 
 MINOR_UNITS = [
-  { name: "Dummy Minor Unit", email: "dummy_minor_unit@tamu.edu", major_unit_id: "1" }
-]
+  { name: 'Dummy Minor Unit', email: 'dummy_minor_unit@tamu.edu', major_unit_id: '1' }
+].freeze
 
 COMMANDANTS.each do |commandant|
   Commandant.create!(commandant)

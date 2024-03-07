@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TrainingActivitiesController < ApplicationController
   before_action :set_training_activity, only: %i[show edit update destroy]
 
@@ -52,49 +54,47 @@ class TrainingActivitiesController < ApplicationController
   end
 
   # These have not been implemented yet, placeholder functions for when audit is merged
-=begin
-  def minor_unit_approval
-    @training_activity = TrainingActivity(params[:id])
-    @training_activity.submit_for_major_unit_approval!
-    TrainingActivitiesMailer.major_unit_approval(@training_activity).deliver_now
-  end
-
-  def major_unit_approval
-    @training_activity = TrainingActivity(params[:id])
-    @training_activity.submit_for_commandant_approval!
-    TrainingActivitiesMailer.commandant_approval(@training_activity).deliver_now
-  end
-
-  def minor_unit_revision_required(params[:id])
-    @training_activity = TrainingActivity(params[:id])
-    @training_activity.require_minor_unit_revision!
-    TrainingActivitiesMailer.minor_unit_revision(@training_activity).deliver_now
-  end
-
-  def major_unit_revision_required(params[:id])
-    @training_activity = TrainingActivity(params[:id])
-    @training_activity.require_major_unit_revision!
-    TrainingActivitiesMailer.major_unit_revision(@training_activity).deliver_now
-  end
-
-  def submitter_revision_required(params[:id])
-    @training_activity = TrainingActivity(params[:id])
-    @training_activity.require_submitter_revision!
-    TrainingActivitiesMailer.submitter_revision(@training_activity).deliver_now
-  end
-
-  def approved
-    @training_activity = TrainingActivity(params[:id])
-    @training_activity.approve!
-    TrainingActivitiesMailer.approved(@training_activity).deliver_now
-  end
-
-  def rejected
-    @training_activity = TrainingActivity(params[:id])
-    @training_activity.reject!
-    TrainingActivitiesMailer.rejected(@training_activity).deliver_now
-  end
-=end
+  #   def minor_unit_approval
+  #     @training_activity = TrainingActivity(params[:id])
+  #     @training_activity.submit_for_major_unit_approval!
+  #     TrainingActivitiesMailer.major_unit_approval(@training_activity).deliver_now
+  #   end
+  #
+  #   def major_unit_approval
+  #     @training_activity = TrainingActivity(params[:id])
+  #     @training_activity.submit_for_commandant_approval!
+  #     TrainingActivitiesMailer.commandant_approval(@training_activity).deliver_now
+  #   end
+  #
+  #   def minor_unit_revision_required(params[:id])
+  #     @training_activity = TrainingActivity(params[:id])
+  #     @training_activity.require_minor_unit_revision!
+  #     TrainingActivitiesMailer.minor_unit_revision(@training_activity).deliver_now
+  #   end
+  #
+  #   def major_unit_revision_required(params[:id])
+  #     @training_activity = TrainingActivity(params[:id])
+  #     @training_activity.require_major_unit_revision!
+  #     TrainingActivitiesMailer.major_unit_revision(@training_activity).deliver_now
+  #   end
+  #
+  #   def submitter_revision_required(params[:id])
+  #     @training_activity = TrainingActivity(params[:id])
+  #     @training_activity.require_submitter_revision!
+  #     TrainingActivitiesMailer.submitter_revision(@training_activity).deliver_now
+  #   end
+  #
+  #   def approved
+  #     @training_activity = TrainingActivity(params[:id])
+  #     @training_activity.approve!
+  #     TrainingActivitiesMailer.approved(@training_activity).deliver_now
+  #   end
+  #
+  #   def rejected
+  #     @training_activity = TrainingActivity(params[:id])
+  #     @training_activity.reject!
+  #     TrainingActivitiesMailer.rejected(@training_activity).deliver_now
+  #   end
 
   private
 

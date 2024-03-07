@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateCompetencies < ActiveRecord::Migration[6.0]
   def change
     create_table :competencies do |t|

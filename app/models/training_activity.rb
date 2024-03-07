@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TrainingActivity < ApplicationRecord
   belongs_to :user
   include AASM
@@ -19,8 +21,6 @@ class TrainingActivity < ApplicationRecord
   validate :validate_opord_upload_type
 
   aasm column: 'status' do
-
-
     state :pending_minor_unit_approval, initial: true, display: 'Pending Minor Unit Approval'
     state :pending_major_unit_approval, display: 'Pending Major Unit Approval'
     state :pending_commandant_approval, display: 'Pending Commandant Approval'

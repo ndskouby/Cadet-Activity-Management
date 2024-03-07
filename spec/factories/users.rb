@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :commandant do
     name { 'Dummy Commandant' }
-    email { 'dummy_commandant@tamu.edu '}
+    email { 'dummy_commandant@tamu.edu ' }
   end
 
   factory :major_unit do

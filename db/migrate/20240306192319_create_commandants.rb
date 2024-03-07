@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateCommandants < ActiveRecord::Migration[7.1]
   def change
     create_table :commandants do |t|

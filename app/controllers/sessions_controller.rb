@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SessionsController < ApplicationController
   skip_before_action :require_login, only: [:omniauth]
 
@@ -16,7 +18,7 @@ class SessionsController < ApplicationController
 
       # Making the default Minor Unit point to a Dummy entry
       # for the time being, since the audit system isn't up yet.
-      u.minor_unit_id = "1"
+      u.minor_unit_id = '1'
     end
 
     if @user.valid?
