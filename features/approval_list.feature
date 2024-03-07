@@ -5,7 +5,7 @@ Feature: Approval list
     I want to be able to see all events that need my attention in order, like a to-do list
 
 Scenario: Accessing the approval page
-    Given that I am on the homepage
+    Given that I am on the home page
     When I click the "Event Approval" link
     Then I should be on the approvals page
 
