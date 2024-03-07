@@ -20,6 +20,7 @@ class TrainingActivitiesController < ApplicationController
 
     respond_to do |format|
       if @training_activity.save
+        TrainingActivitiesMailer.minor_unit_approval(@training_activity).deliver_now
         format.html { redirect_to @training_activity, notice: 'Training Activity was successfully created.' }
       else
         @training_activity.competency_ids = params[:training_activity][:competency_ids].reject(&:blank?) if params[:training_activity][:competency_ids]
@@ -49,6 +50,51 @@ class TrainingActivitiesController < ApplicationController
     @training_activity.destroy
     redirect_to training_activities_url, notice: 'Training Activity was successfully destroyed.'
   end
+
+  # These have not been implemented yet, placeholder functions for when audit is merged
+=begin
+  def minor_unit_approval
+    @training_activity = TrainingActivity(params[:id])
+    @training_activity.submit_for_major_unit_approval!
+    TrainingActivitiesMailer.major_unit_approval(@training_activity).deliver_now
+  end
+
+  def major_unit_approval
+    @training_activity = TrainingActivity(params[:id])
+    @training_activity.submit_for_commandant_approval!
+    TrainingActivitiesMailer.commandant_approval(@training_activity).deliver_now
+  end
+
+  def minor_unit_revision_required(params[:id])
+    @training_activity = TrainingActivity(params[:id])
+    @training_activity.require_minor_unit_revision!
+    TrainingActivitiesMailer.minor_unit_revision(@training_activity).deliver_now
+  end
+
+  def major_unit_revision_required(params[:id])
+    @training_activity = TrainingActivity(params[:id])
+    @training_activity.require_major_unit_revision!
+    TrainingActivitiesMailer.major_unit_revision(@training_activity).deliver_now
+  end
+
+  def submitter_revision_required(params[:id])
+    @training_activity = TrainingActivity(params[:id])
+    @training_activity.require_submitter_revision!
+    TrainingActivitiesMailer.submitter_revision(@training_activity).deliver_now
+  end
+
+  def approved
+    @training_activity = TrainingActivity(params[:id])
+    @training_activity.approve!
+    TrainingActivitiesMailer.approved(@training_activity).deliver_now
+  end
+
+  def rejected
+    @training_activity = TrainingActivity(params[:id])
+    @training_activity.reject!
+    TrainingActivitiesMailer.rejected(@training_activity).deliver_now
+  end
+=end
 
   private
 

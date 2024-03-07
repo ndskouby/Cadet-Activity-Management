@@ -19,6 +19,8 @@ class TrainingActivity < ApplicationRecord
   validate :validate_opord_upload_type
 
   aasm column: 'status' do
+
+
     state :pending_minor_unit_approval, initial: true, display: 'Pending Minor Unit Approval'
     state :pending_major_unit_approval, display: 'Pending Major Unit Approval'
     state :pending_commandant_approval, display: 'Pending Commandant Approval'
@@ -40,7 +42,7 @@ class TrainingActivity < ApplicationRecord
       transitions from: :pending_commandant_approval, to: :approved
     end
 
-    event :require_minor_unit_revision do
+    event :approve do
       transitions from: %i[pending_major_unit_approval pending_commandant_approval],
                   to: :revision_required_by_minor_unit
     end
