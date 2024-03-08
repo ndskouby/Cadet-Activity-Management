@@ -1,49 +1,60 @@
-# frozen_string_literal: true
-
-Given('the user is on the homepage') do
-  pending # Write code here that turns the phrase above into concrete actions
+Given('the user is on the training activities page') do
+  visit training_activities_path
 end
 
-When('the user navigates to the {string} section') do |_string|
-  pending # Write code here that turns the phrase above into concrete actions
+When('the user clicks the "New Activity" link') do
+  click_link 'New Activity'
 end
 
-Then('the event creation form should be displayed') do
-  pending # Write code here that turns the phrase above into concrete actions
+Then('the activity creation form should be displayed') do
+  expect(page).to have_css('form#training_activity_form')
 end
 
-Given('the user is on the {string} page') do |_string|
-  pending # Write code here that turns the phrase above into concrete actions
+Given('the user is on the "New Training Activity" page') do
+  visit new_training_activity_path
 end
 
 When('the user fills in all required fields with event details') do
-  pending # Write code here that turns the phrase above into concrete actions
+  fill_in 'Activity Name', with: 'Leadership Seminar'
+  fill_in 'Activity Date', with: '2024-03-10'
+  choose 'time_ma' # Assuming "MA" is the morning time slot and corresponds to the ID 'time_ma'
+  fill_in 'Activity Location', with: 'Auditorium'
+  select 'Leaders of Character', from: 'Priority'
+  fill_in 'Justification', with: 'Necessary for leadership development'
 end
 
-When('the user submits the event creation form') do
-  pending # Write code here that turns the phrase above into concrete actions
+And('the user submits the event creation form') do
+  click_button 'Create Training activity'
 end
 
-Then('a success message {string} should be displayed') do |_string|
-  pending # Write code here that turns the phrase above into concrete actions
+Then('a success message {string} should be displayed') do |message|
+  expect(page).to have_content(message)
 end
 
-Then('the new event should be listed in the upcoming events') do
-  pending # Write code here that turns the phrase above into concrete actions
+And('the new event should be listed in the "Training Activities" page') do
+  visit training_activities_path
+  expect(page).to have_content('Leadership Seminar')
 end
 
+# Scenario: Attempting to create a new event without filling all required fields
 When('the user attempts to submit the event creation form without filling all required fields') do
-  pending # Write code here that turns the phrase above into concrete actions
+  fill_in 'Activity Date', with: '2024-03-10' # Only fill out Activity Date
+  click_button 'Create Training activity'
 end
 
 Then('an error message indicating the missing required fields should be displayed') do
-  pending # Write code here that turns the phrase above into concrete actions
+  expect(page).to have_content("Activity Name can't be blank")
+  expect(page).to have_content("Time can't be blank")
+  expect(page).to have_content("Time is not included in the list")
+  expect(page).to have_content("Location can't be blank")
+  expect(page).to have_content("Priority can't be blank")
+  expect(page).to have_content("Justification can't be blank")
 end
 
-When('the user clicks the {string} button') do |_string|
-  pending # Write code here that turns the phrase above into concrete actions
+When('the user clicks the "Back" link') do
+  click_link 'Back' # Ensure the text matches exactly or adjust accordingly
 end
 
-Then('the user should be redirected back to the homepage without creating a new event') do
-  pending # Write code here that turns the phrase above into concrete actions
+Then('the user should be redirected back to the training activities page without creating a new event') do
+  expect(current_path).to eq training_activities_path
 end

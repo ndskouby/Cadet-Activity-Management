@@ -1,17 +1,3 @@
-# frozen_string_literal: true
-Given('I am a user with name {string}') do |name|
-  name_parts = name.split
-  first_name = name_parts.first
-  last_name = name_parts[1..].join(' ') # Joins the rest of the parts as the last name.
-  email = "#{first_name.downcase}#{last_name.downcase}@tamu.edu"
-
-  @user = FactoryBot.create(:user, first_name: first_name, last_name: last_name, email: email, uid: '123456789')
-end
-
-And('I have logged in through the website home page') do
-  visit home_path
-  click_button "Login with Google"
-end
 
 Given('I am on the website user homepage') do
   visit user_path(@user)

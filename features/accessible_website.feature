@@ -5,8 +5,7 @@ Feature: Accessible Website for Corps of Cadets
 	So that I can view upcoming events and plan new ones.
 
 Background:
-    Given I am a user with name "John Doe"
-	And I have logged in through the website home page
+	Given I am a logged-in user with name "John Doe"
 
 Scenario: Viewing the events page
 	Given I am on the website user homepage
