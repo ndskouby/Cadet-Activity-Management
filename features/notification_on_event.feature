@@ -4,9 +4,14 @@ Feature: Notification on attention needed
     So that I can know when my attention is needed for an event
     I want to receive an email
 
-Scenario: Send email to minor unit on activity create
-        Given that a submitter creates
+Background:
+	Given I am a logged-in user with name "John Doe"
 
+Scenario: Creating a new event with all required details
+	Given the user is on the "New Training Activity" page
+	When the user fills in all required fields with event details
+	And the user submits the event creation form
+	Then an email should be sent to the minor unit
 
 
 Scenario: Send email on lower approval
