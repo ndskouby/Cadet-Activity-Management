@@ -1,6 +1,8 @@
 Given('the following training activities exist:') do |table|
+  user = User.find_by(first_name: "John", last_name: "Doe")
+  user_id = user.id
   table.hashes.each do |row|
-    TrainingActivity.create!(name: row['name'], date: Date.parse(row['date']), time: row['time'], location: row['location'], priority: row['priority'], justification: row['justification'])
+    TrainingActivity.create!(name: row['name'], date: Date.parse(row['date']), time: row['time'], location: row['location'], priority: row['priority'], justification: row['justification'], user_id: user_id)
   end
 end
 

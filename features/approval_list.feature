@@ -34,7 +34,7 @@ Scenario: Request revision event
     When I press the "Request Revision" button
     Then the status of "Leadership 101" should be "revision_required_by_submitter"
 
-Scenario: Reject event 
+Scenario: Reject event
     Given that I am on the approval details page for "Safety Training"
     And that the status of "Safety Training" is "pending_minor_unit_approval"
     When I press the "Reject" button
