@@ -42,7 +42,7 @@ class TrainingActivity < ApplicationRecord
       transitions from: :pending_commandant_approval, to: :approved
     end
 
-    event :approve do
+    event :require_minor_unit_revision do
       transitions from: %i[pending_major_unit_approval pending_commandant_approval],
                   to: :revision_required_by_minor_unit
     end
