@@ -1,0 +1,12 @@
+<h1><%= @training_activity.name %></h1>
+<p>Status: <%= @training_activity.status %></p>
+<h2>History</h2>
+<% @activity_histories.each do |history| %>
+  <div><%= history.event %> - <%= history.created_at.strftime("%Y-%m-%d %H:%M:%S") %></div>
+<% end %>
+<h2>Actions</h2>
+<%= button_to 'Approve', approve_audit_activity_path(@training_activity), method: :post, class: '' %>
+<%= button_to 'Reject', reject_audit_activity_path(@training_activity), method: :post, class: '' %>
+<%= button_to 'Request Revision', improve_audit_activity_path(@training_activity), method: :post, class: '' %>
+<%= button_to 'Resubmit', resubmit_audit_activity_path(@training_activity), method: :post, class: '' %>
+<%= link_to 'Back', audit_activities_path, class: '' %>
