@@ -18,11 +18,13 @@ class TrainingActivitiesController < ApplicationController
   # POST /training_activities
   def create
     @training_activity = TrainingActivity.new(training_activity_params)
+    @training_activity.current_user = current_user
     @training_activity.update(user_id: session[:user_id])
 
     respond_to do |format|
       if @training_activity.save
         TrainingActivitiesMailer.minor_unit_approval(@training_activity).deliver_now
+        @training_activity.log_activity_history('activity_created')
         format.html { redirect_to @training_activity, notice: 'Training Activity was successfully created.' }
       else
         @training_activity.competency_ids = params[:training_activity][:competency_ids].reject(&:blank?) if params[:training_activity][:competency_ids]
