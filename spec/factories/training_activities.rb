@@ -11,6 +11,7 @@ FactoryBot.define do
        'Physical Fitness'].sample
     end
     justification { 'Required for development...' }
+    status { "pending_minor_unit_approval" }
     user_id { FactoryBot.create(:user).id }
 
     after(:build) do |training_activity|

@@ -166,7 +166,7 @@ class TrainingActivity < ApplicationRecord
     # Only up to 3 competencies can be selected
     return unless competency_ids.count > 3
 
-    errors.add(:competency_ids, 'You can select up to 3 competencies.')
+    errors.add(:competency_ids, 'You can only select up to 3 competencies.')
   end
 
   def validate_opord_upload_size

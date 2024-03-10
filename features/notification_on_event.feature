@@ -16,7 +16,7 @@ Scenario: Creating a new event with all required details
 
 Scenario: Send email on lower approval
     Given that I am on the approval details page for "Test Event"
-    And that the status of "Test Event" is "Pending 1st approval"
-    When I press the "Approve Event" button
-    Then the status of "Test Event" should be "Pending 2nd approval"
+    And that the status of "Test Event" is "pending_minor_unit_approval"
+    When I press the "Approve" button
+    Then the status of "Test Event" should be "pending_major_unit_approval"
     And an email should be sent to the next approving officer

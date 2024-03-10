@@ -19,8 +19,8 @@ FactoryBot.define do
   end
 
   factory :user do
-    sequence(:email) { |n| "user#{n}@tamu.edu" }
-    sequence(:first_name) { |n| "Test#{n}" }
+    email { "user#{SecureRandom.random_number(1_000_000)}@tamu.edu" }
+    first_name { "Test#{SecureRandom.hex(4)}" }
     last_name { 'User' }
     uid { SecureRandom.random_number(1_000_000_000).to_s }
     provider { 'google_oauth2' }
