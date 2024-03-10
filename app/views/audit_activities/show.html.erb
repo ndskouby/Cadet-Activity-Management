@@ -1,5 +1,5 @@
 <h1><%= @training_activity.name %></h1>
-<p>Status: <%= @training_activity.status %></p>
+<p>Status: <%= I18n.t("training_activity.status.#{@training_activity.status}") %></p>
 <h2>History</h2>
 <% @activity_histories.each do |history| %>
   <div><%= history.event %> - <%= history.created_at.strftime("%Y-%m-%d %H:%M:%S") %></div>

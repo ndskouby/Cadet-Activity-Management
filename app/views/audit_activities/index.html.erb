@@ -12,7 +12,7 @@
     <% @training_activities.each do |activity| %>
       <tr>
         <td><%= activity.name %></td>
-        <td><%= activity.status %></td>
+        <td><%= I18n.t("training_activity.status.#{activity.status}") %></td>
         <td>
           <%= link_to 'Show', audit_activity_path(activity), class: '' %>
         </td>

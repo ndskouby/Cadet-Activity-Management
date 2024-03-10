@@ -6,3 +6,13 @@ en:
           attributes:
             name:
               blank: "Activity Name can't be blank."
+  training_activity:
+    status:
+      pending_minor_unit_approval: "Pending Minor Unit Approval"
+      pending_major_unit_approval: "Pending Major Unit Approval"
+      pending_commandant_approval: "Pending Commandant Approval"
+      approved: "Approved"
+      rejected: "Rejected"
+      revision_required_by_submitter: "Revision Required by Submitter"
+      revision_required_by_minor_unit: "Revision Required by Minor Unit"
+      revision_required_by_major_unit: "Revision Required by Major Unit"
