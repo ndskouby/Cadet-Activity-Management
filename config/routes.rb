@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   get 'up' => 'rails/health#show', as: :rails_health_check
 
   # Mailer
-  mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  mount LetterOpenerWeb::Engine, at: '/letter_opener'
 
   # Defines the root path route ("/")
   # root "posts#index"

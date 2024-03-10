@@ -45,7 +45,7 @@ end
 Then('an error message indicating the missing required fields should be displayed') do
   expect(page).to have_content("Activity Name can't be blank")
   expect(page).to have_content("Time can't be blank")
-  expect(page).to have_content("Time is not included in the list")
+  expect(page).to have_content('Time is not included in the list')
   expect(page).to have_content("Location can't be blank")
   expect(page).to have_content("Priority can't be blank")
   expect(page).to have_content("Justification can't be blank")

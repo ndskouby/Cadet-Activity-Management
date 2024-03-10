@@ -1,8 +1,9 @@
 Given('the following training activities exist:') do |table|
-  user = User.find_by(first_name: "John", last_name: "Doe")
+  user = User.find_by(first_name: 'John', last_name: 'Doe')
   user_id = user.id
   table.hashes.each do |row|
-    TrainingActivity.create!(name: row['name'], date: Date.parse(row['date']), time: row['time'], location: row['location'], priority: row['priority'], justification: row['justification'], user_id: user_id)
+    TrainingActivity.create!(name: row['name'], date: Date.parse(row['date']), time: row['time'], location: row['location'], priority: row['priority'], justification: row['justification'],
+                             user_id:)
   end
 end
 
@@ -10,7 +11,7 @@ Given('that I am on the user homepage') do
   visit user_path(@user)
 end
 
-When('I click the {string} link') do |string|
+When('I click the {string} link') do |_string|
   click_link 'Audit Activities'
 end
 
@@ -58,6 +59,6 @@ Then('the status of {string} should be {string}') do |event_name, new_status|
   expect(page).to have_content("Status: #{new_status}")
 end
 
-When('I enter {string} into the text box') do |string|
+When('I enter {string} into the text box') do |_string|
   pending # Write code here that turns the phrase above into concrete actions
 end

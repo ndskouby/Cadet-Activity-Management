@@ -8,7 +8,7 @@
 
 require 'cucumber/rails'
 # Require all files in the support directory
-Dir[Rails.root.join("features/support/**/*.rb")].each { |f| require f }
+Dir[Rails.root.join('features/support/**/*.rb')].each { |f| require f }
 # By default, any exception happening in your Rails application will bubble up
 # to Cucumber so that your scenario will fail. This is a different from how
 # your application behaves in the production environment, where an error page will
