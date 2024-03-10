@@ -8,9 +8,9 @@ Code Climate Report: [here](https://codeclimate.com/github/jwonnyleaf/Cadet-Acti
 ## Routine
 ```
 git pull && bundle install && rails db:migrate
-bundle exec rspec
+rspec
 rails server
-bundle exec rubocop
+rubocop
 ```
 
 
