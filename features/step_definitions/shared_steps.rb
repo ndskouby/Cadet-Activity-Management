@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Given('I am a user with name {string}') do |name|
   name_parts = name.split
   first_name = name_parts.first

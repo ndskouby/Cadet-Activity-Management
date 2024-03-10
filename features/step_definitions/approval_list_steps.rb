@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Given('the following training activities exist:') do |table|
   user = User.find_by(first_name: 'John', last_name: 'Doe')
   user_id = user.id

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Given('the user is on the training activities page') do
   visit training_activities_path
 end

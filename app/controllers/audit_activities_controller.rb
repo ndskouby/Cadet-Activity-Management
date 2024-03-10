@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AuditActivitiesController < ApplicationController
   before_action :set_training_activity, only: %i[show approve improve reject resubmit]
 
