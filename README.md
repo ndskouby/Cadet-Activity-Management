@@ -10,6 +10,7 @@ Code Climate Report: [here](https://codeclimate.com/github/jwonnyleaf/Cadet-Acti
 git pull && bundle install && rails db:migrate
 bundle exec rspec
 rails server
+bundle exec rubocop
 ```
 
 
