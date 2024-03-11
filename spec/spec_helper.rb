@@ -18,8 +18,6 @@
 
 require 'aasm/rspec'
 require 'omniauth'
-require 'simplecov'
-SimpleCov.start
 
 RSpec.configure do |config|
   config.before(:suite) do
