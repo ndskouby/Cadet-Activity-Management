@@ -29,4 +29,6 @@ COMPETENCIES.each do |competency|
   Competency.find_or_create_by(name: competency)
 end
 
-Unit.create(name: 'Unassigned Unit', cat: 'unassigned unit', email: 'no_email')
+major = Unit.create(name: 'Unassigned Major', cat: 'major', email: 'no_email')
+minor = Unit.create(name: 'Unassigned Minor', cat: 'minor', email: 'no_email', parent: major)
+Unit.create(name: 'Unassigned Outfit', cat: 'outfit', email: 'no_email', parent: minor)

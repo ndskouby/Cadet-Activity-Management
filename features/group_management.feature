@@ -5,8 +5,9 @@ Feature: Group management
     I would expect to be in a variety of groups and see my memberships; 
         groups may have a direct parent, and I’d want to see the other parent groups I’m in
 
-Scenario: Accessing groups page 
-    Given that I am on the home page
-    When I click the "Groups" link
-    Then I should be on the group management page
-    And I should see a list of groups that I am in
+Background:
+	Given I am a logged-in user with name "John Doe"
+
+Scenario: View homepage and see my groups
+    Given I am on the website user homepage
+    Then I should see a list of groups that I am in
