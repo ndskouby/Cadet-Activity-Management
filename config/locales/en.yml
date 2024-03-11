@@ -13,6 +13,7 @@ en:
       pending_commandant_approval: "Pending Commandant Approval"
       approved: "Approved"
       rejected: "Rejected"
+      cancelled: "Cancelled"
       revision_required_by_submitter: "Revision Required by Submitter"
       revision_required_by_minor_unit: "Revision Required by Minor Unit"
       revision_required_by_major_unit: "Revision Required by Major Unit"

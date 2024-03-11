@@ -9,4 +9,5 @@
 <%= button_to 'Reject', reject_audit_activity_path(@training_activity), method: :post, class: '' %>
 <%= button_to 'Request Revision', improve_audit_activity_path(@training_activity), method: :post, class: '' %>
 <%= button_to 'Resubmit', resubmit_audit_activity_path(@training_activity), method: :post, class: '' %>
+<%= button_to 'Cancel', cancel_audit_activity_path(@training_activity), method: :post, class: '' %>
 <%= link_to 'Back', audit_activities_path, class: '' %>

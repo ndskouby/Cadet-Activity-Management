@@ -32,6 +32,7 @@ class TrainingActivity < ApplicationRecord
     state :revision_required_by_minor_unit, display: 'Revision Required by Minor Unit'
     state :revision_required_by_major_unit, display: 'Revision Required by Major Unit'
     state :rejected, display: 'Rejected'
+    state :cancelled, display: 'Cancelled'
 
     # Event: Approved by Minor Unit; Submitted for Major Unit Approval
     event :submit_for_major_unit_approval do
@@ -120,6 +121,15 @@ class TrainingActivity < ApplicationRecord
       transitions from: %i[pending_minor_unit_approval pending_major_unit_approval pending_commandant_approval], to: :rejected do
         after do
           log_activity_history('rejected')
+        end
+      end
+    end
+
+    # Event: Cancelled
+    event :cancel do
+      transitions from: %i[pending_minor_unit_approval pending_major_unit_approval pending_commandant_approval request_minor_unit_revision request_submitter_revision request_major_unit_revision approved], to: :cancelled do
+        after do
+          log_activity_history('cancelled')
         end
       end
     end

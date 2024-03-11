@@ -184,5 +184,17 @@ RSpec.describe TrainingActivity, type: :model do
         expect(@training_activity).to have_state(:pending_minor_unit_approval)
       end
     end
+
+    context 'event needs to be cancelled' do
+      before do
+        @training_activity = create(:training_activity, status: :pending_minor_unit_approval)
+        @training_activity.current_user = @user
+      end
+
+      it 'transitions to cancelled' do
+        @training_activity.cancel!
+        expect(@training_activity).to have_state(:cancelled)
+      end
+    end
   end
 end
