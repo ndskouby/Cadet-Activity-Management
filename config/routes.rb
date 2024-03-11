@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       post :improve
       post :reject
       post :resubmit
+      post :cancel
     end
   end
 

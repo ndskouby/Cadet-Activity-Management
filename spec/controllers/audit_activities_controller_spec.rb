@@ -186,4 +186,22 @@ RSpec.describe AuditActivitiesController, type: :controller do
       end
     end
   end
+
+  describe 'POST #cancel' do
+    let!(:training_activity) { create(:training_activity, status: 'pending_minor_unit_approval') }
+    subject { post :cancel, params: { id: training_activity.id }; training_activity.reload }
+
+    context 'when cancellation is successful' do
+      before do
+        allow(training_activity).to receive(:cancel!).and_return(true)
+      end
+
+      it 'cancels the activity and redirects with notice' do
+        subject
+        expect(response).to redirect_to(audit_activity_path(training_activity))
+        expect(flash[:notice]).to eq('Training Activity Cancelled.')
+      end
+    end
+  end
+
 end

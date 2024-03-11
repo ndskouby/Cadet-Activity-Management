@@ -28,6 +28,12 @@ Scenario: Approving event
     When I press the "Approve" button
     Then the status of "Leadership 101" should be "pending_major_unit_approval"
 
+Scenario: Single approval is not sufficient
+    Given that I am on the approval details page for "Leadership 101"
+    And that the status of "Leadership 101" is "pending_minor_unit_approval"
+    When I press the "Approve" button
+    Then the status of "Leadership 101" should not be "approved"
+
 Scenario: Request revision event
     Given that I am on the approval details page for "Leadership 101"
     And that the status of "Leadership 101" is "pending_minor_unit_approval"

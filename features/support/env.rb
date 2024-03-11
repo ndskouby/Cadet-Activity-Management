@@ -7,6 +7,8 @@
 # files.
 
 require 'cucumber/rails'
+require 'simplecov'
+SimpleCov.start 'rails'
 # Require all files in the support directory
 Dir[Rails.root.join('features/support/**/*.rb')].each { |f| require f }
 # By default, any exception happening in your Rails application will bubble up

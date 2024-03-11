@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class AuditActivitiesController < ApplicationController
-  before_action :set_training_activity, only: %i[show approve improve reject resubmit]
+  before_action :set_training_activity, only: %i[show approve improve reject resubmit cancel]
 
   def index
     @training_activities = TrainingActivity.includes(:activity_histories).all
@@ -78,6 +78,18 @@ class AuditActivitiesController < ApplicationController
       redirect_to audit_activity_path(@training_activity), notice: 'Training Activity Resubmitted.'
     else
       redirect_to audit_activity_path(@training_activity), alert: 'Failed to resubmit Training Activity.'
+    end
+  end
+
+  def cancel
+    @training_activity.current_user = current_user
+
+    success = @training_activity.cancel!
+
+    if success
+      redirect_to audit_activity_path(@training_activity), notice: 'Training Activity Cancelled.'
+    else
+      redirect_to audit_activity_path(@training_activity), alert: 'Failed to cancel Training Activity.'
     end
   end
 

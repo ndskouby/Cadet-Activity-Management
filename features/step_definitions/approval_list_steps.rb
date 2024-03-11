@@ -66,6 +66,12 @@ Then('the status of {string} should be {string}') do |event_name, new_status|
   expect(page).to have_content("Status: #{initial_status_human}")
 end
 
-When('I enter {string} into the text box') do |_string|
-  pending # Write code here that turns the phrase above into concrete actions
+Then('the status of {string} should not be {string}') do |event_name, new_status|
+  training_activity = TrainingActivity.find_by(name: event_name)
+  initial_status_human = I18n.t("training_activity.status.#{training_activity.status}")
+
+  training_activity.reload
+  expect(training_activity.status).to_not eq(new_status)
+  expect(page).to have_content("Status: #{initial_status_human}")
 end
+
