@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe AuditActivitiesController, type: :controller do
@@ -6,8 +8,8 @@ RSpec.describe AuditActivitiesController, type: :controller do
     session[:user_id] = @user.id
   end
 
-  describe "GET #index" do
-    it "assigns all training activities to @training_activities" do
+  describe 'GET #index' do
+    it 'assigns all training activities to @training_activities' do
       training_activity1 = create(:training_activity)
       training_activity2 = create(:training_activity)
       get :index
@@ -15,14 +17,14 @@ RSpec.describe AuditActivitiesController, type: :controller do
     end
   end
 
-  describe "GET #show" do
-    it "assigns the requested training activity to @training_activity" do
+  describe 'GET #show' do
+    it 'assigns the requested training activity to @training_activity' do
       training_activity = create(:training_activity)
       get :show, params: { id: training_activity.id }
       expect(assigns(:training_activity)).to eq(training_activity)
     end
 
-    it "orders the activity histories of the training activity by created_at in descending order" do
+    it 'orders the activity histories of the training activity by created_at in descending order' do
       training_activity = create(:training_activity)
       older_history = training_activity.activity_histories.create!(created_at: 1.day.ago, user: @user)
       newer_history = training_activity.activity_histories.create!(created_at: 1.hour.ago, user: @user)
@@ -33,7 +35,10 @@ RSpec.describe AuditActivitiesController, type: :controller do
 
   describe 'POST #approve' do
     let(:training_activity) { create(:training_activity, status: initial_status) }
-    subject { post :approve, params: { id: training_activity.id }; training_activity.reload }
+    subject do
+      post :approve, params: { id: training_activity.id }
+      training_activity.reload
+    end
 
     context 'when status is pending_minor_unit_approval' do
       let(:initial_status) { 'pending_minor_unit_approval' }
@@ -72,7 +77,10 @@ RSpec.describe AuditActivitiesController, type: :controller do
   describe 'POST #improve' do
     let(:training_activity) { create(:training_activity, status: initial_status) }
 
-    subject { post :improve, params: { id: training_activity.id }; training_activity.reload }
+    subject do
+      post :improve, params: { id: training_activity.id }
+      training_activity.reload
+    end
 
     context 'when status is pending_minor_unit_approval' do
       let(:initial_status) { 'pending_minor_unit_approval' }
@@ -110,7 +118,10 @@ RSpec.describe AuditActivitiesController, type: :controller do
 
   describe 'POST #reject' do
     let!(:training_activity) { create(:training_activity, status: 'pending_minor_unit_approval') }
-    subject { post :reject, params: { id: training_activity.id }; training_activity.reload }
+    subject do
+      post :reject, params: { id: training_activity.id }
+      training_activity.reload
+    end
 
     context 'when rejection is successful' do
       before do
@@ -178,7 +189,10 @@ RSpec.describe AuditActivitiesController, type: :controller do
 
   describe 'POST #cancel' do
     let!(:training_activity) { create(:training_activity, status: 'pending_minor_unit_approval') }
-    subject { post :cancel, params: { id: training_activity.id }; training_activity.reload }
+    subject do
+      post :cancel, params: { id: training_activity.id }
+      training_activity.reload
+    end
 
     context 'when cancellation is successful' do
       before do
@@ -192,5 +206,4 @@ RSpec.describe AuditActivitiesController, type: :controller do
       end
     end
   end
-
 end

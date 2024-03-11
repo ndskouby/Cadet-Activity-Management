@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class TrainingActivity < ApplicationRecord
-  belongs_to :user
   include AASM
+  belongs_to :user
 
   attr_accessor :current_user
 
@@ -93,7 +93,7 @@ class TrainingActivity < ApplicationRecord
     event :submit_for_minor_unit_approval do
       transitions from: :revision_required_by_submitter, to: :pending_minor_unit_approval do
         after do
-          log_activity_history('submitted_for_minor_unit_approval')
+          log_activity_history('revision_submitted_for_minor_unit_approval')
         end
       end
     end
@@ -102,7 +102,7 @@ class TrainingActivity < ApplicationRecord
     event :submit_for_major_unit_approval_from_minor_unit_revision do
       transitions from: :revision_required_by_minor_unit, to: :pending_major_unit_approval do
         after do
-          log_activity_history('submitted_for_major_unit_approval')
+          log_activity_history('revision_submitted_for_major_unit_approval')
         end
       end
     end
@@ -111,7 +111,7 @@ class TrainingActivity < ApplicationRecord
     event :submit_for_commandant_approval_from_major_unit_revision do
       transitions from: :revision_required_by_major_unit, to: :pending_commandant_approval do
         after do
-          log_activity_history('submitted_for_commandant_approval')
+          log_activity_history('revision_submitted_for_commandant_approval')
         end
       end
     end
@@ -127,7 +127,8 @@ class TrainingActivity < ApplicationRecord
 
     # Event: Cancelled
     event :cancel do
-      transitions from: %i[pending_minor_unit_approval pending_major_unit_approval pending_commandant_approval request_minor_unit_revision request_submitter_revision request_major_unit_revision approved], to: :cancelled do
+      transitions from: %i[pending_minor_unit_approval pending_major_unit_approval pending_commandant_approval request_minor_unit_revision request_submitter_revision request_major_unit_revision approved],
+                  to: :cancelled do
         after do
           log_activity_history('cancelled')
         end
@@ -151,11 +152,11 @@ class TrainingActivity < ApplicationRecord
                 "Revision Required by #{current_user.first_name} (#{current_user.email}). Requesting Minor Unit Revision."
               when 'revision_required_by_major_unit'
                 "Revision Required by #{current_user.first_name} (#{current_user.email}). Requesting Major Unit Revision."
-              when 'submitted_for_minor_unit_approval'
+              when 'revision_submitted_for_minor_unit_approval'
                 "Revision Submitted by #{current_user.first_name} (#{current_user.email}). Requesting Minor Unit Approval."
-              when 'submitted_for_major_unit_approval'
+              when 'revision_submitted_for_major_unit_approval'
                 "Revision Submitted by #{current_user.first_name} (#{current_user.email}). Requesting Major Unit Approval."
-              when 'submitted_for_commandant_approval'
+              when 'revision_submitted_for_commandant_approval'
                 "Revision Submitted by #{current_user.first_name} (#{current_user.email}). Requesting Commandant Approval."
 
               else

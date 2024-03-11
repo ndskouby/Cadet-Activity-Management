@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 Given('I am on the website user homepage') do
   visit user_path(@user)

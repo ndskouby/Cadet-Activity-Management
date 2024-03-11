@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class SessionsController < ApplicationController
+  include SessionHelper
   skip_before_action :require_login, only: [:omniauth]
 
   def logout
@@ -10,16 +11,7 @@ class SessionsController < ApplicationController
 
   def omniauth
     auth = request.env['omniauth.auth']
-    @user = User.find_or_create_by(uid: auth['uid'], provider: auth['provider']) do |u|
-      u.email = auth['info']['email']
-      names = auth['info']['name'].split
-      u.first_name = names[0]
-      u.last_name = names[1..].join(' ')
-
-      # Making the default Minor Unit point to a Dummy entry
-      # for the time being, since the audit system isn't up yet.
-      u.minor_unit_id = '1'
-    end
+    @user = find_or_create_user(auth)
 
     if @user.valid?
       session[:user_id] = @user.id
