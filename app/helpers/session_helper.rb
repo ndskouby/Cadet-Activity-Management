@@ -10,7 +10,7 @@ module SessionHelper
 
       # Making the default Minor Unit point to a Dummy entry
       # for the time being, since the audit system isn't up yet.
-      u.minor_unit_id = '1'
+      u.unit = Unit.find_by(name: "Unassigned Unit")
     end
   end
 end
