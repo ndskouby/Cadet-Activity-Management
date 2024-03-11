@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Then('an email should be sent to {string}') do |email|
   visit 'letter_opener'
   expect(page).to have_text("To: #{email}")

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-
   factory :unit do
     name { 'Dummy Outfit' }
     cat { 'generic' }

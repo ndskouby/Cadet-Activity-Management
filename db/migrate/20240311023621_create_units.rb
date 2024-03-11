@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 class CreateUnits < ActiveRecord::Migration[7.1]
   def change
     create_table :units do |t|
-      t.string "name"
-      t.string "cat"
-      t.string "email"
-      t.integer "parent_id"
+      t.string 'name'
+      t.string 'cat'
+      t.string 'email'
+      t.integer 'parent_id'
       t.timestamps
     end
 

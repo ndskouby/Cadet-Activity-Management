@@ -29,4 +29,4 @@ COMPETENCIES.each do |competency|
   Competency.find_or_create_by(name: competency)
 end
 
-Unit.create(name: "Unassigned Unit", cat: "unassigned unit", email: "no_email")
+Unit.create(name: 'Unassigned Unit', cat: 'unassigned unit', email: 'no_email')

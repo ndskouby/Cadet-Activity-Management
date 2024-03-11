@@ -1,54 +1,54 @@
+# frozen_string_literal: true
 
 require 'csv'
+
+def confirm_unit(name, cat, parent)
+  return nil if name == ''
+
+  unit = Unit.find_by(name:, cat:)
+  unit = Unit.create(name:, cat:, parent:) if unit.nil?
+
+  if unit.parent.nil?
+    unit.parent = parent
+    unit.save!
+  end
+
+  if !parent.nil? && parent != unit.parent
+    puts "Skipping on #{name} #{cat}"
+    return nil
+  end
+
+  unit
+end
+
+def create_units(row)
+  if row['Major Unit'] == 'CORPS Staff'
+    confirm_unit(row['Outfit'], 'outfit', nil)
+  else
+    major = confirm_unit(row['Major Unit'], 'major', nil)
+    minor = confirm_unit(row['Minor Unit'], 'minor', major)
+    confirm_unit(row['Outfit'], 'outfit', minor)
+  end
+end
 
 def ingest_roster_file(file_path)
   csv = CSV.open(file_path, headers: true)
   csv.each do |row|
-    def confirm_unit name, cat, parent
-      if name == ""
-        return nil
-      end
-      unit = Unit.find_by(name: name, cat: cat)
-      if unit == nil
-        unit = Unit.create(name: name, cat: cat, parent: parent)
-      elsif parent != nil && unit.parent == nil
-        unit.parent = parent
-        unit.save!
-      elsif parent != nil && parent != unit.parent
-        puts "Skipping on " + name + " " + cat
-        return nil
-      end
-      
-      return unit
-    end
+    create_units(row)
 
-    if row["Major Unit"] == "CORPS Staff"
-      outfit = confirm_unit(row["Outfit"], "outfit",  nil)
-    else
-      major = confirm_unit(row["Major Unit"], "major", nil)
-      minor = confirm_unit(row["Minor Unit"], "minor", major)
-      outfit = confirm_unit(row["Outfit"], "outfit", minor)
-    end
-
-    
-    user = User.new(
-      email: row["Email"],
-      first_name: row["First"],
-      last_name: row["Last"],
+    User.create(
+      email: row['Email'],
+      first_name: row['First'],
+      last_name: row['Last'],
       uid: nil,
-      provider: "google_oauth2"
+      provider: 'google_oauth2',
+      unit: Unit.find_by!(name: row['Outfit'], cat: 'outfit')
     )
-
-    user.unit = Unit.find_by!(name: row["Outfit"], cat: "outfit")
-    user.validate!
-    user.save!
   end
 end
 
-if __FILE__ == $0
-  base_path = "lib/assets/corpsRoster.csv"
-  if $1
-    base_path = $1
-  end
+if __FILE__ == $PROGRAM_NAME
+  base_path = 'lib/assets/corpsRoster.csv'
+  base_path = Regexp.last_match(1) if Regexp.last_match(1)
   ingest_roster_file(base_path)
 end

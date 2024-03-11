@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe TrainingActivitiesController, type: :controller do
   before(:each) do
     @user = create(:user)
-    @user.unit.parent = Unit.create(name: "Dummy Minor", cat: "minor", email: "dummy_minor_email@tamu.edu")
+    @user.unit.parent = Unit.create(name: 'Dummy Minor', cat: 'minor', email: 'dummy_minor_email@tamu.edu')
     @user.unit.save!
     session[:user_id] = @user.id
   end
@@ -62,10 +62,8 @@ RSpec.describe TrainingActivitiesController, type: :controller do
   end
 
   describe 'POST #create' do
-
     context 'with valid attributes' do
       it 'creates a new training activity' do
-
         expect do
           post :create, params: { training_activity: attributes_for(:training_activity) }
         end.to change(TrainingActivity, :count).by(1)

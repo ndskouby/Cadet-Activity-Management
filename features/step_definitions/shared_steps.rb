@@ -6,9 +6,9 @@ Given('I am a user with name {string}') do |name|
   last_name = name_parts[1..].join(' ') # Joins the rest of the parts as the last name.
   email = "#{first_name.downcase}#{last_name.downcase}@tamu.edu"
 
-  major = Unit.create(name: "Demo Major", cat: "Demo Major", email: "dummy_major_unit@tamu.edu")
-  minor = Unit.create(name: "Demo Minor", cat: "Demo Minor", email: "dummy_minor_unit@tamu.edu", parent: major)
-  outfit = Unit.create(name: "Demo Outfit", cat: "Demo Outfit", email: "dummy_outfit_unit@tamu.edu", parent: minor)
+  major = Unit.create(name: 'Demo Major', cat: 'Demo Major', email: 'dummy_major_unit@tamu.edu')
+  minor = Unit.create(name: 'Demo Minor', cat: 'Demo Minor', email: 'dummy_minor_unit@tamu.edu', parent: major)
+  outfit = Unit.create(name: 'Demo Outfit', cat: 'Demo Outfit', email: 'dummy_outfit_unit@tamu.edu', parent: minor)
 
   @user = User.find_or_create_by(email:) do |user|
     user.first_name = first_name

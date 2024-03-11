@@ -5,7 +5,7 @@ class TrainingActivitiesMailer < ApplicationMailer
     @model = model
     @submitter = "#{model.user.first_name} #{model.user.last_name}"
     @body = "Cadet: #{@submitter} has created a new activity"
-    
+
     mail(to: model.user.unit.parent.email, subject: 'New activity awaiting approval')
   end
   #  def major_unit_approval(model)

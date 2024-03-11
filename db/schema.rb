@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_11_023621) do
+ActiveRecord::Schema[7.1].define(version: 20_240_311_023_621) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -55,10 +55,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_11_023621) do
     t.index ['user_id'], name: 'index_activity_histories_on_user_id'
   end
 
-  create_table "competencies", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'competencies', force: :cascade do |t|
+    t.string 'name'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 
   create_table 'competencies_training_activities', id: false, force: :cascade do |t|
@@ -68,40 +68,40 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_11_023621) do
     t.index ['training_activity_id'], name: 'index_competencies_training_activities_on_training_activity_id'
   end
 
-  create_table "training_activities", force: :cascade do |t|
-    t.string "name"
-    t.string "activity_type"
-    t.text "description"
-    t.string "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.date "date"
-    t.string "time"
-    t.string "location"
-    t.string "priority"
-    t.text "justification"
-    t.string "user_id"
+  create_table 'training_activities', force: :cascade do |t|
+    t.string 'name'
+    t.string 'activity_type'
+    t.text 'description'
+    t.string 'status'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.date 'date'
+    t.string 'time'
+    t.string 'location'
+    t.string 'priority'
+    t.text 'justification'
+    t.string 'user_id'
   end
 
-  create_table "units", force: :cascade do |t|
-    t.string "name"
-    t.string "cat"
-    t.string "email"
-    t.integer "parent_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'units', force: :cascade do |t|
+    t.string 'name'
+    t.string 'cat'
+    t.string 'email'
+    t.integer 'parent_id'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "email"
-    t.string "first_name"
-    t.string "last_name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "uid"
-    t.string "provider"
-    t.integer "unit_id"
-    t.index ["email"], name: "index_users_on_email", unique: true
+  create_table 'users', force: :cascade do |t|
+    t.string 'email'
+    t.string 'first_name'
+    t.string 'last_name'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.string 'uid'
+    t.string 'provider'
+    t.integer 'unit_id'
+    t.index ['email'], name: 'index_users_on_email', unique: true
   end
 
   add_foreign_key 'active_storage_attachments', 'active_storage_blobs', column: 'blob_id'
