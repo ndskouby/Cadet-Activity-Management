@@ -46,5 +46,9 @@ def ingest_roster_file(file_path)
 end
 
 if __FILE__ == $0
-    ingest_roster_file("lib/assets/corpsRoster.csv")
+  base_path = "lib/assets/corpsRoster.csv"
+  if $1
+    base_path = $1
+  end
+  ingest_roster_file(base_path)
 end
