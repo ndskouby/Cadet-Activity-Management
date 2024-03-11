@@ -5,6 +5,8 @@ require 'rails_helper'
 RSpec.describe TrainingActivitiesController, type: :controller do
   before(:each) do
     @user = create(:user)
+    @user.unit.parent = Unit.create(name: 'Dummy Minor', cat: 'minor', email: 'dummy_minor_email@tamu.edu')
+    @user.unit.save!
     session[:user_id] = @user.id
   end
   describe 'GET #index' do

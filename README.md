@@ -3,8 +3,19 @@ Cadet Activity Management
 To access the app, click [here](https://cadet-activity-management-7ed1c42c26df.herokuapp.com/).
 Code Climate Report: [here](https://codeclimate.com/github/jwonnyleaf/Cadet-Activity-Management).
 
-# Dev setup guide
-## Database
+# Development
+
+## Routine
+```
+git pull && bundle install && rails db:migrate
+rspec
+rails server
+rubocop
+```
+
+
+## Dev setup guide
+### Database
 ```
 sudo apt install postgresql
 sudo service postgresql start
@@ -20,7 +31,12 @@ bin/rails db:migrate
 bin/rails db:seed
 ```
 
-## Repository
+To read in the corp of cadet's current database, put the `corpsRoster.csv` file in `lib/assets/corpsRoster.csv` and run
+```
+rails runner lib/ingest_roster_file.rb
+```
+
+### Repository
 
 ```
 git clone git@github.com:jwonnyleaf/Cadet-Activity-Management.git
@@ -29,10 +45,7 @@ git pull
 sudo apt update && sudo apt upgrade -y && sudo apt install libpq-dev -y
 bundle install
 ```
-## Running
-```
-./bin/rails server
-```
+
 # Deployment
 
 Currently Deployed to Heroku. <br>

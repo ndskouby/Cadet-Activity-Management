@@ -12,6 +12,12 @@
     <strong>Last name:</strong>
     <%= @current_user.last_name %>
   </p>
+  <p>
+    <strong>Your groups:</strong>
+    <ul>
+      <%= render partial: 'users/unit', locals: { unit: @current_user.unit} if @current_user.unit %>
+    </ul>
+  </p>
 </div>
 <div>
   <ul>

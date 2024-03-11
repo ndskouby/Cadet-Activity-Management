@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 20_240_307_014_208) do
+ActiveRecord::Schema[7.1].define(version: 20_240_311_023_621) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -55,13 +55,6 @@ ActiveRecord::Schema[7.1].define(version: 20_240_307_014_208) do
     t.index ['user_id'], name: 'index_activity_histories_on_user_id'
   end
 
-  create_table 'commandants', force: :cascade do |t|
-    t.string 'name'
-    t.string 'email'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-  end
-
   create_table 'competencies', force: :cascade do |t|
     t.string 'name'
     t.datetime 'created_at', null: false
@@ -73,22 +66,6 @@ ActiveRecord::Schema[7.1].define(version: 20_240_307_014_208) do
     t.bigint 'competency_id'
     t.index ['competency_id'], name: 'index_competencies_training_activities_on_competency_id'
     t.index ['training_activity_id'], name: 'index_competencies_training_activities_on_training_activity_id'
-  end
-
-  create_table 'major_units', force: :cascade do |t|
-    t.string 'name'
-    t.string 'email'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.string 'commandant_id'
-  end
-
-  create_table 'minor_units', force: :cascade do |t|
-    t.string 'name'
-    t.string 'email'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.string 'major_unit_id'
   end
 
   create_table 'training_activities', force: :cascade do |t|
@@ -106,6 +83,15 @@ ActiveRecord::Schema[7.1].define(version: 20_240_307_014_208) do
     t.string 'user_id'
   end
 
+  create_table 'units', force: :cascade do |t|
+    t.string 'name'
+    t.string 'cat'
+    t.string 'email'
+    t.integer 'parent_id'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+  end
+
   create_table 'users', force: :cascade do |t|
     t.string 'email'
     t.string 'first_name'
@@ -114,7 +100,7 @@ ActiveRecord::Schema[7.1].define(version: 20_240_307_014_208) do
     t.datetime 'updated_at', null: false
     t.string 'uid'
     t.string 'provider'
-    t.string 'minor_unit_id'
+    t.integer 'unit_id'
     t.index ['email'], name: 'index_users_on_email', unique: true
   end
 

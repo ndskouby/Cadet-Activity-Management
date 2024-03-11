@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-Then('an email should be sent to the {string} unit') do |unit|
+Then('an email should be sent to {string}') do |email|
   visit 'letter_opener'
-  expect(page).to have_text("To: dummy_#{unit}_unit@tamu.edu")
+  expect(page).to have_text("To: #{email}")
 end
 
-Then('an email should not be sent to the {string} unit') do |unit|
+Then('an email should not be sent to {string}') do |email|
   visit 'letter_opener'
-  expect(page).to_not have_text("To: dummy_#{unit}_unit@tamu.edu")
+  expect(page).to_not have_text("To: #{email}")
 end
