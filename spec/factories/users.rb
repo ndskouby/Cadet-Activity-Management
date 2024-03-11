@@ -3,9 +3,9 @@
 FactoryBot.define do
 
   factory :unit do
-    name { 'Dummy Unit' }
+    name { 'Dummy Outfit' }
     cat { 'generic' }
-    email { 'dummy_unit_email@email.email' }
+    email { 'dummy_outfit_email@email.email' }
     parent_id { nil }
   end
 
