@@ -1,0 +1,22 @@
+<!-- app/views/auditing_activities/index.html.erb -->
+<h1>Auditing Activities</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @training_activities.each do |activity| %>
+      <tr>
+        <td><%= activity.name %></td>
+        <td><%= I18n.t("training_activity.status.#{activity.status}") %></td>
+        <td>
+          <%= link_to 'Show', audit_activity_path(activity), class: '' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

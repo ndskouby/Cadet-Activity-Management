@@ -1,43 +1,64 @@
-<%= form_with(model: training_activity, local: true) do |form| %>
-    <% if training_activity.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(training_activity.errors.count, "error") %> prohibited this training activity from being saved:</h2>
-  
-        <ul>
-        <% training_activity.errors.full_messages.each do |message| %>
+<%= form_with(model: training_activity, local: false, "data-turbo": "true", html: { class: "", id: "training_activity_form"}) do |form| %>
+  <% if training_activity.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(training_activity.errors.count, "error") %> prohibited this training activity from being saved:</h2>
+      <ul>
+        <% custom_error_messages_for(training_activity).each do |message| %>
           <li><%= message %></li>
         <% end %>
-        </ul>
-      </div>
-    <% end %>
-  
-    <div class="field">
-      <%= form.label :title %>
-      <%= form.text_field :title %>
-    </div>
-
-    <div class="field">
-        <%= form.label :activity_type %>
-        <%= form.select :activity_type, options_for_select(['Leaders of Character', 'Physical Fitness/Intramural Sports', 'Resiliency', 'Military', 'Career Readiness']) %>
-    </div>
-  
-    <div class="field">
-      <%= form.label :description %>
-      <%= form.text_area :description %>
-    </div>
-  
-    <div class="field">
-      <%= form.label :start_time %>
-      <%= form.datetime_local_field :start_time %>
-    </div>
-  
-    <div class="field">
-      <%= form.label :end_time %>
-      <%= form.datetime_local_field :end_time %>
-    </div>
-  
-    <div class="actions">
-      <%= form.submit %>
+      </ul>
     </div>
   <% end %>
-  
+  <div class="field">
+    <%= form.label :name, "Activity Name" %>
+    <%= form.text_field :name %>
+  </div>
+  <div class="field">
+    <%= form.label :date, "Activity Date" %>
+    <%= form.date_field :date, required: true %>
+  </div>
+  <div class="field">
+    <%= form.label :time, "Activity Time (Morning or Afternoon)" %>
+    <div>
+      <%= form.radio_button :time, "MA", id: :time_ma, required: true %>
+      <%= form.label :time_ma, "MA" %>
+      <%= form.radio_button :time, "AA", id: :time_aa, required: true %>
+      <%= form.label :time_aa, "AA" %>
+    </div>
+  </div>
+  <div class="field">
+    <%= form.label :location, "Activity Location" %>
+    <%= form.text_field :location, required: true %>
+  </div>
+  <div class="field">
+    <%= form.label :priority, "CMDT Priority" %>
+    <%= form.select :priority, options_for_select(
+      ["Leaders of Character", "Resilency Training", "Military Training", "Career Readiness", "Physical Fitness"]
+    ), { prompt: "Choose something..." }, required: true %>
+  </div>
+  <div class="field">
+    <label for="cr_competencies">CR Competencies (Max 3)</label>
+    <div id="cr_competencies">
+      <% Competency.all.each do |competency| %>
+        <div>
+          <%= check_box_tag 'training_activity[competency_ids][]', 
+                       competency.id, 
+                       @training_activity.competency_ids.include?(competency.id), 
+                       id: "training_activity_competencies_#{competency.id}" %>
+          <%= label_tag "training_activity_competencies_#{competency.id}", competency.name %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="field">
+    <%= form.label :justification, "Justification" %>
+    <%= form.text_area :justification %>
+  </div>
+  <div class="field">
+    <%= form.label :opord_upload, "OPORD Upload" %>
+    <%= form.file_field :opord_upload %>
+  </div>
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -53,15 +53,22 @@ gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection'
 
+# State machine for TrainingActivity
+gem 'aasm'
+
+# Mailing
+gem 'letter_opener'
+gem 'letter_opener_web'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri mswin mswin64 mingw x64_mingw]
-  gem 'rspec-rails'
-  gem 'rubocop'
+  gem 'factory_bot_rails'
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
+  gem 'rubocop'
   gem 'web-console'
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
@@ -74,6 +81,10 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem 'capybara'
+  gem 'cucumber-rails', require: false
+  gem 'database_cleaner'
+  gem 'database_cleaner-active_record'
+  gem 'rspec-rails'
   gem 'selenium-webdriver'
   gem 'simplecov'
   gem 'webdrivers', '~> 4.0', require: false
