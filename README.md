@@ -17,6 +17,7 @@ ALTER ROLE "yourusername" WITH LOGIN;
 ```
 rake db:create
 bin/rails db:migrate
+bin/rails db:seed
 ```
 
 ## Repository

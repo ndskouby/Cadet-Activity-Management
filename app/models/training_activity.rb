@@ -2,6 +2,7 @@
 
 class TrainingActivity < ApplicationRecord
   include AASM
+  belongs_to :user
 
   attr_accessor :current_user
 
@@ -31,6 +32,7 @@ class TrainingActivity < ApplicationRecord
     state :revision_required_by_minor_unit, display: 'Revision Required by Minor Unit'
     state :revision_required_by_major_unit, display: 'Revision Required by Major Unit'
     state :rejected, display: 'Rejected'
+    state :cancelled, display: 'Cancelled'
 
     # Event: Approved by Minor Unit; Submitted for Major Unit Approval
     event :submit_for_major_unit_approval do
@@ -91,7 +93,7 @@ class TrainingActivity < ApplicationRecord
     event :submit_for_minor_unit_approval do
       transitions from: :revision_required_by_submitter, to: :pending_minor_unit_approval do
         after do
-          log_activity_history('submitted_for_minor_unit_approval')
+          log_activity_history('revision_submitted_for_minor_unit_approval')
         end
       end
     end
@@ -100,7 +102,7 @@ class TrainingActivity < ApplicationRecord
     event :submit_for_major_unit_approval_from_minor_unit_revision do
       transitions from: :revision_required_by_minor_unit, to: :pending_major_unit_approval do
         after do
-          log_activity_history('submitted_for_major_unit_approval')
+          log_activity_history('revision_submitted_for_major_unit_approval')
         end
       end
     end
@@ -109,7 +111,7 @@ class TrainingActivity < ApplicationRecord
     event :submit_for_commandant_approval_from_major_unit_revision do
       transitions from: :revision_required_by_major_unit, to: :pending_commandant_approval do
         after do
-          log_activity_history('submitted_for_commandant_approval')
+          log_activity_history('revision_submitted_for_commandant_approval')
         end
       end
     end
@@ -119,6 +121,16 @@ class TrainingActivity < ApplicationRecord
       transitions from: %i[pending_minor_unit_approval pending_major_unit_approval pending_commandant_approval], to: :rejected do
         after do
           log_activity_history('rejected')
+        end
+      end
+    end
+
+    # Event: Cancelled
+    event :cancel do
+      transitions from: %i[pending_minor_unit_approval pending_major_unit_approval pending_commandant_approval request_minor_unit_revision request_submitter_revision request_major_unit_revision approved],
+                  to: :cancelled do
+        after do
+          log_activity_history('cancelled')
         end
       end
     end
@@ -140,11 +152,11 @@ class TrainingActivity < ApplicationRecord
                 "Revision Required by #{current_user.first_name} (#{current_user.email}). Requesting Minor Unit Revision."
               when 'revision_required_by_major_unit'
                 "Revision Required by #{current_user.first_name} (#{current_user.email}). Requesting Major Unit Revision."
-              when 'submitted_for_minor_unit_approval'
+              when 'revision_submitted_for_minor_unit_approval'
                 "Revision Submitted by #{current_user.first_name} (#{current_user.email}). Requesting Minor Unit Approval."
-              when 'submitted_for_major_unit_approval'
+              when 'revision_submitted_for_major_unit_approval'
                 "Revision Submitted by #{current_user.first_name} (#{current_user.email}). Requesting Major Unit Approval."
-              when 'submitted_for_commandant_approval'
+              when 'revision_submitted_for_commandant_approval'
                 "Revision Submitted by #{current_user.first_name} (#{current_user.email}). Requesting Commandant Approval."
 
               else
@@ -165,7 +177,7 @@ class TrainingActivity < ApplicationRecord
     # Only up to 3 competencies can be selected
     return unless competency_ids.count > 3
 
-    errors.add(:competency_ids, 'You can select up to 3 competencies.')
+    errors.add(:competency_ids, 'You can only select up to 3 competencies.')
   end
 
   def validate_opord_upload_size

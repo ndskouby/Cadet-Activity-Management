@@ -56,6 +56,10 @@ gem 'omniauth-rails_csrf_protection'
 # State machine for TrainingActivity
 gem 'aasm'
 
+# Mailing
+gem 'letter_opener'
+gem 'letter_opener_web'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri mswin mswin64 mingw x64_mingw]

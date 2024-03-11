@@ -39,10 +39,14 @@ RSpec.describe TrainingActivity, type: :model do
   end
 
   it 'is invalid with more than three competencies' do
-    training_activity = build(:training_activity,
-                              competencies: [create(:competency), create(:competency), create(:competency),
-                                             create(:competency)])
+    extra_competencies = create_list(:competency, 4)
+    competency_ids = extra_competencies.map(&:id)
+
+    training_activity = build(:training_activity, competencies: [])
+    training_activity.competency_ids = competency_ids
+
     expect(training_activity).not_to be_valid
+    expect(training_activity.errors[:competency_ids]).to include('You can only select up to 3 competencies.')
   end
 
   it 'is invalid with an opord_upload that is too large' do
@@ -177,6 +181,18 @@ RSpec.describe TrainingActivity, type: :model do
       it 'transitions to pending_minor_unit_approval' do
         @training_activity.submit_for_minor_unit_approval
         expect(@training_activity).to have_state(:pending_minor_unit_approval)
+      end
+    end
+
+    context 'event needs to be cancelled' do
+      before do
+        @training_activity = create(:training_activity, status: :pending_minor_unit_approval)
+        @training_activity.current_user = @user
+      end
+
+      it 'transitions to cancelled' do
+        @training_activity.cancel!
+        expect(@training_activity).to have_state(:cancelled)
       end
     end
   end

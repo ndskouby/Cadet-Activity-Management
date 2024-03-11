@@ -17,12 +17,16 @@ Rails.application.routes.draw do
       post :improve
       post :reject
       post :resubmit
+      post :cancel
     end
   end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get 'up' => 'rails/health#show', as: :rails_health_check
+
+  # Mailer
+  mount LetterOpenerWeb::Engine, at: '/letter_opener'
 
   # Defines the root path route ("/")
   # root "posts#index"

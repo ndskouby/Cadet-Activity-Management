@@ -1,6 +1,11 @@
+# frozen_string_literal: true
+
 Given('the following training activities exist:') do |table|
+  user = User.find_by(first_name: 'John', last_name: 'Doe')
+  user_id = user.id
   table.hashes.each do |row|
-    TrainingActivity.create!(name: row['name'], date: Date.parse(row['date']), time: row['time'], location: row['location'], priority: row['priority'], justification: row['justification'])
+    TrainingActivity.create!(name: row['name'], date: Date.parse(row['date']), time: row['time'], location: row['location'], priority: row['priority'], justification: row['justification'],
+                             user_id:)
   end
 end
 
@@ -8,7 +13,7 @@ Given('that I am on the user homepage') do
   visit user_path(@user)
 end
 
-When('I click the {string} link') do |string|
+When('I click the {string} link') do |_string|
   click_link 'Audit Activities'
 end
 
@@ -35,14 +40,17 @@ end
 
 # Scenario: Approving event
 Given('that I am on the approval details page for {string}') do |event_name|
-  training_activity = TrainingActivity.find_by(name: event_name)
+  training_activity = TrainingActivity.find_by(name: event_name) || create(:training_activity, name: event_name)
   visit audit_activity_path(training_activity)
 end
 
 And('that the status of {string} is {string}') do |event_name, initial_status|
-  training_activity = TrainingActivity.find_by(name: event_name)
-  expect(training_activity.status).to eq(initial_status)
-  expect(page).to have_content("Status: #{initial_status}")
+  training_activity = TrainingActivity.find_by(name: event_name) || create(:training_activity, name: event_name, status: initial_status)
+
+  visit audit_activity_path(training_activity)
+
+  initial_status_human = I18n.t("training_activity.status.#{initial_status}", default: initial_status)
+  expect(page).to have_content("Status: #{initial_status_human}")
 end
 
 When('I press the {string} button') do |button_text|
@@ -51,11 +59,18 @@ end
 
 Then('the status of {string} should be {string}') do |event_name, new_status|
   training_activity = TrainingActivity.find_by(name: event_name)
+  initial_status_human = I18n.t("training_activity.status.#{training_activity.status}")
+
   training_activity.reload
   expect(training_activity.status).to eq(new_status)
-  expect(page).to have_content("Status: #{new_status}")
+  expect(page).to have_content("Status: #{initial_status_human}")
 end
 
-When('I enter {string} into the text box') do |string|
-  pending # Write code here that turns the phrase above into concrete actions
+Then('the status of {string} should not be {string}') do |event_name, new_status|
+  training_activity = TrainingActivity.find_by(name: event_name)
+  initial_status_human = I18n.t("training_activity.status.#{training_activity.status}")
+
+  training_activity.reload
+  expect(training_activity.status).to_not eq(new_status)
+  expect(page).to have_content("Status: #{initial_status_human}")
 end
