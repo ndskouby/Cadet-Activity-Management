@@ -46,9 +46,9 @@ end
 
 And('that the status of {string} is {string}') do |event_name, initial_status|
   training_activity = TrainingActivity.find_by(name: event_name) || create(:training_activity, name: event_name, status: initial_status)
-  
+
   visit audit_activity_path(training_activity)
-  
+
   initial_status_human = I18n.t("training_activity.status.#{initial_status}", default: initial_status)
   expect(page).to have_content("Status: #{initial_status_human}")
 end
@@ -74,4 +74,3 @@ Then('the status of {string} should not be {string}') do |event_name, new_status
   expect(training_activity.status).to_not eq(new_status)
   expect(page).to have_content("Status: #{initial_status_human}")
 end
-

@@ -189,7 +189,10 @@ RSpec.describe AuditActivitiesController, type: :controller do
 
   describe 'POST #cancel' do
     let!(:training_activity) { create(:training_activity, status: 'pending_minor_unit_approval') }
-    subject { post :cancel, params: { id: training_activity.id }; training_activity.reload }
+    subject do
+      post :cancel, params: { id: training_activity.id }
+      training_activity.reload
+    end
 
     context 'when cancellation is successful' do
       before do
@@ -203,5 +206,4 @@ RSpec.describe AuditActivitiesController, type: :controller do
       end
     end
   end
-
 end

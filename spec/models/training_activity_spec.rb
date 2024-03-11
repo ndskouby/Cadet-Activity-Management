@@ -41,14 +41,13 @@ RSpec.describe TrainingActivity, type: :model do
   it 'is invalid with more than three competencies' do
     extra_competencies = create_list(:competency, 4)
     competency_ids = extra_competencies.map(&:id)
-    
+
     training_activity = build(:training_activity, competencies: [])
     training_activity.competency_ids = competency_ids
-  
+
     expect(training_activity).not_to be_valid
-    expect(training_activity.errors[:competency_ids]).to include("You can only select up to 3 competencies.")
+    expect(training_activity.errors[:competency_ids]).to include('You can only select up to 3 competencies.')
   end
-  
 
   it 'is invalid with an opord_upload that is too large' do
     training_activity = build(:training_activity)
