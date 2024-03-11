@@ -31,6 +31,11 @@ bin/rails db:migrate
 bin/rails db:seed
 ```
 
+To read in the corp of cadet's current database, put the `corpsRoster.csv` file in `lib/assets/corpsRoster.csv` and run
+```
+rails runner lib/ingest_roster_file.rb
+```
+
 ### Repository
 
 ```

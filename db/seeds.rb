@@ -29,26 +29,4 @@ COMPETENCIES.each do |competency|
   Competency.find_or_create_by(name: competency)
 end
 
-COMMANDANTS = [
-  { name: 'Dummy Commandant', email: 'dummy_commandant@tamu.edu' }
-].freeze
-
-MAJOR_UNITS = [
-  { name: 'Dummy Major Unit', email: 'dummy_major_unit@tamu.edu', commandant_id: '1' }
-].freeze
-
-MINOR_UNITS = [
-  { name: 'Dummy Minor Unit', email: 'dummy_minor_unit@tamu.edu', major_unit_id: '1' }
-].freeze
-
-COMMANDANTS.each do |commandant|
-  Commandant.create!(commandant)
-end
-
-MAJOR_UNITS.each do |unit|
-  MajorUnit.create!(unit)
-end
-
-MINOR_UNITS.each do |unit|
-  MinorUnit.create!(unit)
-end
+Unit.create(name: "Unassigned Unit", cat: "unassigned unit", email: "no_email")
