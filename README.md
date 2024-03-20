@@ -62,6 +62,7 @@ heroku git:remote -a cadet-activity-management
 ```
 
 ## Heroku commands
-Logs: `heroku logs --app cadet-activity-management`
-Deploy: `git push heroku <yourbranch>:master`
-* Auto-deploy is enabled for 'main' branch.
+- Logs: `heroku logs --app cadet-activity-management`
+
+- Deploy: `git push heroku <yourbranch>:master`
+    - Auto-deploy is enabled for 'main' branch.
