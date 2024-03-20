@@ -63,11 +63,5 @@ heroku git:remote -a cadet-activity-management
 
 ## Heroku commands
 Logs: `heroku logs --app cadet-activity-management`
-
-
-## Deploy
-If you are a collaborator in the Heroku app, use following command from local:
-```
-$ git push heroku <yourbranch>:master
-```
+Deploy: `git push heroku <yourbranch>:master`
 * Auto-deploy is enabled for 'main' branch.
