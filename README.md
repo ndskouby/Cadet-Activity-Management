@@ -58,6 +58,7 @@ Currently Deployed to Heroku. <br>
 Install Heroku CLI https://devcenter.heroku.com/articles/heroku-cli
 ```
 heroku login
+heroku git:remote -a cadet-activity-management
 ```
 
 ## Heroku commands
