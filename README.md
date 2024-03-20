@@ -53,9 +53,16 @@ Currently Deployed to Heroku. <br>
 [Heroku App](https://cadet-activity-management-7ed1c42c26df.herokuapp.com/) - https://cadet-activity-management-7ed1c42c26df.herokuapp.com/ <br>
 [Code Climate](https://codeclimate.com/github/jwonnyleaf/Cadet-Activity-Management) - https://codeclimate.com/github/jwonnyleaf/Cadet-Activity-Management
 
-## Deploy
-If you are a collaborator in the Heroku app, use following command from local:
+## Heroku setup
+
+Install Heroku CLI https://devcenter.heroku.com/articles/heroku-cli
 ```
-$ git push heroku <yourbranch>:master
+heroku login
+heroku git:remote -a cadet-activity-management
 ```
-* Auto-deploy is enabled for 'main' branch.
+
+## Heroku commands
+- Logs: `heroku logs --app cadet-activity-management`
+
+- Deploy: `git push heroku <yourbranch>:master`
+    - Auto-deploy is enabled for 'main' branch.
