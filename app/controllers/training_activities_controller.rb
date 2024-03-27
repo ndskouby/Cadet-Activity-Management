@@ -7,6 +7,7 @@ class TrainingActivitiesController < ApplicationController
   # GET /training_activities
   def index
     @training_activities = TrainingActivity.all
+    @activities_by_type = TrainingActivity.group(:priority, :status).count
   end
 
   def show; end
