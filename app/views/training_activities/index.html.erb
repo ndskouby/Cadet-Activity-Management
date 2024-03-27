@@ -47,7 +47,7 @@
     <% end %>
 
     <div id="chart-activities">
-      <%= column_chart @activities_by_type, id: 'chart-activities', library: {responsive: true}, colors: ["#ff0000","#00ff00"] %>
+      <%= column_chart @activities_by_type, id: 'chart-activities', stacked: true, library: {responsive: true}, colors: ["#ff0000","#00ff00"] %>
     </div>
   </tbody>
 </table>
