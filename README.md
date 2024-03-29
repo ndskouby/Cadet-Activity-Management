@@ -6,6 +6,7 @@ Code Climate Report: [here](https://codeclimate.com/github/jwonnyleaf/Cadet-Acti
 # Development
 
 ## Routine
+
 ```
 git pull && bundle install && rails db:migrate
 rspec
@@ -13,9 +14,10 @@ rails server
 rubocop
 ```
 
-
 ## Dev setup guide
+
 ### Database
+
 ```
 sudo apt install postgresql
 sudo service postgresql start
@@ -24,7 +26,9 @@ psql
 CREATE USER yourusername SUPERUSER;
 ALTER ROLE "yourusername" WITH LOGIN;
 ```
+
 ...restart terminal, and after following repository instructions...
+
 ```
 rake db:create
 bin/rails db:migrate
@@ -32,6 +36,7 @@ bin/rails db:seed
 ```
 
 To read in the corp of cadet's current database, put the `corpsRoster.csv` file in `lib/assets/corpsRoster.csv` and run
+
 ```
 rails runner lib/ingest_roster_file.rb
 ```
@@ -56,13 +61,15 @@ Currently Deployed to Heroku. <br>
 ## Heroku setup
 
 Install Heroku CLI https://devcenter.heroku.com/articles/heroku-cli
+
 ```
 heroku login
 heroku git:remote -a cadet-activity-management
 ```
 
 ## Heroku commands
+
 - Logs: `heroku logs --app cadet-activity-management`
 
 - Deploy: `git push heroku <yourbranch>:master`
-    - Auto-deploy is enabled for 'main' branch.
+  - Auto-deploy is enabled for 'main' branch.

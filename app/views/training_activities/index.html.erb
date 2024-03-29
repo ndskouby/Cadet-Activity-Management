@@ -34,21 +34,18 @@
         </td>
         <% if training_activity.opord_upload.attached? %>
           <td>
-            <%= link_to 'Download File', rails_blob_path(training_activity.opord_upload, disposition: "attachment") %>
+            <%= link_to "Download File", rails_blob_path(training_activity.opord_upload, disposition: "attachment") %>
           </td>
         <% else %>
           <td></td>
         <% end %>
         <td><%= training_activity.aasm.human_state %></td>
-        <td><%= link_to 'Show', training_activity %></td>
-        <td><%= link_to 'Edit', edit_training_activity_path(training_activity) %></td>
-        <td><%= link_to 'Delete', training_activity_path(training_activity), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %></td>
+        <td><%= link_to "Show", training_activity %></td>
+        <td><%= link_to "Edit", edit_training_activity_path(training_activity) %></td>
+        <td><%= link_to "Delete", training_activity_path(training_activity), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 <br>
-<%= link_to 'New Activity', new_training_activity_path %>
-<div>
-  <%= link_to "Logout", logout_path %>
-</div>
+<%= link_to "New Activity", new_training_activity_path %>

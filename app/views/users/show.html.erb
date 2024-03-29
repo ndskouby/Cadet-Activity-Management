@@ -15,7 +15,7 @@
   <p>
     <strong>Your groups:</strong>
     <ul>
-      <%= render partial: 'users/unit', locals: { unit: @current_user.unit} if @current_user.unit %>
+      <%= render partial: "users/unit", locals: {unit: @current_user.unit} if @current_user.unit %>
     </ul>
   </p>
 </div>
@@ -24,7 +24,4 @@
     <li><%= link_to "Training Activities", training_activities_path %></li>
     <li><%= link_to "Audit Activities", audit_activities_path %></li>
   </ul>
-</div>
-<div>
-  <%= link_to "Logout", logout_path %>
 </div>

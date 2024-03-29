@@ -13,3 +13,46 @@
  *= require_tree .
  *= require_self
  */
+@import "mdb5-free-standard/css/mdb.min.css";
+@import "font-awesome";
+
+body {
+    padding-top: 100px;
+}
+  
+@media (min-width: 768px) {
+    body {
+      padding-top: 70px;
+    }
+}
+  
+
+.img-responsive {
+    width: 100%;
+    height: auto;
+    border-radius: 1rem 0 0 1rem;
+}
+
+#flash-messages {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1050;
+  }
+  
+.flash {
+    margin-bottom: 10px;
+    padding: 10px 20px;
+    border-radius: 4px;
+    color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.flash-notice {
+    background-color: #28a745;
+}
+
+.flash-alert {
+    background-color: #dc3545;
+}
+  

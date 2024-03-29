@@ -1,4 +1,4 @@
-<%= form_with(model: training_activity, local: false, "data-turbo": "true", html: { class: "", id: "training_activity_form"}) do |form| %>
+<%= form_with(model: training_activity, local: false, "data-turbo": "true", html: {class: "", id: "training_activity_form"}) do |form| %>
   <% if training_activity.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(training_activity.errors.count, "error") %> prohibited this training activity from being saved:</h2>
@@ -33,18 +33,18 @@
   <div class="field">
     <%= form.label :priority, "CMDT Priority" %>
     <%= form.select :priority, options_for_select(
-      ["Leaders of Character", "Resilency Training", "Military Training", "Career Readiness", "Physical Fitness"]
-    ), { prompt: "Choose something..." }, required: true %>
+          ["Leaders of Character", "Resilency Training", "Military Training", "Career Readiness", "Physical Fitness"]
+        ), {prompt: "Choose something..."}, required: true %>
   </div>
   <div class="field">
     <label for="cr_competencies">CR Competencies (Max 3)</label>
     <div id="cr_competencies">
       <% Competency.all.each do |competency| %>
         <div>
-          <%= check_box_tag 'training_activity[competency_ids][]', 
-                       competency.id, 
-                       @training_activity.competency_ids.include?(competency.id), 
-                       id: "training_activity_competencies_#{competency.id}" %>
+          <%= check_box_tag "training_activity[competency_ids][]",
+                competency.id,
+                @training_activity.competency_ids.include?(competency.id),
+                id: "training_activity_competencies_#{competency.id}" %>
           <%= label_tag "training_activity_competencies_#{competency.id}", competency.name %>
         </div>
       <% end %>
