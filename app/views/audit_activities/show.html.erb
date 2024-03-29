@@ -6,8 +6,47 @@
 <% end %>
 <h2>Actions</h2>
 <%= button_to 'Approve', approve_audit_activity_path(@training_activity), method: :post, class: '' %>
-<%= button_to 'Reject', reject_audit_activity_path(@training_activity), method: :post, class: '', data: { turbo_confirm: 'Enter an comment for rejection', turbo_confirm_value: "Are you sure?" } %>
+<button id="reject-button" class="reject-button">Reject</button>
+<%# TODO: use below instead of above line if using bootstrap %>
+<%# <%= button_to 'Reject', '#', id: 'reject-button', class: 'btn btn-danger', data: { bs_toggle: 'collapse', bs_target: '#reject-form' } %> 
 <%= button_to 'Request Revision', improve_audit_activity_path(@training_activity), method: :post, class: '' %>
 <%= button_to 'Resubmit', resubmit_audit_activity_path(@training_activity), method: :post, class: '' %>
 <%= button_to 'Cancel', cancel_audit_activity_path(@training_activity), method: :post, class: '' %>
 <%= link_to 'Back', audit_activities_path, class: '' %>
+
+<style>
+  #reject-form {
+    display: none;
+  }
+</style>
+<div id="reject-form">
+  <%= form_with(url: reject_audit_activity_path(@training_activity), method: :post) do |form| %>
+    <div>
+      <%= form.label :comment, 'Rejection Comment' %>
+      <%= form.text_area :comment %>
+    </div>
+    <div>
+      <%= form.submit 'Confirm Reject' %>
+    </div>
+  <% end %>
+</div>
+<script>
+  const rejectButton = document.getElementById('reject-button');
+  const rejectForm = document.getElementById('reject-form');
+
+  rejectButton.addEventListener('click', () => {
+    rejectForm.style.display = rejectForm.style.display === 'none' ? 'block' : 'none';
+  });
+</script>
+<%# TODO: use below instead of above line if using bootstrap %>
+<%# <div class="collapse" id="reject-form"> %>
+  <%# <%= form_with(url: reject_audit_activity_path(@training_activity), method: :post) do |form| %>
+    <%# <div class="mb-3"> %>
+      <%# <%= form.label :comment, 'Rejection Comment', class: 'form-label' %> 
+      <%# <%= form.text_area :comment, class: 'form-control' %> 
+    <%# </div> %>
+    <%# <div> %>
+      <%# <%= form.submit 'Reject', class: 'btn btn-primary' %> 
+    <%# </div> %>
+  <%# <% end %> 
+<%# </div> %>

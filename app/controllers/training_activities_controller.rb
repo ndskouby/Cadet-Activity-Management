@@ -88,7 +88,9 @@ class TrainingActivitiesController < ApplicationController
   #
   #   def rejected
   #     @training_activity = TrainingActivity(params[:id])
-  #     @training_activity.reject(comment: params[:comment])
+  #     @training_activity.comment = params[:comment]
+  #     @training_activity.reject!
+  #     @training_activity.log_activity_history('rejected', params[:comment])
   #     redirect_to training_activities_path, notice: 'Training activity rejected successfully.'
   #     TrainingActivitiesMailer.rejected(@training_activity).deliver_now
   #   end

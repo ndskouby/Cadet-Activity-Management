@@ -4,7 +4,7 @@ class TrainingActivity < ApplicationRecord
   include AASM
   belongs_to :user
 
-  attr_accessor :current_user
+  attr_accessor :current_user,:comment
 
   has_one_attached :opord_upload
   has_and_belongs_to_many :competencies
@@ -120,7 +120,7 @@ class TrainingActivity < ApplicationRecord
     event :reject do
       transitions from: %i[pending_minor_unit_approval pending_major_unit_approval pending_commandant_approval], to: :rejected do
         after do
-          log_activity_history('rejected')
+          log_activity_history('rejected', comment)
         end
       end
     end
@@ -158,7 +158,8 @@ class TrainingActivity < ApplicationRecord
                 "Revision Submitted by #{current_user.first_name} (#{current_user.email}). Requesting Major Unit Approval."
               when 'revision_submitted_for_commandant_approval'
                 "Revision Submitted by #{current_user.first_name} (#{current_user.email}). Requesting Commandant Approval."
-
+              when 'rejected'
+                "Rejected by #{current_user.first_name} (#{current_user.email}). #{comment.presence || 'No comment provided.'}"
               else
                 "#{event.humanize} by #{current_user.first_name} (#{current_user.email})."
               end
