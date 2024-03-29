@@ -88,6 +88,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         start: startDate.toISOString(),
         end: endDate.toISOString(),
         location: activity.location,
+        body: 'Status:' + activity.status,
+        attendees: [activity.user?.unit],
         isReadOnly: true,
         isAllDay: false,
         backgroundColor, // Set backgroundColor based on status
