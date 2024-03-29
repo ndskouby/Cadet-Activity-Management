@@ -11,11 +11,16 @@
 <%# <%= button_to 'Reject', '#', id: 'reject-button', class: 'btn btn-danger', data: { bs_toggle: 'collapse', bs_target: '#reject-form' } %> 
 <%= button_to 'Request Revision', improve_audit_activity_path(@training_activity), method: :post, class: '' %>
 <%= button_to 'Resubmit', resubmit_audit_activity_path(@training_activity), method: :post, class: '' %>
-<%= button_to 'Cancel', cancel_audit_activity_path(@training_activity), method: :post, class: '' %>
+<button id="cancel-button" class="cancel-button">Cancel</button>
+<%# TODO: use below instead of above line if using bootstrap %>
+<%# <%= button_to 'Cancel', '#', id: 'cancel-button', class: 'btn btn-danger', data: { bs_toggle: 'collapse', bs_target: '#cancel-form' } %> 
 <%= link_to 'Back', audit_activities_path, class: '' %>
 
 <style>
   #reject-form {
+    display: none;
+  }
+  #cancel-form {
     display: none;
   }
 </style>
@@ -30,12 +35,29 @@
     </div>
   <% end %>
 </div>
+<div id="cancel-form">
+  <%= form_with(url: cancel_audit_activity_path(@training_activity), method: :post) do |form| %>
+    <div>
+      <%= form.label :comment, 'Cancellation Comment' %>
+      <%= form.text_area :comment %>
+    </div>
+    <div>
+      <%= form.submit 'Confirm' %>
+    </div>
+  <% end %>
+</div>
 <script>
   const rejectButton = document.getElementById('reject-button');
+  const cancelButton = document.getElementById('cancel-button');
+
   const rejectForm = document.getElementById('reject-form');
+  const cancelForm = document.getElementById('cancel-form');
 
   rejectButton.addEventListener('click', () => {
     rejectForm.style.display = rejectForm.style.display === 'none' ? 'block' : 'none';
+  });
+  cancelButton.addEventListener('click', () => {
+    cancelForm.style.display = cancelForm.style.display === 'none' ? 'block' : 'none';
   });
 </script>
 <%# TODO: use below instead of above line if using bootstrap %>
@@ -46,7 +68,18 @@
       <%# <%= form.text_area :comment, class: 'form-control' %> 
     <%# </div> %>
     <%# <div> %>
-      <%# <%= form.submit 'Reject', class: 'btn btn-primary' %> 
+      <%# <%= form.submit 'Confirm Reject', class: 'btn btn-primary' %> 
+    <%# </div> %>
+  <%# <% end %> 
+<%# </div> %>
+<%# <div class="collapse" id="cancel-form"> %>
+  <%# <%= form_with(url: cancel_audit_activity_path(@training_activity), method: :post) do |form| %>
+    <%# <div class="mb-3"> %>
+      <%# <%= form.label :comment, 'Cancellation Comment', class: 'form-label' %> 
+      <%# <%= form.text_area :comment, class: 'form-control' %> 
+    <%# </div> %>
+    <%# <div> %>
+      <%# <%= form.submit 'Confirm', class: 'btn btn-primary' %> 
     <%# </div> %>
   <%# <% end %> 
 <%# </div> %>

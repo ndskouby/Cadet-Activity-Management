@@ -63,8 +63,9 @@ class AuditActivitiesController < ApplicationController
   end
 
   def cancel
+    @training_activity = TrainingActivity.find(params[:id])
     @training_activity.current_user = current_user
-
+    @training_activity.comment = params[:comment]
     success = @training_activity.cancel!
 
     if success

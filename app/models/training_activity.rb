@@ -130,7 +130,7 @@ class TrainingActivity < ApplicationRecord
       transitions from: %i[pending_minor_unit_approval pending_major_unit_approval pending_commandant_approval request_minor_unit_revision request_submitter_revision request_major_unit_revision approved],
                   to: :cancelled do
         after do
-          log_activity_history('cancelled')
+          log_activity_history('cancelled', comment)
         end
       end
     end
@@ -160,6 +160,8 @@ class TrainingActivity < ApplicationRecord
                 "Revision Submitted by #{current_user.first_name} (#{current_user.email}). Requesting Commandant Approval."
               when 'rejected'
                 "Rejected by #{current_user.first_name} (#{current_user.email}). #{comment.presence || 'No comment provided.'}"
+              when 'cancelled'
+                "Cancelled by #{current_user.first_name} (#{current_user.email}). #{comment.presence || 'No comment provided.'}"
               else
                 "#{event.humanize} by #{current_user.first_name} (#{current_user.email})."
               end
