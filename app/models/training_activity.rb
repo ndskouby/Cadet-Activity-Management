@@ -136,7 +136,7 @@ class TrainingActivity < ApplicationRecord
     end
   end
 
-  def log_activity_history(event)
+  def log_activity_history(event, comment = nil)
     message = case event
               when 'activity_created'
                 "Training Activity Created by #{current_user.first_name} (#{current_user.email}). Requesting Minor Unit Approval."
@@ -163,7 +163,7 @@ class TrainingActivity < ApplicationRecord
                 "#{event.humanize} by #{current_user.first_name} (#{current_user.email})."
               end
 
-    activity_histories.create(event: message, user: current_user, comment: '')
+    activity_histories.create(event: message, user: current_user, comment: comment.presence || '')
   end
 
   private

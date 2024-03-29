@@ -6,7 +6,7 @@
 <% end %>
 <h2>Actions</h2>
 <%= button_to 'Approve', approve_audit_activity_path(@training_activity), method: :post, class: '' %>
-<%= button_to 'Reject', reject_audit_activity_path(@training_activity), method: :post, class: '' %>
+<%= button_to 'Reject', reject_audit_activity_path(@training_activity), method: :post, class: '', data: { turbo_confirm: 'Enter an comment for rejection', turbo_confirm_value: "Are you sure?" } %>
 <%= button_to 'Request Revision', improve_audit_activity_path(@training_activity), method: :post, class: '' %>
 <%= button_to 'Resubmit', resubmit_audit_activity_path(@training_activity), method: :post, class: '' %>
 <%= button_to 'Cancel', cancel_audit_activity_path(@training_activity), method: :post, class: '' %>
