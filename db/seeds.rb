@@ -32,3 +32,5 @@ end
 major = Unit.create(name: 'Unassigned Major', cat: 'major', email: 'no_email')
 minor = Unit.create(name: 'Unassigned Minor', cat: 'minor', email: 'no_email', parent: major)
 Unit.create(name: 'Unassigned Outfit', cat: 'outfit', email: 'no_email', parent: minor)
+
+IngestRosterFile.new.ingest_roster_file("lib/assets/devroster.csv")
