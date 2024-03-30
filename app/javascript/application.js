@@ -1,6 +1,7 @@
 // Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
 import "datatables";
 import "@hotwired/turbo-rails";
+import "mdb";
 
 console.log("JavaScript is loaded and executed.");
 
@@ -41,13 +42,30 @@ document.addEventListener("turbo:load", function () {
 });
 
 document.addEventListener("turbo:load", function () {
-  console.log("Loaded Modal");
+  const modalElement = document.getElementById("addTrainingActivityModal");
+  if (modalElement) {
+    console.log("Initializing Modal");
+    const myModal = new mdb.Modal(modalElement);
+  }
+});
+
+document.addEventListener("turbo:load", function () {
+  if (document.getElementById("addTrainingActivityButton") == null) return;
   var myModal = new mdb.Modal(
     document.getElementById("addTrainingActivityModal")
   );
+  console.log("Attached Event Listener to Add Training Activity Button");
   document
     .getElementById("addTrainingActivityButton")
     .addEventListener("click", function () {
       myModal.show();
     });
+});
+
+document.addEventListener("turbo:load", function () {
+  // Example of reinitializing MDB form components; adjust based on your specific MDB version and components
+  const formOutlines = document.querySelectorAll(".form-outline");
+  formOutlines.forEach((formOutline) => {
+    new mdb.Input(formOutline).init();
+  });
 });

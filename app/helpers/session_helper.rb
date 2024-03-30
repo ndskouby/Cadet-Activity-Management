@@ -7,6 +7,9 @@ module SessionHelper
       names = auth['info']['name'].split
       u.first_name = names[0]
       u.last_name = names[1..].join(' ')
+      u.profile_picture = auth['info']['image']
+
+      Rails.logger.debug "Setting profile picture URL: #{u.profile_picture}"
 
       # Making the default Minor Unit point to a Dummy entry
       # for the time being, since the audit system isn't up yet.

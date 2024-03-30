@@ -44,7 +44,7 @@
 </table>
 </div>
 <br>
-<%= link_to "+", "#", class: "btn btn-success", "data-mdb-toggle" => "modal", "data-mdb-target" => "#addTrainingActivityModal", id: "addTrainingActivityButton" %>
+<%= link_to "+", "#", class: "btn btn-success", "data-mdb-toggle" => "modal", "data-mdb-target" => "#addTrainingActivityModal", id: "addTrainingActivityButton", data: { turbo: false } %>
 <!-- Modal for Adding Training Activity -->
 <div class="modal fade" id="addTrainingActivityModal" tabindex="-1" aria-labelledby="addTrainingActivityModalLabel" aria-hidden="true">
   <div class="modal-dialog">
