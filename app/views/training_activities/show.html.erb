@@ -1,47 +1,35 @@
-<p>
-  <strong>Name:</strong>
-  <%= @training_activity.name %>
-</p>
-<p>
-  <strong>Date:</strong>
-  <%= @training_activity.date %>
-</p>
-<p>
-  <strong>Time:</strong>
-  <%= @training_activity.time %>
-</p>
-<p>
-  <strong>Location:</strong>
-  <%= @training_activity.location %>
-</p>
-<p>
-  <strong>Priority:</strong>
-  <%= @training_activity.priority %>
-</p>
-<p>
-  <strong>Justification:</strong>
-  <%= @training_activity.justification %>
-</p>
-<p>
-  <strong>Competencies</strong>
-  <ul>
-    <% @training_activity.competencies.each do |competency| %>
-      <li><%= competency.name %></li>
-    <% end %>
-  </ul>
-</p>
-<p>
-  <strong>OPORD:</strong>
-  <% if @training_activity.opord_upload.attached? %>
-    <%= link_to rails_blob_path(@training_activity.opord_upload, disposition: "attachment"), class: "btn btn-primary btn-sm" do %>
-      <i class="fa fa-download"></i>
-    <% end %>
-  <% end %>
-</p>
-<p>
-  <strong>Status:</strong>
-  <%= @training_activity.aasm.human_state %>
-</p>
-<%= link_to "Edit", edit_training_activity_path(@training_activity) %> |
-<%= link_to "Back", training_activities_path %> |
-<%= link_to "Delete", training_activity_path(@training_activity), method: :delete, data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header">
+      Training Activity Details
+    </div>
+    <div class="card-body">
+      <p class="card-text"><strong>Name:</strong> <%= @training_activity.name %></p>
+      <p class="card-text"><strong>Date:</strong> <%= @training_activity.date %></p>
+      <p class="card-text"><strong>Time:</strong> <%= @training_activity.time %></p>
+      <p class="card-text"><strong>Location:</strong> <%= @training_activity.location %></p>
+      <p class="card-text"><strong>Priority:</strong> <%= @training_activity.priority %></p>
+      <p class="card-text"><strong>Justification:</strong> <%= @training_activity.justification %></p>
+      <p class="card-text"><strong>Competencies:</strong></p>
+      <ul class="list-group">
+        <% @training_activity.competencies.each do |competency| %>
+          <li class="list-group-item"><%= competency.name %></li>
+        <% end %>
+      </ul>
+      <br>
+      <p class="card-text"><strong>OPORD:</strong>
+        <% if @training_activity.opord_upload.attached? %>
+          <%= link_to rails_blob_path(@training_activity.opord_upload, disposition: "attachment"), class: "btn btn-primary btn-sm" do %>
+            <i class="fa fa-download"></i>
+          <% end %>
+        <% end %>
+      </p>
+      <p class="badge <%= badge_color_for_status(@training_activity.aasm.human_state) %> "><strong>Status:</strong> <%= @training_activity.aasm.human_state %></p>
+    </div>
+    <div class="card-footer">
+      <%= link_to "Edit", edit_training_activity_path(@training_activity), class: "btn btn-primary" %>
+      <%= link_to "Delete", training_activity_path(@training_activity), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+      <%= link_to "Back", training_activities_path, class: "btn btn-secondary" %>
+    </div>
+  </div>
+</div>
