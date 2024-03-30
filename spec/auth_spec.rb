@@ -40,7 +40,7 @@ RSpec.feature 'User Authentication', type: :feature do
 
   scenario 'Visiting after logging out should still have session active' do
     visit home_path
-    expect(page).to have_content('Welcome, back!')
+    expect(page).to have_content('Logout')
     # Check if the user_id matches database value
     expect(User.where(uid: 2024).first.email).to eq('user@tamu.edu')
   end
