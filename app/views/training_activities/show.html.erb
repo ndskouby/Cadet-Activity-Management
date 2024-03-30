@@ -33,14 +33,15 @@
 <p>
   <strong>OPORD:</strong>
   <% if @training_activity.opord_upload.attached? %>
-    <%= link_to "Download File", rails_blob_path(@training_activity.opord_upload, disposition: "attachment") %>
-  <% else %>
-    None
+    <%= link_to rails_blob_path(@training_activity.opord_upload, disposition: "attachment"), class: "btn btn-primary btn-sm" do %>
+      <i class="fa fa-download"></i>
+    <% end %>
   <% end %>
-  <p>
-    <strong>Status:</strong>
-    <%= @training_activity.aasm.human_state %>
-  </p>
-  <%= link_to "Edit", edit_training_activity_path(@training_activity) %> |
-  <%= link_to "Back", training_activities_path %> |
-  <%= link_to "Delete", training_activity_path(@training_activity), method: :delete, data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
+</p>
+<p>
+  <strong>Status:</strong>
+  <%= @training_activity.aasm.human_state %>
+</p>
+<%= link_to "Edit", edit_training_activity_path(@training_activity) %> |
+<%= link_to "Back", training_activities_path %> |
+<%= link_to "Delete", training_activity_path(@training_activity), method: :delete, data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %>

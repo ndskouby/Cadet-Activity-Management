@@ -1,22 +1,16 @@
-<!-- app/views/auditing_activities/index.html.erb -->
-<h1>Auditing Activities</h1>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Status</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
+<div class="container mt-4">
+  <h1>Auditing Activities</h1>
+  <div class="row">
     <% @training_activities.each do |activity| %>
-      <tr>
-        <td><%= activity.name %></td>
-        <td><%= I18n.t("training_activity.status.#{activity.status}") %></td>
-        <td>
-          <%= link_to "Show", audit_activity_path(activity), class: "" %>
-        </td>
-      </tr>
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"><%= activity.name %></h5>
+            <p class="card-text"><%= I18n.t("training_activity.status.#{activity.status}") %></p>
+            <%= link_to "Show", audit_activity_path(activity), class: "btn btn-primary" %>
+          </div>
+        </div>
+      </div>
     <% end %>
-  </tbody>
-</table>
+  </div>
+</div>

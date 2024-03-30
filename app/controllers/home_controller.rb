@@ -6,6 +6,6 @@ class HomeController < ApplicationController
   def index
     return unless logged_in?
 
-    redirect_to user_path(@current_user), notice: 'Welcome, back!'
+    redirect_to dashboard_path
   end
 end

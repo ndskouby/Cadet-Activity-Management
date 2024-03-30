@@ -1,3 +1,6 @@
+@import "mdb5-free-standard/css/mdb.min.css";
+@import "datatables/datatables.min.css";
+@import "font-awesome";
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
@@ -13,19 +16,31 @@
  *= require_tree .
  *= require_self
  */
-@import "mdb5-free-standard/css/mdb.min.css";
-@import "font-awesome";
+ :root {
+    --mdb-link-color-rgb: 89, 89, 89;
+    --mdb-link-hover-color-rgb: 80, 0, 0;
+    --mdb-primary-text-emphasis: #500000;
+    --mdb-primary-bg-subtle: #f58b8b;
+    --mdb-btn-bg: #500000;
+}
 
-body {
-    padding-top: 100px;
+.btn-primary {
+    --mdb-btn-bg: #500000;
+    --mdb-btn-hover-bg: #844c4c;
+    --mdb-btn-focus-bg: #844c4c;
+    --mdb-btn-active-bg: #844c4c;
 }
   
-@media (min-width: 768px) {
-    body {
-      padding-top: 70px;
-    }
+.main-content {
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 1200px; 
 }
-  
+
+.table-responsive {
+    height: calc(100vh - 50px);
+    overflow-y: auto;
+}
 
 .img-responsive {
     width: 100%;
@@ -54,5 +69,12 @@ body {
 
 .flash-alert {
     background-color: #dc3545;
+}
+
+.dt-search {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: end;
 }
   
