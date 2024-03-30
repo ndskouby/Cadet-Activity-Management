@@ -1,0 +1,9 @@
+<h1>Training Activities Chart</h1>
+<%= form_tag chart_data_path, method: :get do %>
+    <%= select_month(nil, { prompt: 'Select month' }, { name: 'month' }) %>
+    <%= submit_tag "Filter" %>
+<% end %>
+
+<div id="chart-activities">
+    <%= column_chart @data, id: 'chart-activities', stacked: true, library: { responsive: true }, colors: ["#ff0000", "#00ff00"], title: @month_name %>
+</div>

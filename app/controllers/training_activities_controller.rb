@@ -7,7 +7,24 @@ class TrainingActivitiesController < ApplicationController
   # GET /training_activities
   def index
     @training_activities = TrainingActivity.all
-    @activities_by_type = TrainingActivity.group(:priority, :status).count
+  end
+
+  def chart_data
+    if params[:month].present? && params[:month].to_i.between?(1, 12)
+      month = Date.today.beginning_of_year.change(month: params[:month].to_i)
+    end
+    if month
+      @data = TrainingActivity.where(date: month.beginning_of_month..month.end_of_month).group(:priority, :status).count
+    else
+      @data = TrainingActivity.group(:priority, :status).count
+    end
+    month_number = params[:month].to_i
+    if params[:month].blank?
+      @month_name = "All Months"
+    elsif (1..12).cover?(month_number)
+      @month_name = Date::MONTHNAMES[month_number]
+    end
+    render :chart
   end
 
   def show; end
