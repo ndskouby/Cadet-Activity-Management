@@ -184,7 +184,7 @@ RSpec.describe TrainingActivitiesController, type: :controller do
     context 'when invalid month is provided' do
       it 'assigns @data' do
         get :chart_data, params: { month: 13 }
-        expect(assigns(:data)).to eq([])
+        expect(assigns(:data)).to eq({})
       end
 
       it 'assigns @month_name' do
