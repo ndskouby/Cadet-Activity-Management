@@ -5,30 +5,30 @@ require 'csv'
 class IngestRosterFile
   def confirm_unit(name, cat, parent)
     return nil if name == ''
-  
+
     unit = Unit.find_by(name:, cat:)
     unit = Unit.create!(name:, cat:, parent:) if unit.nil?
-  
+
     if unit.parent.nil?
       unit.parent = parent
       unit.save!
     end
-  
+
     if !parent.nil? && parent != unit.parent
       puts "Skipping on #{name} #{cat} - wanting #{parent.name}, current #{unit.parent.name}"
       return nil
     end
-  
+
     unit
   end
-  
+
   def create_units(row)
     outfit_only =
       row['Cadet/Major Unit'] == 'CORPS Staff' ||
       row['Cadet/Major Unit'] == 'CS' ||
       row['Cadet/Unit'].include?('Staff') ||
       row['Cadet/Unit'] == 'LOA'
-  
+
     if outfit_only
       confirm_unit(row['Cadet/Outfit'], 'outfit', nil)
     else
@@ -37,15 +37,15 @@ class IngestRosterFile
       confirm_unit(row['Cadet/Outfit'], 'outfit', minor)
     end
   end
-  
+
   def process_roster_row(row)
     if row['Cadet/Outfit'].nil?
       puts "Skipping #{row['Cadet/Email']}"
       return
     end
-  
+
     create_units(row)
-  
+
     User.create!(
       email: row['Cadet/Email'],
       first_name: row['Cadet/First'],
@@ -55,7 +55,7 @@ class IngestRosterFile
       unit: Unit.find_by!(name: row['Cadet/Outfit'], cat: 'outfit')
     )
   end
-  
+
   def ingest_roster_file(file_path)
     csv = CSV.open(file_path, headers: true)
     csv.each do |row|
@@ -63,8 +63,6 @@ class IngestRosterFile
     end
   end
 end
-
-
 
 if __FILE__ == $PROGRAM_NAME
   base_path = 'lib/assets/Overhead - Master Cadet Roster.csv'

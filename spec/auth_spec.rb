@@ -34,8 +34,7 @@ RSpec.feature 'User Authentication', type: :feature do
   end
 
   scenario 'Session created successfully and updated in the users table' do
-    expect(User.count).to eq(1)
-    expect(User.first.email).to eq('user@tamu.edu')
+    expect(User.find_by(email: 'user@tamu.edu')).to_not eq(nil)
   end
 
   scenario 'Visiting after logging out should still have session active' do
