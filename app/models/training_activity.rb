@@ -158,7 +158,10 @@ class TrainingActivity < ApplicationRecord
                 "Revision Submitted by #{current_user.first_name} (#{current_user.email}). Requesting Major Unit Approval."
               when 'revision_submitted_for_commandant_approval'
                 "Revision Submitted by #{current_user.first_name} (#{current_user.email}). Requesting Commandant Approval."
-
+              when 'rejected'
+                "Rejected by #{current_user.first_name} (#{current_user.email}). #{comment.presence || 'No comment provided.'}"
+              when 'cancelled'
+                "Cancelled by #{current_user.first_name} (#{current_user.email}). #{comment.presence || 'No comment provided.'}"
               else
                 "#{event.humanize} by #{current_user.first_name} (#{current_user.email})."
               end

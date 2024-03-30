@@ -43,5 +43,6 @@ Scenario: Request revision event
 Scenario: Reject event
     Given that I am on the approval details page for "Safety Training"
     And that the status of "Safety Training" is "pending_minor_unit_approval"
-    When I press the "Reject" button
+    And I press the "Reject" button
+    And I press the "Confirm Reject" button
     Then the status of "Safety Training" should be "rejected"

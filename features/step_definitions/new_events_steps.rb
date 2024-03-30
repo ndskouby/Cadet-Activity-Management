@@ -18,7 +18,7 @@ end
 
 When('the user fills in all required fields with event details') do
   fill_in 'Activity Name', with: 'Leadership Seminar'
-  fill_in 'Activity Date', with: '2024-03-10'
+  fill_in 'Activity Date', with: '2030-12-10'
   choose 'time_ma' # Assuming "MA" is the morning time slot and corresponds to the ID 'time_ma'
   fill_in 'Activity Location', with: 'Auditorium'
   select 'Leaders of Character', from: 'Priority'
