@@ -2,18 +2,17 @@
 
 module SessionHelper
   def find_or_create_user(auth)
-    User.find_or_create_by(uid: auth['uid'], provider: auth['provider']) do |u|
+    user = User.find_or_create_by(uid: auth['uid'], provider: auth['provider']) do |u|
       u.email = auth['info']['email']
       names = auth['info']['name'].split
       u.first_name = names[0]
       u.last_name = names[1..].join(' ')
-      u.profile_picture = auth['info']['image']
-
-      Rails.logger.debug "Setting profile picture URL: #{u.profile_picture}"
-
       # Making the default Minor Unit point to a Dummy entry
       # for the time being, since the audit system isn't up yet.
       u.unit = Unit.find_by(name: 'Unassigned Outfit')
     end
+    user.profile_picture = auth['info']['image'] || "blank-profile-picture.png"
+    user.save if user.changed?
+    user
   end
 end
