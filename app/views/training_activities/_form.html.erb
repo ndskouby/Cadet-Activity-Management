@@ -1,7 +1,7 @@
 <%= form_with(model: training_activity, local: false, "data-turbo": "true", html: {class: "", id: "training_activity_form"}) do |form| %>
   <% if training_activity.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(training_activity.errors.count, "error") %> prohibited this training activity from being saved:</h2>
+    <div class="alert alert-danger" role="alert" id="error_explanation">
+      <h4 class="alert-heading"><%= pluralize(training_activity.errors.count, "error") %> prohibited this training activity from being saved:</h4>
       <ul>
         <% custom_error_messages_for(training_activity).each do |message| %>
           <li><%= message %></li>
@@ -9,56 +9,82 @@
       </ul>
     </div>
   <% end %>
-  <div class="field">
-    <%= form.label :name, "Activity Name" %>
-    <%= form.text_field :name %>
-  </div>
-  <div class="field">
-    <%= form.label :date, "Activity Date" %>
-    <%= form.date_field :date, required: true %>
-  </div>
-  <div class="field">
-    <%= form.label :time, "Activity Time (Morning or Afternoon)" %>
-    <div>
-      <%= form.radio_button :time, "MA", id: :time_ma, required: true %>
-      <%= form.label :time_ma, "MA" %>
-      <%= form.radio_button :time, "AA", id: :time_aa, required: true %>
-      <%= form.label :time_aa, "AA" %>
+  <div class="row mb-3">
+    <div class="col">
+      <%= form.label :name, "Activity Name", class: "form-label" %>
+      <div data-mdb-input-init class="form-outline">
+        <%= form.text_field :attribute_name, id: "form8Example1", class: "form-control" %>
+      </div>
+    </div>
+    <div class="col">
+      <%= form.label :date, "Activity Date", class: "form-label" %>
+      <div data-mdb-input-init class="form-outline">
+        <%= form.date_field :date, required: true, class: "form-control" %>
+      </div>
     </div>
   </div>
-  <div class="field">
-    <%= form.label :location, "Activity Location" %>
-    <%= form.text_field :location, required: true %>
+  <div class="row mb-3">
+    <div class="col">
+      <%= form.label :time, "Activity Time (Morning or Afternoon)", class: "form-label d-block" %>
+      <div class="form-check form-check-inline">
+        <%= form.radio_button :time, "MA", id: :time_ma, class: "form-check-input", required: true %>
+        <%= form.label :time_ma, "MA", class: "form-check-label" %>
+      </div>
+      <div class="form-check form-check-inline">
+        <%= form.radio_button :time, "AA", id: :time_aa, class: "form-check-input", required: true %>
+        <%= form.label :time_aa, "AA", class: "form-check-label" %>
+      </div>
+    </div>
+    <div class="form-outline col">
+      <%= form.label :location, "Activity Location", class: "form-label" %>
+      <div data-mdb-input-init class="form-outline">
+        <%= form.text_field :location, required: true, class: "form-control" %>
+      </div>
+    </div>
   </div>
-  <div class="field">
-    <%= form.label :priority, "CMDT Priority" %>
-    <%= form.select :priority, options_for_select(
-          ["Leaders of Character", "Resilency Training", "Military Training", "Career Readiness", "Physical Fitness"]
-        ), {prompt: "Choose something..."}, required: true %>
+  <%= form.label :priority, "CMDT Priority", class: "form-label" %>
+  <div class="select-outline">
+    <%= form.select :priority, 
+        [
+          "Leaders of Character", 
+          "Resilency Training", 
+          "Military Training", 
+          "Career Readiness", 
+          "Physical Fitness"
+        ],
+        {prompt: "Choose something..."},
+        {required: true, class: "select form-control", data: {mdb_select_init: true}} %>
   </div>
-  <div class="field">
-    <label for="cr_competencies">CR Competencies (Max 3)</label>
-    <div id="cr_competencies">
-      <% Competency.all.each do |competency| %>
-        <div>
-          <%= check_box_tag "training_activity[competency_ids][]",
-                competency.id,
-                @training_activity.competency_ids.include?(competency.id),
-                id: "training_activity_competencies_#{competency.id}" %>
-          <%= label_tag "training_activity_competencies_#{competency.id}", competency.name %>
+  <div class="mb-4">
+    <label for="cr_competencies" class="form-label">CR Competencies (Max 3)</label>
+    <div id="cr_competencies" class="row">
+      <% Competency.all.each_slice(4) do |competency_slice| %>
+        <div class="col-md-4">
+          <% competency_slice.each do |competency| %>
+            <div class="form-check">
+              <%= check_box_tag "training_activity[competency_ids][]", 
+                competency.id, 
+                training_activity&.competency_ids&.include?(competency.id), 
+                id: "training_activity_competencies_#{competency.id}", 
+                class: "form-check-input" %>
+              <%= label_tag "training_activity_competencies_#{competency.id}", 
+                competency.name, 
+                class: "form-check-label" %>
+            </div>
+          <% end %>
         </div>
       <% end %>
     </div>
   </div>
-  <div class="field">
-    <%= form.label :justification, "Justification" %>
-    <%= form.text_area :justification %>
+  <div class="form-outline mb-4">
+    <%= form.label :justification, "Justification", class: "form-label" %>
+    <%= form.text_area :justification, class: "form-control", rows: 4 %>
   </div>
-  <div class="field">
-    <%= form.label :opord_upload, "OPORD Upload" %>
-    <%= form.file_field :opord_upload %>
+  <div class="mb-4">
+    <%= form.label :opord_upload, "OPORD Upload", class: "form-label" %>
+    <%= form.file_field :opord_upload, class: "form-control" %>
   </div>
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class: "btn btn-primary" %>
   </div>
 <% end %>

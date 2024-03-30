@@ -39,3 +39,15 @@ document.addEventListener("turbo:load", function () {
   });
   $(".dt-search").append(addButton);
 });
+
+document.addEventListener("turbo:load", function () {
+  console.log("Loaded Modal");
+  var myModal = new mdb.Modal(
+    document.getElementById("addTrainingActivityModal")
+  );
+  document
+    .getElementById("addTrainingActivityButton")
+    .addEventListener("click", function () {
+      myModal.show();
+    });
+});
