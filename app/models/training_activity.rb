@@ -4,7 +4,7 @@ class TrainingActivity < ApplicationRecord
   include AASM
   belongs_to :user
 
-  attr_accessor :current_user
+  attr_accessor :current_user,:comment
 
   has_one_attached :opord_upload
   has_and_belongs_to_many :competencies
@@ -120,7 +120,7 @@ class TrainingActivity < ApplicationRecord
     event :reject do
       transitions from: %i[pending_minor_unit_approval pending_major_unit_approval pending_commandant_approval], to: :rejected do
         after do
-          log_activity_history('rejected')
+          log_activity_history('rejected', comment)
         end
       end
     end
@@ -130,13 +130,13 @@ class TrainingActivity < ApplicationRecord
       transitions from: %i[pending_minor_unit_approval pending_major_unit_approval pending_commandant_approval request_minor_unit_revision request_submitter_revision request_major_unit_revision approved],
                   to: :cancelled do
         after do
-          log_activity_history('cancelled')
+          log_activity_history('cancelled', comment)
         end
       end
     end
   end
 
-  def log_activity_history(event)
+  def log_activity_history(event, comment = nil)
     message = case event
               when 'activity_created'
                 "Training Activity Created by #{current_user.first_name} (#{current_user.email}). Requesting Minor Unit Approval."
@@ -158,12 +158,15 @@ class TrainingActivity < ApplicationRecord
                 "Revision Submitted by #{current_user.first_name} (#{current_user.email}). Requesting Major Unit Approval."
               when 'revision_submitted_for_commandant_approval'
                 "Revision Submitted by #{current_user.first_name} (#{current_user.email}). Requesting Commandant Approval."
-
+              when 'rejected'
+                "Rejected by #{current_user.first_name} (#{current_user.email}). #{comment.presence || 'No comment provided.'}"
+              when 'cancelled'
+                "Cancelled by #{current_user.first_name} (#{current_user.email}). #{comment.presence || 'No comment provided.'}"
               else
                 "#{event.humanize} by #{current_user.first_name} (#{current_user.email})."
               end
 
-    activity_histories.create(event: message, user: current_user, comment: '')
+    activity_histories.create(event: message, user: current_user, comment: comment.presence || '')
   end
 
   private

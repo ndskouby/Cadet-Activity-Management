@@ -15,4 +15,5 @@ Feature: Approve or Change training plan
 
   Scenario: Change training plan
     When I press the "Cancel" button
+    And I press the "Confirm" button
     Then the status of "Test Event 0110" should be "cancelled"

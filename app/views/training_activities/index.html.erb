@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.css" />
+<script src="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.js"></script>
+
 <h1>Training Activities</h1>
 <table>
   <thead>
@@ -52,3 +55,18 @@
 <div>
   <%= link_to "Logout", logout_path %>
 </div>
+<script>window.trainingActivities = <%= raw @training_activities.to_json %>;</script>
+<div>
+  
+  <button id="viewWeekBtn">Week</button>
+  <button id="viewMonthBtn">Month</button>
+</div>
+<div>
+  <button id="prevBtn">prev</button>
+  <button id="todayBtn">today</button>
+  <button id="nextBtn">next</button>
+</div>
+<div id="dateRange"></div>
+<div id="unitButtonsContainer"></div>
+<div id="calendar" style="height: 800px"></div>
+
