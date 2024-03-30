@@ -31,6 +31,10 @@
     --mdb-btn-active-bg: #844c4c;
 }
 
+.btn-group {
+    --mdb-btn-box-shadow: none;
+  }
+
 .modal {
     --mdb-modal-width: 50%;
 }
@@ -40,6 +44,8 @@
     margin: 0 auto;
     max-width: 1200px; 
 }
+
+
 
 .table-responsive {
     height: calc(100vh - 50px);

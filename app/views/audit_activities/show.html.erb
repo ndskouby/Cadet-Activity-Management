@@ -1,13 +1,29 @@
-<h1><%= @training_activity.name %></h1>
-<p>Status: <%= I18n.t("training_activity.status.#{@training_activity.status}") %></p>
-<h2>History</h2>
-<% @activity_histories.each do |history| %>
-  <div><%= history.event %> - <%= history.created_at.strftime("%Y-%m-%d %H:%M:%S") %></div>
-<% end %>
-<h2>Actions</h2>
-<%= button_to "Approve", approve_audit_activity_path(@training_activity), method: :post, class: "" %>
-<%= button_to "Reject", reject_audit_activity_path(@training_activity), method: :post, class: "" %>
-<%= button_to "Request Revision", improve_audit_activity_path(@training_activity), method: :post, class: "" %>
-<%= button_to "Resubmit", resubmit_audit_activity_path(@training_activity), method: :post, class: "" %>
-<%= button_to "Cancel", cancel_audit_activity_path(@training_activity), method: :post, class: "" %>
-<%= link_to "Back", audit_activities_path, class: "" %>
+<div class="container mt-3">
+  <h1><%= @training_activity.name %></h1>
+  <p>Status: <span class="badge <%= badge_color_for_status(@training_activity.aasm.human_state) %>"><%= I18n.t("training_activity.status.#{@training_activity.status}") %></span></p>
+  <div>
+    <h2>History</h2>
+    <div class="p-3 mb-2 bg-light">
+      <% if @activity_histories.any? %>
+        <% @activity_histories.each do |history| %>
+          <div class="border-bottom pb-2">
+            <%= history.event %> - <%= history.created_at.strftime("%Y-%m-%d %H:%M:%S") %>
+          </div>
+        <% end %>
+      <% else %>
+        <p>No history available.</p>
+      <% end %>
+    </div>
+  </div>
+  <div class="mt-4">
+    <h2>Actions</h2>
+    <div class="btn-group" role="group">
+      <%= button_to "Approve", approve_audit_activity_path(@training_activity), method: :post, class: "btn btn-success me-2" %>
+      <%= button_to "Reject", reject_audit_activity_path(@training_activity), method: :post, class: "btn btn-danger me-2" %>
+      <%= button_to "Request Revision", improve_audit_activity_path(@training_activity), method: :post, class: "btn btn-info me-2" %>
+      <%= button_to "Resubmit", resubmit_audit_activity_path(@training_activity), method: :post, class: "btn btn-secondary me-2" %>
+      <%= button_to "Cancel", cancel_audit_activity_path(@training_activity), method: :post, class: "btn btn-secondary me-2" %>
+    </div>
+    <%= link_to "Back", audit_activities_path, class: "btn btn-outline-dark" %>
+  </div>
+</div>
