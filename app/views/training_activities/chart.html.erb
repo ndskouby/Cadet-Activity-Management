@@ -4,6 +4,6 @@
     <%= submit_tag "Filter" %>
 <% end %>
 
-<div id="chart-activities">
+<div id="chart-activities" style="height: 80vh; width: 100vw;">
     <%= column_chart @data, id: 'chart-activities', stacked: true, library: { responsive: true }, colors: ["#ff0000", "#00ff00"], title: @month_name %>
 </div>
