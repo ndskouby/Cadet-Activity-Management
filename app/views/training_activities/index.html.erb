@@ -45,12 +45,11 @@
         <td><%= link_to 'Delete', training_activity_path(training_activity), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %></td>
       </tr>
     <% end %>
-
-    <div id="chart-activities">
-      <%= column_chart @activities_by_type, id: 'chart-activities', stacked: true, library: {responsive: true}, colors: ["#ff0000","#00ff00"] %>
-    </div>
   </tbody>
 </table>
+<div id="chart-activities">
+  <%= column_chart @activities_by_type, id: 'chart-activities', stacked: true, library: {responsive: true}, colors: ["#ff0000","#00ff00"] %>
+</div>
 <br>
 <%= link_to 'New Activity', new_training_activity_path %>
 <div>
