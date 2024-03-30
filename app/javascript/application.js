@@ -12,6 +12,9 @@ document.addEventListener("turbo:load", () => {
   }, 4000);
 });
 
+/*
+ * TRAINING ACTIVITY PAGE
+ */
 document.addEventListener("turbo:load", function () {
   // Query all elements with the dropdown-toggle class and re-initialize them
   var dropdowns = document.querySelectorAll(".dropdown-toggle");
@@ -54,7 +57,6 @@ document.addEventListener("turbo:load", function () {
   var myModal = new mdb.Modal(
     document.getElementById("addTrainingActivityModal")
   );
-  console.log("Attached Event Listener to Add Training Activity Button");
   document
     .getElementById("addTrainingActivityButton")
     .addEventListener("click", function () {
@@ -63,9 +65,68 @@ document.addEventListener("turbo:load", function () {
 });
 
 document.addEventListener("turbo:load", function () {
-  // Example of reinitializing MDB form components; adjust based on your specific MDB version and components
   const formOutlines = document.querySelectorAll(".form-outline");
   formOutlines.forEach((formOutline) => {
     new mdb.Input(formOutline).init();
   });
+});
+
+/*
+ * AUDIT ACTIVITY PAGE
+ */
+document.addEventListener("turbo:load", () => {
+  const rejectModalButton = document.getElementById("rejectModalButton");
+  if (rejectModalButton) {
+    rejectModalButton.addEventListener("click", (event) => {
+      event.preventDefault();
+      const modal = new mdb.Modal(
+        document.querySelector(
+          rejectModalButton.getAttribute("data-mdb-target")
+        )
+      );
+      modal.show();
+    });
+  }
+});
+document.addEventListener("turbo:load", () => {
+  const requestModalButton = document.getElementById("requestModalButton");
+  if (requestModalButton) {
+    requestModalButton.addEventListener("click", (event) => {
+      event.preventDefault();
+      const modal = new mdb.Modal(
+        document.querySelector(
+          requestModalButton.getAttribute("data-mdb-target")
+        )
+      );
+      modal.show();
+    });
+  }
+});
+document.addEventListener("turbo:load", () => {
+  const resubmitModalButton = document.getElementById("resubmitModalButton");
+  if (resubmitModalButton) {
+    resubmitModalButton.addEventListener("click", (event) => {
+      event.preventDefault();
+      const modal = new mdb.Modal(
+        document.querySelector(
+          resubmitModalButton.getAttribute("data-mdb-target")
+        )
+      );
+      modal.show();
+    });
+  }
+});
+document.addEventListener("turbo:load", () => {
+  const cancelModalButton = document.getElementById("cancelModalButton");
+  if (cancelModalButton) {
+    cancelModalButton.addEventListener("click", (event) => {
+      event.preventDefault();
+      const modal = new mdb.Modal(
+        document.querySelector(
+          cancelModalButton.getAttribute("data-mdb-target")
+        )
+      );
+      modal.show();
+    });
+  }
 });

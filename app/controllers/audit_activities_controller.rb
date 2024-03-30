@@ -27,6 +27,7 @@ class AuditActivitiesController < ApplicationController
 
   def improve
     @training_activity.current_user = current_user
+    @training_activity.comment = params[:comment]
 
     success = improve_success
 
@@ -39,6 +40,7 @@ class AuditActivitiesController < ApplicationController
 
   def reject
     @training_activity.current_user = current_user
+    @training_activity.comment = params[:comment]
 
     success = @training_activity.reject!
 
@@ -51,6 +53,7 @@ class AuditActivitiesController < ApplicationController
 
   def resubmit
     @training_activity.current_user = current_user
+    @training_activity.comment = params[:comment]
 
     success = resubmit_success
 
@@ -63,6 +66,7 @@ class AuditActivitiesController < ApplicationController
 
   def cancel
     @training_activity.current_user = current_user
+    @training_activity.comment = params[:comment]
 
     success = @training_activity.cancel!
 

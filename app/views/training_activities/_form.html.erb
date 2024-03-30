@@ -13,7 +13,7 @@
     <div class="col">
       <%= form.label :name, "Activity Name", class: "form-label" %>
       <div data-mdb-input-init class="form-outline">
-        <%= form.text_field :attribute_name, id: "form8Example1", class: "form-control" %>
+        <%= form.text_field :name, required: true, class: "form-control" %>
       </div>
     </div>
     <div class="col">
@@ -85,6 +85,6 @@
     <%= form.file_field :opord_upload, class: "form-control" %>
   </div>
   <div class="actions">
-    <%= form.submit class: "btn btn-primary" %>
+    <%= form.submit class: "btn btn-primary"%>
   </div>
 <% end %>

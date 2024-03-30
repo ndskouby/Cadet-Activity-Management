@@ -33,6 +33,9 @@
 
 .btn-group {
     --mdb-btn-box-shadow: none;
+    --mdb-btn-hover-box-shadow: none;
+    --mdb-btn-focus-box-shadow: none;
+    --mdb-btn-active-box-shadow: none;
   }
 
 .modal {
@@ -44,8 +47,6 @@
     margin: 0 auto;
     max-width: 1200px; 
 }
-
-
 
 .table-responsive {
     height: calc(100vh - 50px);
