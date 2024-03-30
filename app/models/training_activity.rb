@@ -4,7 +4,7 @@ class TrainingActivity < ApplicationRecord
   include AASM
   belongs_to :user
 
-  attr_accessor :current_user,:comment
+  attr_accessor :current_user, :comment
 
   has_one_attached :opord_upload
   has_and_belongs_to_many :competencies

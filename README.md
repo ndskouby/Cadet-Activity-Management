@@ -9,6 +9,7 @@ Code Climate Report: [here](https://codeclimate.com/github/jwonnyleaf/Cadet-Acti
 ```
 git pull && bundle install && rails db:migrate
 rspec
+rails cucumber
 rails server
 rubocop
 ```
@@ -31,7 +32,7 @@ bin/rails db:migrate
 bin/rails db:seed
 ```
 
-To read in the corp of cadet's current database, put the `corpsRoster.csv` file in `lib/assets/corpsRoster.csv` and run
+To read in the corp of cadet's current database, put the `Overhead - Master Cadet Roster.csv` file in `lib/assets/corpsRoster.csv` and run
 ```
 rails runner lib/ingest_roster_file.rb
 ```

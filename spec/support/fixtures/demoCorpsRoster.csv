@@ -1,7 +1,7 @@
-Last,First,Preferred Name,Middle,Email,Major Unit,Minor Unit,Unit,Outfit,Class Year,Dorm #,Room #,Preferred Phone,Major,Staff,Ethnicity,Gender,ROTC,Cadre
-Dummy Last 1,Dummy First 1,Dummy Preferred 1,Dummy Middle 1,dummy_email_1@tamu.edu,1BDE,2BN,K1,K1,2027,4,302,1234567890,CSCE,,W,M,A,FALSE
-Dummy Last 2,Dummy First 2,Dummy Preferred 2,Dummy Middle 2,dummy_email_2@tamu.edu,1BDE,3BN,E1,E1,2026,5,503,1234567890,CSCE,,W,M,A,FALSE
-Dummy Last 3,Dummy First 3,Dummy Preferred 3,Dummy Middle 3,dummy_email_3@tamu.edu,1BDE,2BN,D2,D2,2024,2,201,1234567890,CSCE,,W,M,A,FALSE
-Dummy Last 4,Dummy First 4,Dummy Preferred 4,Dummy Middle 4,dummy_email_4@tamu.edu,1BDE,3BN,B2,B2,2027,1,304,1234567890,CSCE,,W,M,A,FALSE
-Dummy Last 5,Dummy First 5,Dummy Preferred 5,Dummy Middle 5,dummy_email_5@tamu.edu,1BDE,1BN,A2,A2,2025,3,302,1234567890,CSCE,,W,M,A,FALSE
-Dummy Last 6,Dummy First 6,Dummy Preferred 6,Dummy Middle 6,dummy_email_6@tamu.edu,1BDE,1BN,F2,F2,2026,6,203,1234567890,CSCE,,W,M,AF,FALSE
+Cadet/First,Cadet/Last,Cadet/Preferred Name,Cadet/Email,Cadet/Major Unit,Cadet/Minor Unit,Cadet/Unit,Cadet/Outfit,Cadet/Class Year
+a,a,a,a@a.com,1REG,5BN,P2,P2,2027
+b,b,b,b@a.com,1WNG,2GROUP,SQ01,SQ01,2027
+c,c,,c@a.com,1BDE,2BN,K1,K1,2027
+d,d,d,d@a.com,1BDE,3BN,E1,E1,2027
+e,e,e,e@a.com,CORPS Staff,,CORPS Staff,A1,2027
+f,f,f,f@a.com,1BDE,3BN,A1,A1,2027
