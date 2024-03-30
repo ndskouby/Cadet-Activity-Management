@@ -16,10 +16,10 @@ class TrainingActivitiesController < ApplicationController
     month_number = params[:month].to_i
     if params[:month].blank?
       @month_name = "All Months"
-      @data = TrainingActivity.group(:priority, :status).count
+      @data = TrainingActivity.order(:status).group(:priority, :status).count
     elsif (1..12).cover?(month_number)
       @month_name = Date::MONTHNAMES[month_number]
-      @data = TrainingActivity.where(date: month.beginning_of_month..month.end_of_month).group(:priority, :status).count
+      @data = TrainingActivity.where(date: month.beginning_of_month..month.end_of_month).order(:status).group(:priority, :status).count
     else
       @month_name = "Invalid Month"
       @data = []
