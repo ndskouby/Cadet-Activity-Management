@@ -55,7 +55,22 @@ And('that the status of {string} is {string}') do |event_name, initial_status|
 end
 
 When('I press the {string} button') do |button_text|
-  click_button(button_text)
+  button = find_button(button_text)
+  button.click
+end
+
+When('I press the {string} button and enter reason {string}') do |button_text, request_cause|
+  if button_text = "Request Revision"
+    within '#requestModal' do
+      fill_in 'comment', with: request_cause
+      click_button 'Request'
+    end
+  elsif button_text = "Reject"
+    within '#rejectModal' do
+      fill_in 'comment', with: request_cause
+      click_button 'Reject'
+    end
+  end
 end
 
 Then('the status of {string} should be {string}') do |event_name, new_status|
