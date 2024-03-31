@@ -13,8 +13,8 @@ class SessionsController < ApplicationController
     auth = request.env['omniauth.auth']
     @user = find_or_create_user(auth)
 
-    puts "User: #{@user.inspect}"
-    puts "User Profile Picture: #{@user.profile_picture}"
+    # puts "User: #{@user.inspect}"
+    # puts "User Profile Picture: #{@user.profile_picture}"
 
 
     if @user.valid?

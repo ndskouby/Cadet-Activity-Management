@@ -37,30 +37,30 @@ module AuditActivitiesHelper
   def cancel_success
     case @training_activity.status
     when 'pending_minor_unit_approval'
-      @training_activity.cancelled!
+      @training_activity.cancel!
     when 'pending_major_unit_approval'
-      @training_activity.cancelled!
+      @training_activity.cancel!
     when 'pending_commandant_approval'
-      @training_activity.cancelled!
+      @training_activity.cancel!
     when 'revision_required_by_minor_unit'
-      @training_activity.cancelled!
+      @training_activity.cancel!
     when 'revision_required_by_major_unit'
-      @training_activity.cancelled!
+      @training_activity.cancel!
     when 'revision_required_by_submitter'
-      @training_activity.cancelled!
+      @training_activity.cancel!
     when 'approved'
-      @training_activity.cancelled!
+      @training_activity.cancel!
     end
   end
 
   def reject_success
     case @training_activity.status
     when 'pending_minor_unit_approval'
-      @training_activity.rejected!
+      @training_activity.reject!
     when 'pending_major_unit_approval'
-      @training_activity.rejected!
+      @training_activity.reject!
     when 'pending_commandant_approval'
-      @training_activity.rejected!
+      @training_activity.reject!
     end
   end
 end
