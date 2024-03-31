@@ -1,9 +1,12 @@
 // Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
 import "@hotwired/turbo-rails";
-import  "/assets/mdb-ui-kit/js/mdb.umd.min.js"
-import  "/assets/datatables.net-dt/js/dataTables.dataTables.min.js"
+import "/assets/jquery/dist/jquery.min.js"
+import "/assets/mdb-ui-kit/js/mdb.umd.min.js"
+import "/assets/datatables.net/js/dataTables.js"
+import "/assets/datatables.net-dt/js/dataTables.dataTables.min.js"
 
 console.log("JavaScript is loaded and executed.");
+
 
 document.addEventListener("turbo:load", () => {
   console.log("Loaded Flash Message");
