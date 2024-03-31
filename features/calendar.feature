@@ -1,8 +1,7 @@
-Feature: Statistical Charts for the Events
-
-As a training officer, unit leader, or upper corps leadership
-So that I can view the status and completion of the CMDTS goals that a unit is supposed to achieve.
-I want to be able to see the bar graph and sheet of completion time and training type for a certain unit.
+Feature: Calendar for the Events
+    As a training officer, unit leader, or upper corps leadership
+    So that I can see all approved activities planned by a certain unit on the calendar.
+    And I can see activities on a certain date when I click.
 
 Background:
 	Given I am a logged-in user with name "John Doe"
@@ -14,6 +13,12 @@ Background:
 
 Scenario: Viewing the statistical charts page
 	Given I am on the website user homepage
-	When I click on the "Statistical Charts" link
-	Then I should be redirected to the training activities chart page
-    And I should see a chart
+	When I click on the "Training Activities" link
+    Then I should see a "Leadership 101" in the calendar
+
+Scenario: Viewing the statistical charts page
+	Given I am on the website user homepage
+	When I click on the "Training Activities" link
+    Then I should not see any unlisted event in the calendar
+
+

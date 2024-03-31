@@ -47,3 +47,18 @@ end
 And('I should see a chart') do
   expect(page).to have_content('Training Activities Chart')
 end
+
+
+Then ('I should see a {string} in the calendar') do |event_name|
+  expect(page).to have_text(event_name)
+end
+
+And ('If I click on {string} I should see: status {string}') do |event, status|
+  click_on(event)
+  expect(page).to have_text(status)
+end
+
+Then ('I should not see any unlisted event in the calendar') do
+  expect(page).not_to have_text("unlisted")
+end
+
