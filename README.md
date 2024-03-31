@@ -73,6 +73,7 @@ heroku git:remote -a cadet-activity-management
 
 - Deploy: `git push heroku <yourbranch>:master`
   - Auto-deploy is enabled for 'main' branch.
+- Run a command on a one-off dyno: `heroku run bash --type=worker`
 
 
 # JavaScript & CSS

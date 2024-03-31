@@ -42,6 +42,8 @@ RUN npm install
 # Final stage for app image
 FROM base
 
+RUN touch sanity_check
+
 # Install packages needed for deployment
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y curl libvips postgresql-client && \
