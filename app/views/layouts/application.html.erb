@@ -98,7 +98,7 @@
         </nav>
       </header>
     <% end %>
-    <main class="main-content">
+    <main class="<%= 'main-content' unless controller_name == 'home' && action_name == 'index' %>">
       <%= render partial: "shared/display_flash" unless flash.empty? %>
       <%= yield %>
     </main>

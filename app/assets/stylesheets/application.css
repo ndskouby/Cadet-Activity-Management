@@ -13,6 +13,80 @@
  *= require_tree .
  *= require_self
  */
- @import "mdb-ui-kit/css/mdb.min.css";
- @import "datatables.net-dt/css/dataTables.dataTables.min.css";
- @import "fontawesome-free/css/all.min.css";
+@import "mdb-ui-kit/css/mdb.min.css";
+@import "datatables.net-dt/css/dataTables.dataTables.min.css";
+@import "fontawesome-free/css/all.min.css";
+
+:root {
+  --mdb-link-color-rgb: 89, 89, 89;
+  --mdb-link-hover-color-rgb: 80, 0, 0;
+  --mdb-primary-text-emphasis: #500000;
+  --mdb-primary-bg-subtle: #f58b8b;
+  --mdb-btn-bg: #500000;
+}
+
+.btn-primary {
+  --mdb-btn-bg: #500000;
+  --mdb-btn-hover-bg: #844c4c;
+  --mdb-btn-focus-bg: #844c4c;
+  --mdb-btn-active-bg: #844c4c;
+}
+
+.btn-group {
+  --mdb-btn-box-shadow: none;
+  --mdb-btn-hover-box-shadow: none;
+  --mdb-btn-focus-box-shadow: none;
+  --mdb-btn-active-box-shadow: none;
+}
+
+#dt-length-0 {
+  margin-right: 10px;
+}
+
+.modal {
+  --mdb-modal-width: 50%;
+}
+
+.main-content {
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+.table-responsive {
+  height: calc(100vh - 50px);
+  overflow-y: auto;
+}
+
+.img-responsive {
+  width: 100%;
+  height: auto;
+  border-radius: 1rem 0 0 1rem;
+}
+
+#flash-messages {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1050;
+}
+
+.flash {
+  margin-bottom: 10px;
+  padding: 10px 20px;
+  border-radius: 4px;
+  color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.flash-notice {
+  background-color: #28a745;
+}
+
+.flash-alert {
+  background-color: #dc3545;
+}
+
+#addTrainingActivityButton {
+  margin-left: 20px;
+}
