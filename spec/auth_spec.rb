@@ -2,6 +2,25 @@
 
 require 'rails_helper'
 
+RSpec.describe SessionsController, type: :controller do
+  describe 'GET #logout' do
+    it 'resets the session' do
+      get :logout
+      expect(session[:user_id]).to be_nil
+    end
+
+    it 'redirects to home_path' do
+      get :logout
+      expect(response).to redirect_to(home_path)
+    end
+
+    it 'sets alert message' do
+      get :logout
+      expect(flash[:alert]).to eq("You must be logged in to access this section.")
+    end
+  end
+end
+
 RSpec.feature 'User Authentication', type: :feature do
   # Create a mock login credential
   let(:mock_auth_hash) do
@@ -23,7 +42,7 @@ RSpec.feature 'User Authentication', type: :feature do
   end
 
   after(:each) do
-    click_link 'Logout'
+    click_link_or_button 'Logout'
   end
 
   scenario 'user/ page renders properly after successful login' do
