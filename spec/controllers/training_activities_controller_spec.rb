@@ -161,4 +161,59 @@ RSpec.describe TrainingActivitiesController, type: :controller do
       end
     end
   end
+
+  describe 'GET #chart_data' do
+    context 'when valid month is provided' do
+      it 'assigns @data' do
+        get :chart_data, params: { month: 3 }
+        test_data = TrainingActivity.where(date: '2024-03-01'..'2024-03-31').group(:priority, :status).count
+        expect(assigns(:data)).to eq(test_data)
+      end
+
+      it 'assigns @month_name' do
+        get :chart_data, params: { month: 3 }
+        expect(assigns(:month_name)).to eq('March')
+      end
+
+      it 'renders the :chart template' do
+        get :chart_data, params: { month: 3 }
+        expect(response).to render_template('chart')
+      end
+    end
+
+    context 'when invalid month is provided' do
+      it 'assigns @data' do
+        get :chart_data, params: { month: 13 }
+        expect(assigns(:data)).to eq({})
+      end
+
+      it 'assigns @month_name' do
+        get :chart_data, params: { month: 13 }
+        expect(assigns(:month_name)).to eq('Invalid Month')
+      end
+
+      it 'renders the :chart template' do
+        get :chart_data, params: { month: 13 }
+        expect(response).to render_template('chart')
+      end
+    end
+
+    context 'when no month is provided' do
+      it 'assigns @data' do
+        get :chart_data, params: { month: nil }
+        test_data = TrainingActivity.group(:priority, :status).count   
+        expect(assigns(:data)).to eq(test_data)
+      end
+
+      it 'assigns @month_name' do
+        get :chart_data, params: { month: nil }
+        expect(assigns(:month_name)).to eq('All Months')
+      end
+
+      it 'renders the :chart template' do
+        get :chart_data, params: { month: nil }
+        expect(response).to render_template('chart')
+      end
+    end
+  end
 end
