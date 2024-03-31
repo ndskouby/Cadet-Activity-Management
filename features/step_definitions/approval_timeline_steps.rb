@@ -20,12 +20,12 @@ end
 
 Then('I should see the {string} date is today\'s date') do |progress_type|
   date = Date.today.strftime('%Y-%m-%d')
-  expect(page).to have_content(/#{progress_type}.*?#{date}/)
+  expect(page).to have_content(/#{date}.*?#{progress_type}/)
 end
 
 Then('I should not see the {string} date is tomorrow\'s date') do |progress_type|
   today = Date.today
   tomorrow = today + 1
   date = tomorrow.strftime('%Y-%m-%d')
-  expect(page).to_not have_content(/#{progress_type}.*?#{date}/)
+  expect(page).to_not have_content(/#{date}.*?#{progress_type}/)
 end
