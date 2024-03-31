@@ -19,7 +19,7 @@ Scenario: Accessing the approval page
 
 Scenario: Viewing individual events for approval
     Given that I am on the Audit Activities page
-    When I click show for "Leadership 101"
+    When I click audit for "Leadership 101"
     Then I should be on the approval details page for "Leadership 101"
 
 Scenario: Approving event

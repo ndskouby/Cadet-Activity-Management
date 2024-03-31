@@ -26,9 +26,10 @@ Given('that I am on the Audit Activities page') do
   visit audit_activities_path
 end
 
-When('I click show for {string}') do |activity_name|
-  activity_row = find('tbody tr', text: activity_name, match: :prefer_exact)
-  activity_row.find_link('Show').click
+When('I click audit for {string}') do |activity_name|
+  within('div.card-body', text: activity_name) do
+    click_link_or_button 'Audit'
+  end
 end
 
 Then('I should be on the approval details page for {string}') do |event_name|
