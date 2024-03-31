@@ -4,6 +4,7 @@ import "/assets/jquery/dist/jquery.min.js"
 import "/assets/mdb-ui-kit/js/mdb.umd.min.js"
 import "/assets/datatables.net/js/dataTables.js"
 import "/assets/datatables.net-dt/js/dataTables.dataTables.min.js"
+import "/assets/fontawesome-free/js/all.min.js"
 
 console.log("JavaScript is loaded and executed.");
 
