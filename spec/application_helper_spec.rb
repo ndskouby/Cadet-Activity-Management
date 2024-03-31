@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # spec/helpers/application_helper_spec.rb
 require 'rails_helper'
 
@@ -7,7 +9,6 @@ RSpec.describe ApplicationHelper, type: :helper do
       object = double('Object')
       allow(object).to receive_message_chain(:errors, :full_messages)
         .and_return(['Name can\'t be blank', 'Email is invalid'])
-
     end
   end
 
@@ -33,4 +34,3 @@ RSpec.describe ApplicationHelper, type: :helper do
     end
   end
 end
-

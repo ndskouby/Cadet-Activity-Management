@@ -166,7 +166,7 @@ class TrainingActivity < ApplicationRecord
                 "#{event.humanize} by #{current_user.first_name} (#{current_user.email})."
               end
 
-    activity_histories.create(event: message, user: current_user, comment: comment)
+    activity_histories.create(event: message, user: current_user, comment:)
   end
 
   private

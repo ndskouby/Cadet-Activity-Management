@@ -60,12 +60,12 @@ When('I press the {string} button') do |button_text|
 end
 
 When('I press the {string} button and enter reason {string}') do |button_text, request_cause|
-  if button_text = "Request Revision"
+  if button_text == 'Request Revision'
     within '#requestModal' do
       fill_in 'comment', with: request_cause
       click_button 'Request'
     end
-  elsif button_text = "Reject"
+  elsif button_text == 'Reject'
     within '#rejectModal' do
       fill_in 'comment', with: request_cause
       click_button 'Reject'

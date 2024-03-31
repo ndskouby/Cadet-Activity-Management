@@ -16,7 +16,7 @@ RSpec.describe SessionsController, type: :controller do
 
     it 'sets alert message' do
       get :logout
-      expect(flash[:alert]).to eq("You must be logged in to access this section.")
+      expect(flash[:alert]).to eq('You must be logged in to access this section.')
     end
   end
 end

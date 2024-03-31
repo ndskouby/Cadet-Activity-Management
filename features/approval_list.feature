@@ -44,4 +44,4 @@ Scenario: Reject event
     Given that I am on the approval details page for "Safety Training"
     And that the status of "Safety Training" is "pending_minor_unit_approval"
     When I press the "Reject" button and enter reason "Rejected"
-    Then the status of "Safety Training" should be "revision_required_by_submitter"
+    Then the status of "Safety Training" should be "rejected"

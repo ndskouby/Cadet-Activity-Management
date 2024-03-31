@@ -10,21 +10,19 @@ class TrainingActivitiesController < ApplicationController
   end
 
   def chart_data
-    if params[:month].present? && params[:month].to_i.between?(1, 12)
-      month = Date.today.beginning_of_year.change(month: params[:month].to_i)
-    end
-    status_order = ['pending_minor_unit_approval', 'pending_major_unit_approval', 
-                    'pending_commandant_approval', 'approved', 'revision_required_by_submitter', 
-                    'revision_required_by_minor_unit', 'revision_required_by_major_unit', 'rejected', 'cancelled']
+    month = Date.today.beginning_of_year.change(month: params[:month].to_i) if params[:month].present? && params[:month].to_i.between?(1, 12)
+    status_order = %w[pending_minor_unit_approval pending_major_unit_approval
+                      pending_commandant_approval approved revision_required_by_submitter
+                      revision_required_by_minor_unit revision_required_by_major_unit rejected cancelled]
     month_number = params[:month].to_i
     if params[:month].blank?
-      @month_name = "All Months"
+      @month_name = 'All Months'
       unordered_data = TrainingActivity.group(:priority, :status).count
     elsif (1..12).cover?(month_number)
       @month_name = Date::MONTHNAMES[month_number]
       unordered_data = TrainingActivity.where(date: month.beginning_of_month..month.end_of_month).group(:priority, :status).count
     else
-      @month_name = "Invalid Month"
+      @month_name = 'Invalid Month'
       unordered_data = {}
     end
     @data = unordered_data.sort_by { |(priority, status), _| [priority, status_order.index(status)] }.to_h

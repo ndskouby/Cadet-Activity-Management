@@ -9,6 +9,7 @@ RSpec.describe TrainingActivitiesController, type: :controller do
     @user.unit.save!
     session[:user_id] = @user.id
   end
+
   describe 'GET #index' do
     it 'returns a success response' do
       get :index
@@ -201,7 +202,7 @@ RSpec.describe TrainingActivitiesController, type: :controller do
     context 'when no month is provided' do
       it 'assigns @data' do
         get :chart_data, params: { month: nil }
-        test_data = TrainingActivity.group(:priority, :status).count   
+        test_data = TrainingActivity.group(:priority, :status).count
         expect(assigns(:data)).to eq(test_data)
       end
 

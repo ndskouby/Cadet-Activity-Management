@@ -8,18 +8,16 @@ module ApplicationHelper
   end
 
   def badge_color_for_status(status)
-    case 
-    when status.downcase.include?('pending')
+    if status.downcase.include?('pending')
       'bg-warning'
-    when status.downcase.include?('approved')
+    elsif status.downcase.include?('approved')
       'bg-success'
-    when status.downcase.include?('rejected')
+    elsif status.downcase.include?('rejected')
       'bg-danger'
-    when status.downcase.include?('revision')
+    elsif status.downcase.include?('revision')
       'bg-info'
     else
       'bg-light text-dark'
     end
   end
-  
 end

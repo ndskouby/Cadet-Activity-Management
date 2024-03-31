@@ -16,7 +16,6 @@ class SessionsController < ApplicationController
     # puts "User: #{@user.inspect}"
     # puts "User Profile Picture: #{@user.profile_picture}"
 
-
     if @user.valid?
       session[:user_id] = @user.id
       redirect_to user_path(@user), notice: 'You are logged in.'
