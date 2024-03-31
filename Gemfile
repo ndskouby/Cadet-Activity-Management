@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-ruby '3.2.2'
+ruby '3.2.3'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.1.3'
@@ -47,6 +47,10 @@ gem 'bootsnap', require: false
 # gem "image_processing", "~> 1.2"
 
 gem 'rails-controller-testing'
+
+# Styling
+gem 'font-awesome-sass'
+gem 'sassc-rails'
 
 # For Google OAuth: Login with tamu.edu
 gem 'omniauth'

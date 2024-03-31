@@ -4,7 +4,7 @@ class TrainingActivity < ApplicationRecord
   include AASM
   belongs_to :user
 
-  attr_accessor :current_user,:comment
+  attr_accessor :current_user, :comment
 
   has_one_attached :opord_upload
   has_and_belongs_to_many :competencies
@@ -56,7 +56,7 @@ class TrainingActivity < ApplicationRecord
     event :approved do
       transitions from: :pending_commandant_approval, to: :approved do
         after do
-          log_activity_history('approved')
+          log_activity_history('approved', comment)
         end
       end
     end
@@ -66,7 +66,7 @@ class TrainingActivity < ApplicationRecord
       transitions from: %i[pending_minor_unit_approval pending_major_unit_approval pending_commandant_approval revision_required_by_minor_unit revision_required_by_major_unit],
                   to: :revision_required_by_submitter do
         after do
-          log_activity_history('revision_required_by_submitter')
+          log_activity_history('revision_required_by_submitter', comment)
         end
       end
     end
@@ -75,7 +75,7 @@ class TrainingActivity < ApplicationRecord
     event :request_minor_unit_revision do
       transitions from: %i[pending_major_unit_approval pending_commandant_approval revision_required_by_major_unit], to: :revision_required_by_minor_unit do
         after do
-          log_activity_history('revision_required_by_minor_unit')
+          log_activity_history('revision_required_by_minor_unit', comment)
         end
       end
     end
@@ -84,7 +84,7 @@ class TrainingActivity < ApplicationRecord
     event :request_major_unit_revision do
       transitions from: %i[pending_commandant_approval], to: :revision_required_by_major_unit do
         after do
-          log_activity_history('revision_required_by_major_unit')
+          log_activity_history('revision_required_by_major_unit', comment)
         end
       end
     end
@@ -93,7 +93,7 @@ class TrainingActivity < ApplicationRecord
     event :submit_for_minor_unit_approval do
       transitions from: :revision_required_by_submitter, to: :pending_minor_unit_approval do
         after do
-          log_activity_history('revision_submitted_for_minor_unit_approval')
+          log_activity_history('revision_submitted_for_minor_unit_approval', comment)
         end
       end
     end
@@ -102,7 +102,7 @@ class TrainingActivity < ApplicationRecord
     event :submit_for_major_unit_approval_from_minor_unit_revision do
       transitions from: :revision_required_by_minor_unit, to: :pending_major_unit_approval do
         after do
-          log_activity_history('revision_submitted_for_major_unit_approval')
+          log_activity_history('revision_submitted_for_major_unit_approval', comment)
         end
       end
     end
@@ -111,7 +111,7 @@ class TrainingActivity < ApplicationRecord
     event :submit_for_commandant_approval_from_major_unit_revision do
       transitions from: :revision_required_by_major_unit, to: :pending_commandant_approval do
         after do
-          log_activity_history('revision_submitted_for_commandant_approval')
+          log_activity_history('revision_submitted_for_commandant_approval', comment)
         end
       end
     end
@@ -136,7 +136,7 @@ class TrainingActivity < ApplicationRecord
     end
   end
 
-  def log_activity_history(event, comment = nil)
+  def log_activity_history(event, comment = 'No Reason Provided.')
     message = case event
               when 'activity_created'
                 "Training Activity Created by #{current_user.first_name} (#{current_user.email}). Requesting Minor Unit Approval."
@@ -166,7 +166,7 @@ class TrainingActivity < ApplicationRecord
                 "#{event.humanize} by #{current_user.first_name} (#{current_user.email})."
               end
 
-    activity_histories.create(event: message, user: current_user, comment: comment.presence || '')
+    activity_histories.create(event: message, user: current_user, comment: comment)
   end
 
   private

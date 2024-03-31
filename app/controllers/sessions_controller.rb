@@ -6,12 +6,16 @@ class SessionsController < ApplicationController
 
   def logout
     reset_session
-    redirect_to home_path, notice: 'You are logged out.'
+    redirect_to home_path, alert: 'You are logged out.'
   end
 
   def omniauth
     auth = request.env['omniauth.auth']
     @user = find_or_create_user(auth)
+
+    puts "User: #{@user.inspect}"
+    puts "User Profile Picture: #{@user.profile_picture}"
+
 
     if @user.valid?
       session[:user_id] = @user.id
