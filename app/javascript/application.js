@@ -1,7 +1,7 @@
 // Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
-import "datatables";
 import "@hotwired/turbo-rails";
-import "mdb";
+import  "/assets/mdb-ui-kit/js/mdb.umd.min.js"
+import  "/assets/datatables.net-dt/js/dataTables.dataTables.min.js"
 
 console.log("JavaScript is loaded and executed.");
 

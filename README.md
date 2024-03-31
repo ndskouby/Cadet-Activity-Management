@@ -73,3 +73,7 @@ heroku git:remote -a cadet-activity-management
 
 - Deploy: `git push heroku <yourbranch>:master`
   - Auto-deploy is enabled for 'main' branch.
+
+
+# JavaScript & CSS
+- https://stackoverflow.com/questions/36602764/how-to-use-npm-packages-in-rails
