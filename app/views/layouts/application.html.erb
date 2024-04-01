@@ -84,7 +84,7 @@
                   aria-expanded="false"
                   data-turbo="false"
                 >
-                  <%= image_tag(current_user.profile_picture, class: "rounded-circle", height: "25", alt: "User Profile Picture", loading: "lazy") %>
+                  <%= image_tag(current_user.profile_picture.present? ? current_user.profile_picture : 'blank-profile-picture.png', class: "rounded-circle", height: "25", alt: "User Profile Picture", loading: "lazy") %>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
                   <li>
