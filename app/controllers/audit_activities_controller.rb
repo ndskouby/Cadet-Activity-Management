@@ -44,7 +44,7 @@ class AuditActivitiesController < ApplicationController
     @training_activity.comment = params[:comment]
 
     success = reject_success
-    
+
     if success
       redirect_to audit_activity_path(@training_activity), notice: 'Training Activity Rejected.'
     else

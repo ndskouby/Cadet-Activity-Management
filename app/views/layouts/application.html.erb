@@ -39,6 +39,11 @@
                     Audit Activities
                   </a>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="<%= chart_data_path %>">
+                    Statistical Charts
+                  </a>
+                </li>
               </ul>
             </div>
             <div class="d-flex align-items-center">
@@ -88,7 +93,7 @@
                   <li>
                     <a class="dropdown-item" href="#">Settings</a>
                   </li>
-                  <%= link_to logout_path, class: "dropdown-item" do %>
+                  <%= button_to logout_path, method: :get, class: "dropdown-item" do %>
                     <i class="fas fa-sign-out-alt"></i> Logout
                   <% end %>
                 </ul>

@@ -11,7 +11,7 @@ module SessionHelper
       # for the time being, since the audit system isn't up yet.
       u.unit = Unit.find_by(name: 'Unassigned Outfit')
     end
-    user.profile_picture = auth['info']['image'] || "blank-profile-picture.png"
+    user.profile_picture = auth['info']['image'] || 'blank-profile-picture.png'
     user.save if user.changed?
     user
   end

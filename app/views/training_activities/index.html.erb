@@ -62,11 +62,11 @@
       </div>
     </div>
   </div>
-<%= link_to 'View Chart', chart_data_path %>
 </div>
+<link rel="stylesheet" href="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.css" />
+<script src="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.js"></script>
 <script>window.trainingActivities = <%= raw @training_activities.to_json %>;</script>
 <div>
-  
   <button id="viewWeekBtn">Week</button>
   <button id="viewMonthBtn">Month</button>
 </div>

@@ -12,6 +12,10 @@ Then('I should be redirected to the training events page') do
   expect(current_path).to eq(training_activities_path) # assuming your events page is configured at /events
 end
 
+Then('I should be redirected to the training activities chart page') do
+  expect(current_path).to eq(chart_data_path) # assuming your events page is configured at /events
+end
+
 Then('I should see a a table of events') do
   expect(page).to have_css('table tbody')
 end
@@ -38,4 +42,21 @@ end
 
 Then('the website should load successfully') do
   expect(page.status_code).to eq(200)
+end
+
+And('I should see a chart') do
+  expect(page).to have_content('Training Activities Chart')
+end
+
+Then('I should see a {string} in the calendar') do |event_name|
+  expect(page).to have_text(event_name)
+end
+
+And('If I click on {string} I should see: status {string}') do |event, status|
+  click_on(event)
+  expect(page).to have_text(status)
+end
+
+Then('I should not see any unlisted event in the calendar') do
+  expect(page).not_to have_text('unlisted')
 end

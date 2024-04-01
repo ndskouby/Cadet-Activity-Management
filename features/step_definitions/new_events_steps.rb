@@ -5,7 +5,7 @@ Given('the user is on the training activities page') do
 end
 
 When('the user clicks the "New Activity" link') do
-  click_link 'New Activity'
+  find('#addTrainingActivityButton').click
 end
 
 Then('the activity creation form should be displayed') do
