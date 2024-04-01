@@ -37,7 +37,7 @@ class TrainingActivity < ApplicationRecord
     # Event: Approved by Minor Unit; Submitted for Major Unit Approval
     event :submit_for_major_unit_approval do
       transitions from: :pending_minor_unit_approval, to: :pending_major_unit_approval do
-        after do
+        success do
           log_activity_history('submitted_for_major_unit_approval')
         end
       end
@@ -46,7 +46,7 @@ class TrainingActivity < ApplicationRecord
     # Event: Approved by Major Unit; Submitted for Commandant Approval
     event :submit_for_commandant_approval do
       transitions from: :pending_major_unit_approval, to: :pending_commandant_approval do
-        after do
+        success do
           log_activity_history('submitted_for_commandant_approval')
         end
       end
@@ -55,7 +55,7 @@ class TrainingActivity < ApplicationRecord
     # Event: Approved by Commandant; Training Activity Approved
     event :approved do
       transitions from: :pending_commandant_approval, to: :approved do
-        after do
+        success do
           log_activity_history('approved', comment)
         end
       end
@@ -65,7 +65,7 @@ class TrainingActivity < ApplicationRecord
     event :request_submitter_revision do
       transitions from: %i[pending_minor_unit_approval pending_major_unit_approval pending_commandant_approval revision_required_by_minor_unit revision_required_by_major_unit],
                   to: :revision_required_by_submitter do
-        after do
+        success do
           log_activity_history('revision_required_by_submitter', comment)
         end
       end
@@ -74,7 +74,7 @@ class TrainingActivity < ApplicationRecord
     # Revision Required by Minor Unit; Requested by Major Unit
     event :request_minor_unit_revision do
       transitions from: %i[pending_major_unit_approval pending_commandant_approval revision_required_by_major_unit], to: :revision_required_by_minor_unit do
-        after do
+        success do
           log_activity_history('revision_required_by_minor_unit', comment)
         end
       end
@@ -83,7 +83,7 @@ class TrainingActivity < ApplicationRecord
     # Revision Required by Major Unit; Requested by Commandant
     event :request_major_unit_revision do
       transitions from: %i[pending_commandant_approval], to: :revision_required_by_major_unit do
-        after do
+        success do
           log_activity_history('revision_required_by_major_unit', comment)
         end
       end
@@ -92,7 +92,7 @@ class TrainingActivity < ApplicationRecord
     # Event: Submitted for Minor Unit Approval from Revision Required by Submitter
     event :submit_for_minor_unit_approval do
       transitions from: :revision_required_by_submitter, to: :pending_minor_unit_approval do
-        after do
+        success do
           log_activity_history('revision_submitted_for_minor_unit_approval', comment)
         end
       end
@@ -101,7 +101,7 @@ class TrainingActivity < ApplicationRecord
     # Event: Submitted for Major Unit Approval from Revision Required by Minor Unit
     event :submit_for_major_unit_approval_from_minor_unit_revision do
       transitions from: :revision_required_by_minor_unit, to: :pending_major_unit_approval do
-        after do
+        success do
           log_activity_history('revision_submitted_for_major_unit_approval', comment)
         end
       end
@@ -110,7 +110,7 @@ class TrainingActivity < ApplicationRecord
     # Event: Submitted for Commandant Approval from Revision Required by Major Unit
     event :submit_for_commandant_approval_from_major_unit_revision do
       transitions from: :revision_required_by_major_unit, to: :pending_commandant_approval do
-        after do
+        success do
           log_activity_history('revision_submitted_for_commandant_approval', comment)
         end
       end
@@ -119,7 +119,7 @@ class TrainingActivity < ApplicationRecord
     # Event: Rejected
     event :reject do
       transitions from: %i[pending_minor_unit_approval pending_major_unit_approval pending_commandant_approval], to: :rejected do
-        after do
+        success do
           log_activity_history('rejected', comment)
         end
       end
@@ -129,7 +129,7 @@ class TrainingActivity < ApplicationRecord
     event :cancel do
       transitions from: %i[pending_minor_unit_approval pending_major_unit_approval pending_commandant_approval request_minor_unit_revision request_submitter_revision request_major_unit_revision approved],
                   to: :cancelled do
-        after do
+        success do
           log_activity_history('cancelled', comment)
         end
       end
