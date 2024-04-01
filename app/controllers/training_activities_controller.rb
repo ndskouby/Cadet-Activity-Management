@@ -9,6 +9,26 @@ class TrainingActivitiesController < ApplicationController
     @training_activities = TrainingActivity.all
   end
 
+  def chart_data
+    month = Date.today.beginning_of_year.change(month: params[:month].to_i) if params[:month].present? && params[:month].to_i.between?(1, 12)
+    status_order = %w[pending_minor_unit_approval pending_major_unit_approval
+                      pending_commandant_approval approved revision_required_by_submitter
+                      revision_required_by_minor_unit revision_required_by_major_unit rejected cancelled]
+    month_number = params[:month].to_i
+    if params[:month].blank?
+      @month_name = 'All Months'
+      unordered_data = TrainingActivity.group(:priority, :status).count
+    elsif (1..12).cover?(month_number)
+      @month_name = Date::MONTHNAMES[month_number]
+      unordered_data = TrainingActivity.where(date: month.beginning_of_month..month.end_of_month).group(:priority, :status).count
+    else
+      @month_name = 'Invalid Month'
+      unordered_data = {}
+    end
+    @data = unordered_data.sort_by { |(priority, status), _| [priority, status_order.index(status)] }.to_h
+    render :chart
+  end
+
   def show; end
 
   # GET /training_activities/new
@@ -88,7 +108,10 @@ class TrainingActivitiesController < ApplicationController
   #
   #   def rejected
   #     @training_activity = TrainingActivity(params[:id])
+  #     @training_activity.comment = params[:comment]
   #     @training_activity.reject!
+  #     @training_activity.log_activity_history('rejected', params[:comment])
+  #     redirect_to training_activities_path, notice: 'Training activity rejected successfully.'
   #     TrainingActivitiesMailer.rejected(@training_activity).deliver_now
   #   end
 

@@ -27,6 +27,7 @@ class AuditActivitiesController < ApplicationController
 
   def improve
     @training_activity.current_user = current_user
+    @training_activity.comment = params[:comment]
 
     success = improve_success
 
@@ -38,9 +39,11 @@ class AuditActivitiesController < ApplicationController
   end
 
   def reject
+    @training_activity = TrainingActivity.find(params[:id])
     @training_activity.current_user = current_user
+    @training_activity.comment = params[:comment]
 
-    success = @training_activity.reject!
+    success = reject_success
 
     if success
       redirect_to audit_activity_path(@training_activity), notice: 'Training Activity Rejected.'
@@ -51,6 +54,7 @@ class AuditActivitiesController < ApplicationController
 
   def resubmit
     @training_activity.current_user = current_user
+    @training_activity.comment = params[:comment]
 
     success = resubmit_success
 
@@ -62,9 +66,11 @@ class AuditActivitiesController < ApplicationController
   end
 
   def cancel
+    @training_activity = TrainingActivity.find(params[:id])
     @training_activity.current_user = current_user
+    @training_activity.comment = params[:comment]
 
-    success = @training_activity.cancel!
+    success = cancel_success
 
     if success
       redirect_to audit_activity_path(@training_activity), notice: 'Training Activity Cancelled.'
