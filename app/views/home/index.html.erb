@@ -1,3 +1,24 @@
-<h1>Cadet Activity Management App</h1>
-<p><%= button_to "Login with Google", "/auth/google_oauth2", data: {turbo: "false"} %></p>
-
+<section class="vh-100" style="background-color: #500000">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-xl-10">
+        <div class="card" style="border-radius: 1rem;">
+          <div class="row g-0">
+            <div class="col-md-6 col-lg-5 d-none d-md-block">
+              <%= image_tag 'reveille.jpg', alt: 'login form', class: 'img-fluid img-responsive' %>
+            </div>
+            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+              <div class="card-body p-4 p-lg-5 text-black">
+                <%= form_tag("/auth/google_oauth2", method: "post", data: { turbo: false }, class: "form-inline") do %>
+                  <%= button_tag(type: 'submit', class: "btn btn-dark btn-lg btn-block") do %>
+                    <i class="fab fa-google me-2"></i> Login with Google
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

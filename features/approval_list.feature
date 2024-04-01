@@ -19,7 +19,7 @@ Scenario: Accessing the approval page
 
 Scenario: Viewing individual events for approval
     Given that I am on the Audit Activities page
-    When I click show for "Leadership 101"
+    When I click audit for "Leadership 101"
     Then I should be on the approval details page for "Leadership 101"
 
 Scenario: Approving event
@@ -37,12 +37,11 @@ Scenario: Single approval is not sufficient
 Scenario: Request revision event
     Given that I am on the approval details page for "Leadership 101"
     And that the status of "Leadership 101" is "pending_minor_unit_approval"
-    When I press the "Request Revision" button
+    When I press the "Request Revision" button and enter reason "Revise"
     Then the status of "Leadership 101" should be "revision_required_by_submitter"
 
 Scenario: Reject event
     Given that I am on the approval details page for "Safety Training"
     And that the status of "Safety Training" is "pending_minor_unit_approval"
-    And I press the "Reject" button
-    And I press the "Confirm Reject" button
+    When I press the "Reject" button and enter reason "Rejected"
     Then the status of "Safety Training" should be "rejected"

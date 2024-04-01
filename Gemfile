@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-ruby '3.2.2'
+ruby '3.2.3'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.1.3'
@@ -48,6 +48,10 @@ gem 'bootsnap', require: false
 
 gem 'rails-controller-testing'
 
+# Styling
+gem 'font-awesome-sass'
+gem 'sassc-rails'
+
 # For Google OAuth: Login with tamu.edu
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
@@ -60,10 +64,15 @@ gem 'aasm'
 gem 'letter_opener'
 gem 'letter_opener_web'
 
+# Charts
+gem 'chartkick'
+gem 'groupdate'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri mswin mswin64 mingw x64_mingw]
   gem 'factory_bot_rails'
+  gem 'shoulda-matchers'
 end
 
 group :development do

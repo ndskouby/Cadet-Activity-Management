@@ -15,7 +15,7 @@ Scenario: Viewing the events page
 
 Scenario: Accessing the user homepage
 	Given I am a verified user
-	When I navigate to the website homepage
+	When I am on the website user homepage
 	Then I should see Howdy "John"!
 
 Scenario: Checking website accessibility on a standard web browser
