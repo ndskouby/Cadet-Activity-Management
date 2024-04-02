@@ -25,58 +25,31 @@ class AuditActivitiesController < ApplicationController
     end
   end
 
-  def improve
+  def handle_action(action_method, notice, alert)
     @training_activity.current_user = current_user
     @training_activity.comment = params[:comment]
-
-    success = improve_success
-
+    success = send(action_method)
     if success
-      redirect_to audit_activity_path(@training_activity), notice: 'Requested Revision for Training Activity.'
+      redirect_to audit_activity_path(@training_activity), notice: notice
     else
-      redirect_to audit_activity_path(@training_activity), alert: 'Failed to Request Revision for Training Activity.'
+      redirect_to audit_activity_path(@training_activity), alert: alert
     end
+  end
+
+  def improve
+    handle_action(:improve_success, 'Requested Revision for Training Activity.', 'Failed to Request Revision for Training Activity.')
   end
 
   def reject
-    @training_activity = TrainingActivity.find(params[:id])
-    @training_activity.current_user = current_user
-    @training_activity.comment = params[:comment]
-
-    success = reject_success
-
-    if success
-      redirect_to audit_activity_path(@training_activity), notice: 'Training Activity Rejected.'
-    else
-      redirect_to audit_activity_path(@training_activity), alert: 'Failed to reject Training Activity.'
-    end
+    handle_action(:reject_success, 'Training Activity Rejected.', 'Failed to reject Training Activity.')
   end
 
   def resubmit
-    @training_activity.current_user = current_user
-    @training_activity.comment = params[:comment]
-
-    success = resubmit_success
-
-    if success
-      redirect_to audit_activity_path(@training_activity), notice: 'Training Activity Resubmitted.'
-    else
-      redirect_to audit_activity_path(@training_activity), alert: 'Failed to resubmit Training Activity.'
-    end
+    handle_action(:resubmit_success, 'Training Activity Resubmitted.', 'Failed to resubmit Training Activity.')
   end
 
   def cancel
-    @training_activity = TrainingActivity.find(params[:id])
-    @training_activity.current_user = current_user
-    @training_activity.comment = params[:comment]
-
-    success = cancel_success
-
-    if success
-      redirect_to audit_activity_path(@training_activity), notice: 'Training Activity Cancelled.'
-    else
-      redirect_to audit_activity_path(@training_activity), alert: 'Failed to cancel Training Activity.'
-    end
+    handle_action(:cancel_success, 'Training Activity Cancelled.', 'Failed to cancel Training Activity.')
   end
 
   private
