@@ -82,58 +82,13 @@ document.addEventListener("turbo:load", function () {
  * AUDIT ACTIVITY PAGE
  */
 document.addEventListener("turbo:load", () => {
-  const rejectModalButton = document.getElementById("rejectModalButton");
-  if (rejectModalButton) {
-    rejectModalButton.addEventListener("click", (event) => {
+  const modalButtons = document.querySelectorAll("[data-mdb-target]");
+
+  modalButtons.forEach((button) => {
+    button.addEventListener("click", (event) => {
       event.preventDefault();
-      const modal = new mdb.Modal(
-        document.querySelector(
-          rejectModalButton.getAttribute("data-mdb-target")
-        )
-      );
+      const modal = new mdb.Modal(document.querySelector(button.getAttribute("data-mdb-target")));
       modal.show();
     });
-  }
-});
-document.addEventListener("turbo:load", () => {
-  const requestModalButton = document.getElementById("requestModalButton");
-  if (requestModalButton) {
-    requestModalButton.addEventListener("click", (event) => {
-      event.preventDefault();
-      const modal = new mdb.Modal(
-        document.querySelector(
-          requestModalButton.getAttribute("data-mdb-target")
-        )
-      );
-      modal.show();
-    });
-  }
-});
-document.addEventListener("turbo:load", () => {
-  const resubmitModalButton = document.getElementById("resubmitModalButton");
-  if (resubmitModalButton) {
-    resubmitModalButton.addEventListener("click", (event) => {
-      event.preventDefault();
-      const modal = new mdb.Modal(
-        document.querySelector(
-          resubmitModalButton.getAttribute("data-mdb-target")
-        )
-      );
-      modal.show();
-    });
-  }
-});
-document.addEventListener("turbo:load", () => {
-  const cancelModalButton = document.getElementById("cancelModalButton");
-  if (cancelModalButton) {
-    cancelModalButton.addEventListener("click", (event) => {
-      event.preventDefault();
-      const modal = new mdb.Modal(
-        document.querySelector(
-          cancelModalButton.getAttribute("data-mdb-target")
-        )
-      );
-      modal.show();
-    });
-  }
+  });
 });
