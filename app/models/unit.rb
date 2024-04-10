@@ -6,4 +6,10 @@ class Unit < ApplicationRecord
   def children
     Unit.where(parent_id: id)
   end
+
+  def units
+    return [name] + parent.units if parent
+
+    [name]
+  end
 end
