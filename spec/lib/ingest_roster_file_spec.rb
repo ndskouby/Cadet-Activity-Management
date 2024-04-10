@@ -10,7 +10,7 @@ RSpec.feature 'Roster Ingestor' do
       expect(user.unit.name).to eq('A1')
       expect(user.unit.parent.name).to eq('3BN')
       expect(user.unit.parent.parent.name).to eq('1BDE')
-      expect(user.units).to match_array([Unit.find_by(name: "A1"), Unit.find_by(name: "3BN"), Unit.find_by(name: "1BDE")])
+      expect(user.units).to match_array([Unit.find_by(name: 'A1'), Unit.find_by(name: '3BN'), Unit.find_by(name: '1BDE')])
     end
   end
 end

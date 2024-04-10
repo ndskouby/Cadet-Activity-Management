@@ -3,6 +3,7 @@
 FactoryBot.define do
   factory :training_activity do
     name { 'Sample Activity' }
+    unit_id { Unit.all[0].id }
     date { Date.today }
     time { 'MA' }
     location { 'Kyle Ramps' }

@@ -3,12 +3,14 @@ Feature: Calendar for the Events
     So that I can see all approved activities planned by a certain unit on the calendar.
     And I can see activities on a certain date when I click.
 
+
 Background:
 	Given I am a logged-in user with name "John Doe"
     Given the following training activities exist:
-      | name            | date       | time | location    | priority | justification        |
-      | Leadership 101  | 2024-05-20 | MA   | Hall A      | Leaders of Character     | Leadership skills    |
-      | Safety Training | 2024-06-15 | AA   | Outdoor     | Career Readiness   | Safety precautions   |
+      | name            | unit               | date       | time | location    | priority | justification        |
+      | Leadership 101  | Demo Outfit | 2024-05-20 | MA   | Hall A      | Leaders of Character     | Leadership skills    |
+      | Safety Training | Demo Outfit |      2024-06-15 | AA   | Outdoor     | Career Readiness   | Safety precautions   |
+
     Given the status of "Leadership 101" is "pending_commandant_approval"
 
 Scenario: Viewing the statistical charts page
