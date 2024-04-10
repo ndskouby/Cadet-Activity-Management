@@ -123,6 +123,6 @@ class TrainingActivitiesController < ApplicationController
 
   def training_activity_params
     params.require(:training_activity).permit(:name, :date, :time, :location, :priority, :justification,
-                                              :opord_upload, competency_ids: [])
+                                              :unit_id, :opord_upload, competency_ids: [])
   end
 end

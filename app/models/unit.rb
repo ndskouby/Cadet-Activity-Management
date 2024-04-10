@@ -8,8 +8,8 @@ class Unit < ApplicationRecord
   end
 
   def units
-    return [name] + parent.units if parent
+    return [self] + parent.units if parent
 
-    [name]
+    [self]
   end
 end
