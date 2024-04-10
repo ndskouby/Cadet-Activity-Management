@@ -55,6 +55,13 @@
         {prompt: "Choose something..."},
         {required: true, class: "select form-control", data: {mdb_select_init: true}} %>
   </div>
+  <%= form.label :unit_id, "Unit", class: "form-label" %>
+  <div class="select-outline">
+    <%= form.select :unit_id, 
+        Unit.all.map{ |unit| [unit.name, unit.id]},
+        {prompt: "Choose something..."},
+        {required: true, class: "select form-control", data: {mdb_select_init: true}} %>
+  </div>
   <div class="mb-4">
     <label for="cr_competencies" class="form-label">CR Competencies (Max 3)</label>
     <div id="cr_competencies" class="row">

@@ -30,9 +30,9 @@ class AuditActivitiesController < ApplicationController
     @training_activity.comment = params[:comment]
     success = send(action_method)
     if success
-      redirect_to audit_activity_path(@training_activity), notice: notice
+      redirect_to(audit_activity_path(@training_activity), notice:)
     else
-      redirect_to audit_activity_path(@training_activity), alert: alert
+      redirect_to audit_activity_path(@training_activity), alert:
     end
   end
 

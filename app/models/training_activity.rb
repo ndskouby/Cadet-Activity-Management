@@ -3,6 +3,7 @@
 class TrainingActivity < ApplicationRecord
   include AASM
   belongs_to :user
+  belongs_to :unit
 
   attr_accessor :current_user, :comment
 
@@ -17,6 +18,7 @@ class TrainingActivity < ApplicationRecord
   validates :location, presence: true
   validates :priority, presence: true
   validates :justification, presence: true
+  validates :unit_id, presence: true
 
   validate :validate_date
   validate :validate_competencies

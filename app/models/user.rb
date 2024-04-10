@@ -11,4 +11,10 @@ class User < ApplicationRecord
   validates :email, presence: true
   validates :uid, allow_blank: true, presence: true, uniqueness: { scope: :provider }
   validates :provider, presence: true
+
+  def units
+    return unit.units if unit
+
+    []
+  end
 end

@@ -3,6 +3,7 @@
     <thead class="table-light">
       <tr>
         <th scope="col">Name</th>
+        <th scope="col">Unit</th>
         <th scope="col">Date</th>
         <th scope="col" class="text-center align-middle">Time</th>
         <th scope="col">Location</th>
@@ -16,6 +17,7 @@
       <% @training_activities.each do |training_activity| %>
         <tr>
           <td><%= training_activity.name %></td>
+          <td><%= training_activity.unit.name %></td>
           <td><%= training_activity.date %></td>
           <td class="text-center align-middle"><%= training_activity.time %></td>
           <td><%= training_activity.location %></td>

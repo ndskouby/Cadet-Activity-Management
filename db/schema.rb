@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 20_240_330_122_315) do
+ActiveRecord::Schema[7.1].define(version: 20_240_410_214_732) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -81,6 +81,7 @@ ActiveRecord::Schema[7.1].define(version: 20_240_330_122_315) do
     t.string 'priority'
     t.text 'justification'
     t.string 'user_id'
+    t.integer 'unit_id'
   end
 
   create_table 'units', force: :cascade do |t|
