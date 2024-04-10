@@ -6,7 +6,7 @@ class TrainingActivitiesController < ApplicationController
 
   # GET /training_activities
   def index
-    @training_activities = TrainingActivity.all
+    @training_activities = TrainingActivity.where(unit: current_user.units)
   end
 
   def chart_data
