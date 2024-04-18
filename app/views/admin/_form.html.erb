@@ -1,0 +1,35 @@
+<%= form_with(model: @user, local: false, "data-turbo": "true", html: {class: "", id: "admin_form"}) do |form| %>
+  <div class="row mb-3">
+    <div class="col">
+      <%= form.label :first_name, "First Name", class: "form-label" %>
+      <div data-mdb-input-init class="form-outline">
+        <%= form.text_field :first_name, required: true, class: "form-control" %>
+      </div>
+    </div>
+    <div class="col">
+      <%= form.label :last_name, "Last Name", class: "form-label" %>
+      <div data-mdb-input-init class="form-outline">
+        <%= form.text_field :last_name, required: true, class: "form-control" %>
+      </div>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col">
+    <%= form.label :email, "Email", class: "form-label" %>
+    <div data-mdb-input-init class="form-outline">
+      <%= form.text_field :email, required: true, class: "form-control" %>
+    </div>
+    </div>
+  </div>
+  
+  <%= form.label :unit_id, "Minor Unit", class: "form-label" %>
+  <div class="select-outline">
+    <%= form.select :unit_id, 
+        Unit.all.map{ |unit| [unit.name, unit.id]},
+        {prompt: "Choose Minor Unit"},
+        {required: true, class: "select form-control", data: {mdb_select_init: true}} %>
+  </div>
+  <div class="actions">
+    <%= form.submit class: "btn btn-primary"%>
+  </div>
+<% end %>

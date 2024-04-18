@@ -1,0 +1,46 @@
+<div class="table-responsive">
+  <table id="usersTable" class="table table-striped table-hover align-middle">
+    <thead class="table-light">
+      <tr>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Minor Unit</th>
+        <th scope="col">Major Unit</th>
+        <th scope="col" class="text-center align-middle">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.first_name %></td>
+          <td><%= user.last_name %></td>
+          <td><%= user.email %></td>
+          <td><%= user.unit.name %></td>
+          <td><%= user.unit.parent.name %></td>
+          <td class="text-center align-middle">
+            <%= link_to admin_path(id: user.id) do %>
+              <%= content_tag(:i, '', class: "fa fa-eye") %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+</table>
+</div>
+<br>
+<%= link_to "+", "#", class: "btn btn-success", "data-mdb-toggle" => "modal", "data-mdb-target" => "#addTrainingActivityModal", id: "addTrainingActivityButton", data: { turbo: false } %>
+<!-- Modal for Adding Training Activity -->
+<div class="modal fade" id="addTrainingActivityModal" tabindex="-1" aria-labelledby="addTrainingActivityModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addTrainingActivityModalLabel">Add User Data</h5>
+        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%= render "form", training_activity: TrainingActivity.new %>
+      </div>
+    </div>
+  </div>
+</div>
