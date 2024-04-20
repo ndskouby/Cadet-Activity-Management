@@ -90,3 +90,13 @@
 #addTrainingActivityButton {
   margin-left: 20px;
 }
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.search-bar {
+  margin-left: auto; /* Pushes the search bar to the right */
+}

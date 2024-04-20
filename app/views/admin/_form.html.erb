@@ -26,9 +26,10 @@
   <div class="select-outline">
     <%= form.select :unit_id, 
         Unit.where(cat: "outfit").map{ |unit| [unit.name, unit.id]},
-        {prompt: "Choose Minor Unit"},
+        {prompt: "Choose Outfit"},
         {required: true, class: "select form-control", data: {mdb_select_init: true}} %>
   </div>
+  <br>
   <div class="actions">
     <%= form.submit class: "btn btn-primary"%>
   </div>
