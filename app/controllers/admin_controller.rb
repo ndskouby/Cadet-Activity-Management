@@ -48,7 +48,9 @@ class AdminController < ApplicationController
     end
   
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :email, :unit_id)
+      # Set teh default provider to google
+      params[:user][:provider] ||= "google_oauth2"
+      params.require(:user).permit(:first_name, :last_name, :email, :unit_id, :provider)
     end
   end
   
