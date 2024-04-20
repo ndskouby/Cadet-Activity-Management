@@ -6,7 +6,8 @@ class TrainingActivitiesController < ApplicationController
 
   # GET /training_activities
   def index
-    @training_activities = TrainingActivity.where(unit: current_user.units)
+    @units = current_user.units.flat_map(&:units).uniq
+    @training_activities = TrainingActivity.where(unit: @units)
   end
 
   def chart_data

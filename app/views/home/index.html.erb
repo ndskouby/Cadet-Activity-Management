@@ -9,6 +9,9 @@
             </div>
             <div class="col-md-6 col-lg-7 d-flex align-items-center">
               <div class="card-body p-4 p-lg-5 text-black">
+                <div class="mb-4 mb-sm-10">
+                  <%= image_tag 'coc_logo.png', alt: 'Corps of Cadets Logo', class: 'img-fluid img-responsive', style: 'background-color: #500000 '%>                
+                </div>
                 <%= form_tag("/auth/google_oauth2", method: "post", data: { turbo: false }, class: "form-inline") do %>
                   <%= button_tag(type: 'submit', class: "btn btn-dark btn-lg btn-block") do %>
                     <i class="fab fa-google me-2"></i> Login with Google
