@@ -159,6 +159,19 @@ RSpec.describe TrainingActivity, type: :model do
           @training_activity.send_pending_approval_email('major')
         end.to have_enqueued_job(ActionMailer::MailDeliveryJob)
       end
+
+      it 'transitions to revision_required_by_submitter' do
+        @training_activity.request_submitter_revision!
+        expect(@training_activity).to have_state(:revision_required_by_submitter)
+      end
+
+      # test sending revision email
+      it 'sends a revision email when transitioning to revision_required_by_submitter' do
+        allow(TrainingActivitiesMailer).to receive(:revision_notification).and_call_original
+        expect do
+          @training_activity.request_submitter_revision!
+        end.to have_enqueued_job(ActionMailer::MailDeliveryJob)
+      end
     end
 
     context 'when status is pending_major_unit_approval' do
