@@ -20,10 +20,10 @@
     <h2>Actions</h2>
     <div class="btn-group" role="group">
       <%= button_to "Approve", approve_audit_activity_path(@training_activity), method: :post, class: "btn btn-success me-2" %>
-      <%= button_to "Reject", "#", class: "btn btn-danger me-2", "data-mdb-toggle" => "modal", "data-mdb-target" => "#rejectModal", id: "rejectModalButton", data: { turbo: false } %>
-      <%= button_to "Request Revision", "#", class: "btn btn-info me-2", "data-mdb-toggle" => "modal", "data-mdb-target" => "#requestModal", id: "requestModalButton", data: { turbo: false } %>
-      <%= button_to "Resubmit", "#", class: "btn btn-secondary me-2", "data-mdb-toggle" => "modal", "data-mdb-target" => "#resubmitModal", id: "resubmitModalButton", data: { turbo: false } %>
-      <%= button_to "Cancel", "#", class: "btn btn-secondary me-2", "data-mdb-toggle" => "modal", "data-mdb-target" => "#cancelModal", id: "cancelModalButton", data: { turbo: false } %>
+      <%= button_to "Reject", "#", class: "btn btn-danger me-2 audit-btn", "data-mdb-toggle" => "modal", "data-mdb-target" => "#rejectModal", id: "rejectModalButton", data: { turbo: false } %>
+      <%= button_to "Request Revision", "#", class: "btn btn-info me-2 audit-btn", "data-mdb-toggle" => "modal", "data-mdb-target" => "#requestModal", id: "requestModalButton", data: { turbo: false } %>
+      <%= button_to "Resubmit", "#", class: "btn btn-secondary me-2 audit-btn", "data-mdb-toggle" => "modal", "data-mdb-target" => "#resubmitModal", id: "resubmitModalButton", data: { turbo: false } %>
+      <%= button_to "Cancel", "#", class: "btn btn-secondary me-2 audit-btn", "data-mdb-toggle" => "modal", "data-mdb-target" => "#cancelModal", id: "cancelModalButton", data: { turbo: false } %>
     </div>
     <%= link_to "Back", audit_activities_path, class: "btn btn-outline-dark" %>
   </div>
