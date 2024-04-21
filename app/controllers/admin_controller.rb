@@ -58,7 +58,9 @@ class AdminController < ApplicationController
   def impersonate
     impersonated_user = User.find(params[:id])
     if impersonated_user
-      session[:admin_id] = current_user.id
+      if session[:admin_id].blank?
+        session[:admin_id] = current_user.id
+      end
       session[:user_id] = impersonated_user.id
       redirect_to user_path(impersonated_user), notice: "You are now impersonating #{impersonated_user.email}."
     else
