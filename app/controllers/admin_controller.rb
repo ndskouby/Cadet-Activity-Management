@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class AdminController < ApplicationController
+  before_action :authenticate_admin!
   before_action :set_user, only: %i[show edit update destroy]
 
   def index
@@ -55,6 +56,11 @@ class AdminController < ApplicationController
   end
 
   private
+  def authenticate_admin!
+    unless current_user && current_user.admin_flag?
+        redirect_to dashboard_path, alert: "You are not authorized to access this page."
+    end
+  end
 
   def set_user
     @user = User.find(params[:id])
