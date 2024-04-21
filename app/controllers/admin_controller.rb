@@ -90,8 +90,8 @@ class AdminController < ApplicationController
   end
 
   def user_params
-    # Set teh default provider to google
+    # Set the default provider to google
     params[:user][:provider] ||= 'google_oauth2'
-    params.require(:user).permit(:first_name, :last_name, :email, :unit_id, :provider)
+    params.require(:user).permit(:first_name, :last_name, :email, :unit_id, :provider, :admin_flag)
   end
 end
