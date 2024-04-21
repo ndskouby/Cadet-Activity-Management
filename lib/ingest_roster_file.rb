@@ -50,13 +50,13 @@ class IngestRosterFile
     unit = row['Cadet/Unit']
     if unit.include?('Staff') && unit != 'CORPS Staff' && unit != 'CMDT Staff'
       if unit == 'Band Staff'
-        unit = 'BAND'
+        'BAND'
       else
         # Remove 'Staff' and strip trailing/leading whitespace
         unit.gsub('Staff', '').strip
       end
     elsif unit == 'LOA'
-      unit = row['Cadet/Outfit']
+      row['Cadet/Outfit']
     else
       unit
     end
