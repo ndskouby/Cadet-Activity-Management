@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 20_240_410_214_732) do
+ActiveRecord::Schema[7.1].define(version: 20_240_418_183_916) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -84,6 +84,15 @@ ActiveRecord::Schema[7.1].define(version: 20_240_410_214_732) do
     t.integer 'unit_id'
   end
 
+  create_table 'training_activity_status_logs', force: :cascade do |t|
+    t.integer 'training_activity_id'
+    t.string 'status'
+    t.string 'updated_by'
+    t.string 'reason'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+  end
+
   create_table 'units', force: :cascade do |t|
     t.string 'name'
     t.string 'cat'
@@ -103,6 +112,9 @@ ActiveRecord::Schema[7.1].define(version: 20_240_410_214_732) do
     t.string 'provider'
     t.integer 'unit_id'
     t.string 'profile_picture'
+    t.string 'major'
+    t.string 'minor'
+    t.string 'unit_name'
     t.index ['email'], name: 'index_users_on_email', unique: true
   end
 

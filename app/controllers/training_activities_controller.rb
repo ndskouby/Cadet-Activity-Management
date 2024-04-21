@@ -6,8 +6,12 @@ class TrainingActivitiesController < ApplicationController
 
   # GET /training_activities
   def index
-    @units = current_user.units.flat_map(&:units).uniq
-    @training_activities = TrainingActivity.where(unit: @units)
+    # @units = current_user.units.flat_map(&:units).uniq
+    unit_list = [current_user.unit] + current_user.unit.all_descendants
+    # unit_list.each do |unit|
+    #   puts "Unit Name: #{unit.name}, Unit ID: #{unit.id}"
+    # end
+    @training_activities = TrainingActivity.includes(:activity_histories).where(unit: unit_list)
   end
 
   def chart_data

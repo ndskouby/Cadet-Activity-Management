@@ -9,8 +9,8 @@ Background:
 	Given I am a logged-in user with name "John Doe"
     Given the following training activities exist:
       | name            | unit               | date       | time | location    | priority | justification        |
-      | Leadership 101  | Demo Outfit | 2024-05-20 | MA   | Hall A      | Leaders of Character     | Leadership skills    |
-      | Safety Training | Demo Outfit |      2024-06-15 | AA   | Outdoor     | Career Readiness   | Safety precautions   |
+      | Leadership 101  | P2 | 2024-05-20 | MA   | Hall A      | Leaders of Character     | Leadership skills    |
+      | Safety Training | P2 |      2024-06-15 | AA   | Outdoor     | Career Readiness   | Safety precautions   |
 
     Given the status of "Leadership 101" is "pending_commandant_approval"
 

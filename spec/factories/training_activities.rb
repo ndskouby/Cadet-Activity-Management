@@ -3,7 +3,8 @@
 FactoryBot.define do
   factory :training_activity do
     name { 'Sample Activity' }
-    unit_id { Unit.all[0].id }
+    unit { Unit.find_by(name: 'P2') || create(:unit, name: 'P2') }
+    unit_id { Unit.find_by(name: 'P2').id }
     date { Date.today }
     time { 'MA' }
     location { 'Kyle Ramps' }

@@ -17,7 +17,7 @@
         <th scope="col">First Name</th>
         <th scope="col">Last Name</th>
         <th scope="col">Email</th>
-        <th scope="col">Outfit</th>
+        <th scope="col">Unit</th>
         <th scope="col">Minor Unit</th>
         <th scope="col">Major Unit</th>
         <th scope="col" class="text-center align-middle">Actions</th>
@@ -29,9 +29,9 @@
           <td><%= user.first_name %></td>
           <td><%= user.last_name %></td>
           <td><%= user.email %></td>
-          <td><%= user.unit.name %></td>
-          <td><%= user.unit.parent.name %></td>
-          <td><%= user.unit.parent.parent.name %></td>
+          <td><%= user.unit_name %></td>
+          <td><%= user.minor %></td>
+          <td><%= user.major %></td>
           <td class="text-center align-middle">
             <%= link_to admin_path(id: user.id) do %>
               <%= content_tag(:i, '', class: "fa fa-eye") %>
