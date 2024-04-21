@@ -66,6 +66,10 @@ class IngestRosterFile
     unit = confirm_unit_name(row)
     puts "Processing: #{row['Cadet/Email']} - First: '#{row['Cadet/First']}' - Last: '#{row['Cadet/Last']}' - Unit: '#{unit}'"
 
+    existing_user = User.find_by(email: row['Cadet/Email'])
+
+    return { status: :error, message: "User with email #{row['Cadet/Email']} already exists." } if existing_user
+
     User.create!(
       email: row['Cadet/Email'],
       first_name: row['Cadet/First'],
@@ -77,6 +81,7 @@ class IngestRosterFile
       unit_name: row['Cadet/Unit'],
       unit_id: Unit.find_by!(name: unit).id
     )
+    { status: :success }
   end
 
   def process_roster_row(row)
@@ -90,9 +95,12 @@ class IngestRosterFile
 
   def ingest_roster_file(file_path)
     csv = CSV.open(file_path, headers: true)
+    errors = []
     csv.each do |row|
-      process_roster_row(row)
+      ret = process_roster_row(row)
+      errors.push(ret[:message]) if ret[:status] == :error
     end
+    errors
   end
 end
 
