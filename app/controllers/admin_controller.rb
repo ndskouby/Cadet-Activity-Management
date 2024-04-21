@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class AdminController < ApplicationController
-  before_action :authenticate_admin!
+  before_action :authenticate_admin!, except: [:stop_impersonate]
   before_action :set_user, only: %i[show edit update destroy]
 
   def index
@@ -60,9 +60,19 @@ class AdminController < ApplicationController
     if impersonated_user
       session[:admin_id] = current_user.id
       session[:user_id] = impersonated_user.id
-      redirect_to user_path(impersonated_user), notice: 'You are now impersonating #{impersonated_user.email}.'
+      redirect_to user_path(impersonated_user), notice: "You are now impersonating #{impersonated_user.email}."
     else
       redirect_to admin_index_path, alert: 'User not found'
+    end
+  end
+
+  def stop_impersonate
+    if session[:admin_id]
+      admin_user = User.find(session[:admin_id])
+      session[:user_id] = admin_user.id
+      redirect_to user_path(admin_user), notice: "Impersonation stopped, logged back in as #{admin_user.email}"
+    else
+      redirect_to users_path, alert: "Not currently impersonating any user"
     end
   end
 
