@@ -8,9 +8,13 @@ class TrainingActivitiesMailer < ApplicationMailer
 
     mail(to: model.user.unit.parent.email, subject: 'New activity awaiting approval')
   end
-  #  def major_unit_approval(model)
-  #  end
-  #
+
+  def pending_approval_notification(training_activity, user)
+    @training_activity = training_activity
+    @user = user
+    mail(to: user.email, subject: 'Training Activity Pending Your Approval')
+  end
+
   #  def commandant_approval(model)
   #  end
   #

@@ -138,13 +138,26 @@ RSpec.describe TrainingActivity, type: :model do
   describe 'status transitions' do
     context 'when status is pending_minor_unit_approval' do
       before do
-        @training_activity = create(:training_activity, status: :pending_minor_unit_approval)
+        @unit = Unit.find_by(name: 'P2')
+        @training_activity = create(:training_activity, unit: @unit, status: :pending_minor_unit_approval)
         @training_activity.current_user = @user
       end
 
       it 'transitions to pending_major_unit_approval' do
         @training_activity.submit_for_major_unit_approval!
         expect(@training_activity).to have_state(:pending_major_unit_approval)
+      end
+
+      it 'sends an email to each staff user in the major unit' do
+        # Assume `get_parent_by_cat` is correctly fetching the unit
+        allow(@training_activity.unit).to receive(:get_parent_by_cat).with('major').and_return(@unit)
+
+        # Assume the User query should find staff members correctly
+        allow(User).to receive(:where).with('unit_id = ? AND unit_name LIKE ?', @unit.id, '%Staff%').and_return([@user])
+
+        expect do
+          @training_activity.send_pending_approval_email('major')
+        end.to have_enqueued_job(ActionMailer::MailDeliveryJob)
       end
     end
 

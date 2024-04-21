@@ -41,6 +41,7 @@ class TrainingActivity < ApplicationRecord
       transitions from: :pending_minor_unit_approval, to: :pending_major_unit_approval do
         success do
           log_activity_history('submitted_for_major_unit_approval')
+          send_pending_approval_email('major')
         end
       end
     end
@@ -169,6 +170,20 @@ class TrainingActivity < ApplicationRecord
               end
 
     activity_histories.create(event: message, user: current_user, comment:)
+  end
+
+  # Find users to send emails based on which upper level
+  # param cat should be minor/major/cmdt
+  def send_pending_approval_email(cat)
+    goal_unit = unit.get_parent_by_cat(cat)
+    # puts "goal unit: #{goal_unit.name}, unit_id: #{goal_unit.id}"
+    staff_users = User.where('unit_id = ? AND unit_name LIKE ?', goal_unit.id, '%Staff%')
+    # puts "Found staff_users: #{staff_users.map(&:email)}" # Check if users are correctly fetched
+
+    staff_users.each do |user|
+      # puts "Sending email to: #{user.email}, Unit ID: #{user.unit_id}" # Debug information
+      TrainingActivitiesMailer.pending_approval_notification(self, user).deliver_later
+    end
   end
 
   private
