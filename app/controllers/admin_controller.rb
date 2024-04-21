@@ -3,7 +3,6 @@ class AdminController < ApplicationController
 
     def index
       @users = User.all
-      
       # Search functionality
       if params[:search]
         @users = @users.where("first_name LIKE ? OR last_name LIKE ? OR email LIKE ?", "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")
