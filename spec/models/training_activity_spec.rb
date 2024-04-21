@@ -51,7 +51,7 @@ RSpec.describe TrainingActivity, type: :model do
 
   it 'is invalid with an opord_upload that is too large' do
     training_activity = build(:training_activity)
-    file_path = Rails.root.join('spec', 'support', 'fixtures', 'largefile.pdf')
+    file_path = Rails.root.join('spec', 'fixtures', 'largefile.pdf')
     training_activity.opord_upload.attach(
       io: File.open(file_path),
       filename: 'largefile.pdf',
@@ -64,7 +64,7 @@ RSpec.describe TrainingActivity, type: :model do
 
   it 'is invalid with an opord_upload that is not a PDF' do
     training_activity = build(:training_activity)
-    file_path = Rails.root.join('spec', 'support', 'fixtures', 'worddoc.doc')
+    file_path = Rails.root.join('spec', 'fixtures', 'worddoc.doc')
     training_activity.opord_upload.attach(
       io: File.open(file_path),
       filename: 'lwordodc.doc',
@@ -121,7 +121,7 @@ RSpec.describe TrainingActivity, type: :model do
     end
 
     it 'updates the opord attribute' do
-      new_opord = fixture_file_upload('spec/support/fixtures/file2.pdf', 'application/pdf')
+      new_opord = fixture_file_upload('spec/fixtures/file2.pdf', 'application/pdf')
       @training_activity.update(opord_upload: new_opord)
 
       @training_activity.reload

@@ -46,6 +46,10 @@ class IngestRosterFile
 
     create_units(row)
 
+    existing_user = User.find_by(email: row['Cadet/Email'])
+
+    return { status: :error, message: "User with email #{row['Cadet/Email']} already exists." } if existing_user
+
     User.create!(
       email: row['Cadet/Email'],
       first_name: row['Cadet/First'],
@@ -54,13 +58,17 @@ class IngestRosterFile
       provider: 'google_oauth2',
       unit: Unit.find_by!(name: row['Cadet/Outfit'], cat: 'outfit')
     )
+    { status: :success }
   end
 
   def ingest_roster_file(file_path)
     csv = CSV.open(file_path, headers: true)
+    errors = []
     csv.each do |row|
-      process_roster_row(row)
+      ret = process_roster_row(row)
+      errors.push(ret[:message]) if ret[:status] == :error
     end
+    errors
   end
 end
 
