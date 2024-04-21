@@ -191,6 +191,9 @@ class TrainingActivity < ApplicationRecord
   # param cat should be minor/major/cmdt
   def send_pending_approval_email(cat)
     goal_unit = unit.get_parent_by_cat(cat)
+
+    return unless goal_unit
+
     # puts "goal unit: #{goal_unit.name}, unit_id: #{goal_unit.id}"
     staff_users = User.where('unit_id = ? AND unit_name LIKE ?', goal_unit.id, '%Staff%')
     # puts "Found staff_users: #{staff_users.map(&:email)}" # Check if users are correctly fetched
