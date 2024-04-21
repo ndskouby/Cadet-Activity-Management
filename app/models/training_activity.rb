@@ -51,6 +51,7 @@ class TrainingActivity < ApplicationRecord
       transitions from: :pending_major_unit_approval, to: :pending_commandant_approval do
         success do
           log_activity_history('submitted_for_commandant_approval')
+          send_pending_approval_email('cmdt')
         end
       end
     end

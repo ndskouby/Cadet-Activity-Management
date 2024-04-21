@@ -171,6 +171,13 @@ RSpec.describe TrainingActivity, type: :model do
         @training_activity.submit_for_commandant_approval!
         expect(@training_activity).to have_state(:pending_commandant_approval)
       end
+
+      it 'sends an email notification when transitioning to pending_commandant_approval' do
+        allow(TrainingActivitiesMailer).to receive(:pending_approval_notification).and_call_original
+        expect do
+          @training_activity.submit_for_commandant_approval!
+        end.to have_enqueued_job(ActionMailer::MailDeliveryJob)
+      end
     end
 
     context 'when status is pending_commandant_approval' do
