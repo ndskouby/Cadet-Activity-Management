@@ -58,7 +58,7 @@
   <%= form.label :unit_id, "Unit", class: "form-label" %>
   <div class="select-outline">
     <%= form.select :unit_id, 
-        Unit.all.map{ |unit| [unit.name, unit.id]},
+        Unit.outfit_units.map{ |unit| [unit.name, unit.id]},
         {prompt: "Choose something..."},
         {required: true, class: "select form-control", data: {mdb_select_init: true}} %>
   </div>

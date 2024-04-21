@@ -12,4 +12,8 @@ class Unit < ApplicationRecord
 
     [self]
   end
+
+  # Scope to get units where cat equals 'outfit' and name is not blank or 'Delta Co'
+  scope :outfit_units, -> { where(cat: 'outfit').where.not(name: [nil, '', 'Delta Co']) }
+
 end
