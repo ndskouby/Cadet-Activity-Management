@@ -5,7 +5,12 @@ class AuditActivitiesController < ApplicationController
   before_action :set_training_activity, only: %i[show approve improve reject resubmit cancel]
 
   def index
-    @training_activities = TrainingActivity.includes(:activity_histories).all
+    # puts current_user.units
+    unit_list = [current_user.unit] + current_user.unit.all_descendants
+    # unit_list.each do |unit|
+    #   puts "Unit Name: #{unit.name}, Unit ID: #{unit.id}"
+    # end
+    @training_activities = TrainingActivity.includes(:activity_histories).where(unit: unit_list)
   end
 
   def show

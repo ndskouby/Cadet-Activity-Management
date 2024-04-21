@@ -13,6 +13,12 @@ class Unit < ApplicationRecord
     [self]
   end
 
+  def all_descendants
+    children.flat_map do |child|
+      [child] + child.all_descendants
+    end
+  end
+
   def get_parent_by_cat(cat)
     raise ArgumentError, 'This method should be used by an outfit level unit only.' unless self.cat == 'outfit'
 

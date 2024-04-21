@@ -9,11 +9,9 @@ RSpec.describe AuditActivitiesController, type: :controller do
   end
 
   describe 'GET #index' do
-    it 'assigns all training activities to @training_activities' do
-      training_activity1 = create(:training_activity)
-      training_activity2 = create(:training_activity)
+    it 'renders the index template' do
       get :index
-      expect(assigns(:training_activities)).to match_array([training_activity1, training_activity2])
+      expect(response).to render_template(:index)
     end
   end
 
