@@ -55,6 +55,17 @@ class AdminController < ApplicationController
     end
   end
 
+  def impersonate
+    impersonated_user = User.find(params[:id])
+    if impersonated_user
+      session[:admin_id] = current_user.id
+      session[:user_id] = impersonated_user.id
+      redirect_to user_path(impersonated_user), notice: 'You are now impersonating #{impersonated_user.email}.'
+    else
+      redirect_to admin_index_path, alert: 'User not found'
+    end
+  end
+
   private
   def authenticate_admin!
     unless current_user && current_user.admin_flag?
