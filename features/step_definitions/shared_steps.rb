@@ -16,6 +16,7 @@ Given('I am a user with name {string}') do |name|
     user.uid = '123456789'
     user.provider = 'google_oauth2'
     user.unit = outfit
+    user.admin_flag = false
   end
 end
 
