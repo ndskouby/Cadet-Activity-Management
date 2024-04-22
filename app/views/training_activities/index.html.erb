@@ -3,6 +3,7 @@
     <thead class="table-light">
       <tr>
         <th scope="col">Name</th>
+        <th scope="col">Unit</th>
         <th scope="col">Date</th>
         <th scope="col" class="text-center align-middle">Time</th>
         <th scope="col">Location</th>
@@ -16,6 +17,7 @@
       <% @training_activities.each do |training_activity| %>
         <tr>
           <td><%= training_activity.name %></td>
+          <td><%= training_activity.unit.name %></td>
           <td><%= training_activity.date %></td>
           <td class="text-center align-middle"><%= training_activity.time %></td>
           <td><%= training_activity.location %></td>
@@ -66,15 +68,33 @@
 <link rel="stylesheet" href="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.css" />
 <script src="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.js"></script>
 <script>window.trainingActivities = <%= raw @training_activities.to_json %>;</script>
-<div>
-  <button id="viewWeekBtn">Week</button>
-  <button id="viewMonthBtn">Month</button>
+<script>window.units = <%= raw @units.to_json %>;</script>
+<div class="d-flex justify-content-center mb-3">
+  <div class="btn-group" role="group">
+    <button id="viewWeekBtn" class="btn btn-outline-primary">Week</button>
+    <button id="viewMonthBtn" class="btn btn-outline-primary">Month</button>
+  </div>
 </div>
-<div>
-  <button id="prevBtn">prev</button>
-  <button id="todayBtn">today</button>
-  <button id="nextBtn">next</button>
+
+<div class="d-flex justify-content-center mb-3">
+  <div class="btn-group" role="group">
+    <button id="prevBtn" class="btn btn-outline-secondary">
+      <i class="fas fa-chevron-left"></i>
+    </button>
+    <button id="todayBtn" class="btn btn-outline-primary">Today</button>
+    <button id="nextBtn" class="btn btn-outline-secondary">
+      <i class="fas fa-chevron-right"></i>
+    </button>
+  </div>
 </div>
-<div id="dateRange"></div>
-<div id="unitButtonsContainer"></div>
-<div id="calendar" style="height: 800px"></div>
+
+<div class="d-flex justify-content-center mb-3">
+  <div id="dateRange" class="text-center"></div>
+</div>
+
+<div class="d-flex justify-content-center">
+  <div id="unitButtonsContainer"></div>
+</div>
+<div class="d-flex justify-content-center">
+  <div id="calendar" style="height: 800px; width: 800px;"></div>
+</div>

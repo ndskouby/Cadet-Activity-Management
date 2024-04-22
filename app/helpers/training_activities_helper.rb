@@ -2,7 +2,6 @@
 
 module TrainingActivitiesHelper
   def handle_successful_save(format)
-    TrainingActivitiesMailer.minor_unit_approval(@training_activity).deliver_now
     @training_activity.log_activity_history('activity_created')
     format.html { redirect_to @training_activity, notice: 'Training Activity was successfully created.' }
   end

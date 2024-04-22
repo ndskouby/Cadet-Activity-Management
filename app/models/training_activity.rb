@@ -3,6 +3,7 @@
 class TrainingActivity < ApplicationRecord
   include AASM
   belongs_to :user
+  belongs_to :unit
 
   attr_accessor :current_user, :comment
 
@@ -17,6 +18,7 @@ class TrainingActivity < ApplicationRecord
   validates :location, presence: true
   validates :priority, presence: true
   validates :justification, presence: true
+  validates :unit_id, presence: true
 
   validate :validate_date
   validate :validate_competencies
@@ -39,6 +41,7 @@ class TrainingActivity < ApplicationRecord
       transitions from: :pending_minor_unit_approval, to: :pending_major_unit_approval do
         success do
           log_activity_history('submitted_for_major_unit_approval')
+          send_pending_approval_email('major')
         end
       end
     end
@@ -48,6 +51,7 @@ class TrainingActivity < ApplicationRecord
       transitions from: :pending_major_unit_approval, to: :pending_commandant_approval do
         success do
           log_activity_history('submitted_for_commandant_approval')
+          send_pending_approval_email('cmdt')
         end
       end
     end
@@ -67,6 +71,7 @@ class TrainingActivity < ApplicationRecord
                   to: :revision_required_by_submitter do
         success do
           log_activity_history('revision_required_by_submitter', comment)
+          send_revision_email
         end
       end
     end
@@ -76,6 +81,7 @@ class TrainingActivity < ApplicationRecord
       transitions from: %i[pending_major_unit_approval pending_commandant_approval revision_required_by_major_unit], to: :revision_required_by_minor_unit do
         success do
           log_activity_history('revision_required_by_minor_unit', comment)
+          send_revision_email
         end
       end
     end
@@ -85,6 +91,7 @@ class TrainingActivity < ApplicationRecord
       transitions from: %i[pending_commandant_approval], to: :revision_required_by_major_unit do
         success do
           log_activity_history('revision_required_by_major_unit', comment)
+          send_revision_email
         end
       end
     end
@@ -94,6 +101,7 @@ class TrainingActivity < ApplicationRecord
       transitions from: :revision_required_by_submitter, to: :pending_minor_unit_approval do
         success do
           log_activity_history('revision_submitted_for_minor_unit_approval', comment)
+          send_pending_approval_email('minor')
         end
       end
     end
@@ -103,6 +111,7 @@ class TrainingActivity < ApplicationRecord
       transitions from: :revision_required_by_minor_unit, to: :pending_major_unit_approval do
         success do
           log_activity_history('revision_submitted_for_major_unit_approval', comment)
+          send_pending_approval_email('major')
         end
       end
     end
@@ -112,6 +121,7 @@ class TrainingActivity < ApplicationRecord
       transitions from: :revision_required_by_major_unit, to: :pending_commandant_approval do
         success do
           log_activity_history('revision_submitted_for_commandant_approval', comment)
+          send_pending_approval_email('cmdt')
         end
       end
     end
@@ -121,6 +131,7 @@ class TrainingActivity < ApplicationRecord
       transitions from: %i[pending_minor_unit_approval pending_major_unit_approval pending_commandant_approval], to: :rejected do
         success do
           log_activity_history('rejected', comment)
+          send_rejected_email
         end
       end
     end
@@ -134,6 +145,13 @@ class TrainingActivity < ApplicationRecord
         end
       end
     end
+  end
+
+  after_create :send_initial_approval_request, if: -> { status == 'pending_minor_unit_approval' }
+
+  # Send email to minor unit staff when activity is created
+  def send_initial_approval_request
+    send_pending_approval_email('minor')
   end
 
   def log_activity_history(event, comment = 'No Reason Provided.')
@@ -167,6 +185,32 @@ class TrainingActivity < ApplicationRecord
               end
 
     activity_histories.create(event: message, user: current_user, comment:)
+  end
+
+  # Find users to send emails based on which upper level
+  # param cat should be minor/major/cmdt
+  def send_pending_approval_email(cat)
+    goal_unit = unit.get_parent_by_cat(cat)
+
+    return unless goal_unit
+
+    # puts "goal unit: #{goal_unit.name}, unit_id: #{goal_unit.id}"
+    staff_users = User.where('unit_id = ? AND unit_name LIKE ?', goal_unit.id, '%Staff%')
+    # puts "Found staff_users: #{staff_users.map(&:email)}" # Check if users are correctly fetched
+
+    staff_users.each do |user|
+      # puts "Sending email to: #{user.email}, Unit ID: #{user.unit_id}" # Debug information
+      TrainingActivitiesMailer.pending_approval_notification(self, user).deliver_later
+    end
+  end
+
+  def send_revision_email
+    # puts "Sending revision notification: #{user.email}"
+    TrainingActivitiesMailer.revision_notification(self).deliver_later
+  end
+
+  def send_rejected_email
+    TrainingActivitiesMailer.rejected_notification(self).deliver_later
   end
 
   private

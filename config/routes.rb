@@ -24,6 +24,15 @@ Rails.application.routes.draw do
       post :cancel
     end
   end
+  resources :admin do
+    collection do
+      post :import
+      post :stop_impersonate
+    end
+    member do
+      post :impersonate
+    end
+  end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.

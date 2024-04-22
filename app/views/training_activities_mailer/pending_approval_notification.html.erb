@@ -1,0 +1,19 @@
+<!-- app/views/training_activities_mailer/approval_notification.html.erb -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+</head>
+<body>
+  <h1>Approval Needed</h1>
+  <p>
+    Hi <%= @user.first_name %> <%= @user.last_name %>,
+  </p>
+  <p>
+    A new training activity titled "<%= @training_activity.name %>" is pending your approval.
+  </p>
+  <p>
+    Please review it as soon as possible.
+  </p>
+</body>
+</html>

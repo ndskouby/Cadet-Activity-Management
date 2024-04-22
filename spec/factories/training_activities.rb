@@ -3,6 +3,8 @@
 FactoryBot.define do
   factory :training_activity do
     name { 'Sample Activity' }
+    unit { Unit.find_by(name: 'P2') || create(:unit, name: 'P2') }
+    unit_id { Unit.find_by(name: 'P2').id }
     date { Date.today }
     time { 'MA' }
     location { 'Kyle Ramps' }
@@ -19,7 +21,7 @@ FactoryBot.define do
       training_activity.competency_ids = competencies if competencies.present?
 
       training_activity.opord_upload.attach(
-        io: File.open(Rails.root.join('spec', 'support', 'fixtures', 'sample_opord.pdf')),
+        io: File.open(Rails.root.join('spec', 'fixtures', 'sample_opord.pdf')),
         filename: 'sample_opord.pdf',
         content_type: 'application/pdf'
       )

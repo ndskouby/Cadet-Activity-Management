@@ -51,6 +51,67 @@ sudo apt update && sudo apt upgrade -y && sudo apt install libpq-dev -y
 bundle install
 ```
 
+### Setup Google OAuth On Google's End
+
+Courtesy: Course Resources - [Google-Auth-Ruby-By-JD](https://github.com/tamu-edu-students/Google-Auth-Ruby-By-JD.git)
+
+This section walks you through setting up Google OAuth for your application in the Google Developer Console. This is required for validating aunthentication over tamu.edu domain:
+
+#### Step 1: Create a New Project in Google Developer Console
+1. Go to the [Google Developer Console](https://console.developers.google.com/).
+1. Select or create a project for your application, giving it a name like "Google-OAuth-Rails."
+
+#### Step 2: Set Up OAuth Consent Screen
+1. In your project, navigate to "APIs & Services" and click on "OAuth consent screen."
+1. Set the user type to "Internal" for only @tamu.edu accounts.
+1. Fill out the required information on the consent screen. You need to provide the app name, user support email, and developer contact information.
+1. Save your changes.
+
+#### Step 3: Add Scopes
+1. Add `userinfo.email` and `userinfo.profile`
+1. Click "Save and Continue."
+
+#### (Optional) Step 4: Add Test Users
+You can add test users who are allowed to log in to your application. This means that only the email addresses you add here can access your application.
+If you choose to add test users, do so on this page and click "Save and Continue."
+
+#### Step 5: Create OAuth Client ID
+1. On the dashboard, click on "Credentials," then "Create Credentials."
+1. Select "OAuth client ID" and choose "Web application" as the application type.
+1. Give your application a name.
+1. Under "Authorized redirect URIs," add the following:
+   * `http://localhost:3000/auth/google_oauth2/callback`
+   * `http://127.0.0.1:3000/auth/google_oauth2/callback`
+1. Click "Create."
+1. You will receive a client ID and client secret. **Save this information.**
+1. Ensure that your client ID is enabled.
+
+By following these steps, you have set up the necessary configurations in the Google Developer Console to enable Google OAuth for your application. This allows your app to authenticate users using their Google accounts.
+
+### Add OAuth ID and Secret to Rails Credentials
+
+#### Edit the Credentials
+
+```bash
+  EDITOR=nano rails credentials:edit
+```
+
+The credentials file will open in the editor.
+
+Add your Google OAuth credentials to the file in the following format. Make sure to maintain the correct indentation and spacing as shown. There should be 2 spaces before `client_id` and `client_secret`, and a space after the colon:
+
+```yaml
+   google:
+     client_id: your_client_id
+     client_secret: your_client_secret
+```
+
+*Note: Replace `your_client_id` and `your_client_secret` with your own Google OAuth credentials. Do not include any quotes around the actual credentials.*
+
+After adding your credentials, save the changes and exit the editor.
+
+Now, your Google OAuth credentials are securely stored in the Rails credentials file and your application will be able to use them for authentication. Make sure to keep your credentials safe and secret.
+
 # Deployment
 
 Currently Deployed to Heroku. <br>

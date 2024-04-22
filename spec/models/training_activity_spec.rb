@@ -51,7 +51,7 @@ RSpec.describe TrainingActivity, type: :model do
 
   it 'is invalid with an opord_upload that is too large' do
     training_activity = build(:training_activity)
-    file_path = Rails.root.join('spec', 'support', 'fixtures', 'largefile.pdf')
+    file_path = Rails.root.join('spec', 'fixtures', 'largefile.pdf')
     training_activity.opord_upload.attach(
       io: File.open(file_path),
       filename: 'largefile.pdf',
@@ -64,7 +64,7 @@ RSpec.describe TrainingActivity, type: :model do
 
   it 'is invalid with an opord_upload that is not a PDF' do
     training_activity = build(:training_activity)
-    file_path = Rails.root.join('spec', 'support', 'fixtures', 'worddoc.doc')
+    file_path = Rails.root.join('spec', 'fixtures', 'worddoc.doc')
     training_activity.opord_upload.attach(
       io: File.open(file_path),
       filename: 'lwordodc.doc',
@@ -121,7 +121,7 @@ RSpec.describe TrainingActivity, type: :model do
     end
 
     it 'updates the opord attribute' do
-      new_opord = fixture_file_upload('spec/support/fixtures/file2.pdf', 'application/pdf')
+      new_opord = fixture_file_upload('spec/fixtures/file2.pdf', 'application/pdf')
       @training_activity.update(opord_upload: new_opord)
 
       @training_activity.reload
@@ -138,13 +138,39 @@ RSpec.describe TrainingActivity, type: :model do
   describe 'status transitions' do
     context 'when status is pending_minor_unit_approval' do
       before do
-        @training_activity = create(:training_activity, status: :pending_minor_unit_approval)
+        @unit = Unit.find_by(name: 'P2')
+        @training_activity = create(:training_activity, unit: @unit, status: :pending_minor_unit_approval)
         @training_activity.current_user = @user
       end
 
       it 'transitions to pending_major_unit_approval' do
         @training_activity.submit_for_major_unit_approval!
         expect(@training_activity).to have_state(:pending_major_unit_approval)
+      end
+
+      it 'sends an email to each staff user in the major unit' do
+        # Assume `get_parent_by_cat` is correctly fetching the unit
+        allow(@training_activity.unit).to receive(:get_parent_by_cat).with('major').and_return(@unit)
+
+        # Assume the User query should find staff members correctly
+        allow(User).to receive(:where).with('unit_id = ? AND unit_name LIKE ?', @unit.id, '%Staff%').and_return([@user])
+
+        expect do
+          @training_activity.send_pending_approval_email('major')
+        end.to have_enqueued_job(ActionMailer::MailDeliveryJob)
+      end
+
+      it 'transitions to revision_required_by_submitter' do
+        @training_activity.request_submitter_revision!
+        expect(@training_activity).to have_state(:revision_required_by_submitter)
+      end
+
+      # test sending revision email
+      it 'sends a revision email when transitioning to revision_required_by_submitter' do
+        allow(TrainingActivitiesMailer).to receive(:revision_notification).and_call_original
+        expect do
+          @training_activity.request_submitter_revision!
+        end.to have_enqueued_job(ActionMailer::MailDeliveryJob)
       end
     end
 
@@ -157,6 +183,13 @@ RSpec.describe TrainingActivity, type: :model do
       it 'transitions to pending_commandant_approval' do
         @training_activity.submit_for_commandant_approval!
         expect(@training_activity).to have_state(:pending_commandant_approval)
+      end
+
+      it 'sends an email notification when transitioning to pending_commandant_approval' do
+        allow(TrainingActivitiesMailer).to receive(:pending_approval_notification).and_call_original
+        expect do
+          @training_activity.submit_for_commandant_approval!
+        end.to have_enqueued_job(ActionMailer::MailDeliveryJob)
       end
     end
 

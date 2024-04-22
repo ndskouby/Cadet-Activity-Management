@@ -6,7 +6,12 @@ class TrainingActivitiesController < ApplicationController
 
   # GET /training_activities
   def index
-    @training_activities = TrainingActivity.all
+    # @units = current_user.units.flat_map(&:units).uniq
+    unit_list = [current_user.unit] + current_user.unit.all_descendants
+    # unit_list.each do |unit|
+    #   puts "Unit Name: #{unit.name}, Unit ID: #{unit.id}"
+    # end
+    @training_activities = TrainingActivity.includes(:activity_histories).where(unit: unit_list)
   end
 
   def chart_data
@@ -123,6 +128,6 @@ class TrainingActivitiesController < ApplicationController
 
   def training_activity_params
     params.require(:training_activity).permit(:name, :date, :time, :location, :priority, :justification,
-                                              :opord_upload, competency_ids: [])
+                                              :unit_id, :opord_upload, competency_ids: [])
   end
 end
