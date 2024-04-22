@@ -142,4 +142,64 @@ RSpec.describe AdminController, type: :controller do
       end
     end
   end
+
+  describe 'authenticate_admin!' do
+    context 'as an admin user' do
+      it 'accepts access to admin index' do
+        get :index
+        expect(response).to be_successful
+      end
+    end
+    context 'as a non-admin user' do
+      it 'rejects access to admin index' do
+        @user = create(:user, admin_flag: false)
+        session[:user_id] = @user.id
+        get :index
+        expect(response).to redirect_to(dashboard_path)
+      end
+    end
+  end
+
+  describe 'POST #impersonate' do
+    context 'when impersonated user exists' do
+      it 'changes session[:user_id]' do
+        user = create(:user)
+        post :impersonate, params: { id: user.to_param }
+        expect(session[:user_id]).to eq(user.id)
+      end
+    end
+    context 'when impersonated user doesn\'t exist' do
+      it 'changes profile' do
+        expect do
+          post :impersonate, params: { id: -1 }
+        end.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+    context 'when performing multiple impersonations' do
+      it 'original identity is not lost' do
+        user = create(:user)
+        post :impersonate, params: { id: user.to_param }
+        tmp = session[:admin_id]
+        user1 = create(:user)
+        post :impersonate, params: { id: user1.to_param }
+        expect(session[:admin_id]).to eq(tmp)
+      end
+    end
+  end
+
+  describe 'POST #stop_impersonate' do
+    it 'returns session[:user_id] to original' do
+      tmp = session[:user_id]
+      user = create(:user)
+      post :impersonate, params: { id: user.to_param }
+      post :stop_impersonate
+      expect(session[:user_id]).to eq(tmp)
+    end
+    context 'when not impersonating' do
+      it 'redirect to dashboard page' do
+        post :stop_impersonate
+        expect(response).to redirect_to(dashboard_path)
+      end
+    end
+  end
 end

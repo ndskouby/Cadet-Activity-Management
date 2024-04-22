@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 20_240_418_183_916) do
+ActiveRecord::Schema[7.1].define(version: 20_240_421_191_140) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -112,6 +112,7 @@ ActiveRecord::Schema[7.1].define(version: 20_240_418_183_916) do
     t.string 'provider'
     t.integer 'unit_id'
     t.string 'profile_picture'
+    t.boolean 'admin_flag'
     t.string 'major'
     t.string 'minor'
     t.string 'unit_name'

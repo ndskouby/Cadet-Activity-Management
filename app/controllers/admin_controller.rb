@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class AdminController < ApplicationController
+  before_action :authenticate_admin!, except: [:stop_impersonate]
   before_action :set_user, only: %i[show edit update destroy]
 
   def index
@@ -54,15 +55,42 @@ class AdminController < ApplicationController
     end
   end
 
+  def impersonate
+    impersonated_user = User.find(params[:id])
+    if impersonated_user
+      session[:admin_id] = current_user.id if session[:admin_id].blank?
+      session[:user_id] = impersonated_user.id
+      redirect_to user_path(impersonated_user), notice: "You are now impersonating #{impersonated_user.email}."
+    else
+      redirect_to admin_index_path, alert: 'User not found'
+    end
+  end
+
+  def stop_impersonate
+    if session[:admin_id]
+      admin_user = User.find(session[:admin_id])
+      session[:user_id] = admin_user.id
+      redirect_to user_path(admin_user), notice: "Impersonation stopped, logged back in as #{admin_user.email}"
+    else
+      redirect_to dashboard_path, alert: 'Not currently impersonating any user'
+    end
+  end
+
   private
+
+  def authenticate_admin!
+    return if current_user&.admin_flag?
+
+    redirect_to dashboard_path, alert: 'You are not authorized to access this page.'
+  end
 
   def set_user
     @user = User.find(params[:id])
   end
 
   def user_params
-    # Set teh default provider to google
+    # Set the default provider to google
     params[:user][:provider] ||= 'google_oauth2'
-    params.require(:user).permit(:first_name, :last_name, :email, :unit_id, :provider)
+    params.require(:user).permit(:first_name, :last_name, :email, :unit_id, :provider, :admin_flag)
   end
 end

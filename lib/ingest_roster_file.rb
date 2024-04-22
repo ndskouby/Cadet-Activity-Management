@@ -76,6 +76,8 @@ class IngestRosterFile
       last_name: row['Cadet/Last'],
       uid: nil,
       provider: 'google_oauth2',
+      unit: Unit.find_by!(name: row['Cadet/Outfit'], cat: 'outfit'),
+      admin_flag: false
       major: row['Cadet/Major Unit'],
       minor: row['Cadet/Minor Unit'],
       unit_name: row['Cadet/Unit'],

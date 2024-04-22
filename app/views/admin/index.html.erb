@@ -36,6 +36,9 @@
             <%= link_to admin_path(id: user.id) do %>
               <%= content_tag(:i, '', class: "fa fa-eye") %>
             <% end %>
+            <%= form_tag impersonate_admin_path(id: user.id), method: :post do %>
+              <%= submit_tag "Impersonate", class: "btn btn-primary" %>
+            <% end %>
           </td>
         </tr>
       <% end %>

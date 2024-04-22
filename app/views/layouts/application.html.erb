@@ -49,6 +49,13 @@
                     Admin
                   </a>
                 </li>
+                <% if session[:admin_id].present? && session[:admin_id] != session[:user_id] %>
+                  <li class="nav-item">
+                    <%= form_tag stop_impersonate_admin_index_path, method: :post do %>
+                      <%= submit_tag "Stop Impersonation", class: "btn btn-danger" %>
+                    <% end %>
+                  </li>
+                <% end %>
               </ul>
             </div>
             <div class="d-flex align-items-center">

@@ -29,6 +29,12 @@
         {prompt: "Choose Outfit"},
         {required: true, class: "select form-control", data: {mdb_select_init: true}} %>
   </div>
+  <div class="form-check">
+    <%= form.check_box :admin_flag, class: "form-check-input", id: "admin_flag" %>
+    <%= form.label :admin_flag, class: "form-check-label", for: "admin_flag" do %>
+      Admin User
+    <% end %>
+  </div>
   <br>
   <div class="actions">
     <%= form.submit class: "btn btn-primary"%>

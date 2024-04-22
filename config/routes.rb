@@ -27,6 +27,10 @@ Rails.application.routes.draw do
   resources :admin do
     collection do
       post :import
+      post :stop_impersonate
+    end
+    member do
+      post :impersonate
     end
   end
 
