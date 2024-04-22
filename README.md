@@ -11,45 +11,29 @@ Code Climate Report: [here](https://codeclimate.com/github/jwonnyleaf/Cadet-Acti
 git pull && bundle install && npm install && rails db:migrate
 rspec
 rails cucumber
-rails server
 rubocop
+rails server
 ```
 
 ## Dev setup guide
 
-### Database
+### First time setup
 
 ```
-sudo apt install postgresql
-sudo service postgresql start
-sudo -u postgres -i
-psql
-CREATE USER yourusername SUPERUSER;
-ALTER ROLE "yourusername" WITH LOGIN;
-```
-
-...restart terminal, and after following repository instructions...
-
-```
-rake db:create
-bin/rails db:migrate
-bin/rails db:seed
-```
-
-To read in the corp of cadet's current database, put the `Overhead - Master Cadet Roster.csv` file in `lib/assets/corpsRoster.csv` and run
-```
-rails runner lib/ingest_roster_file.rb
-```
-
-### Repository
-
-```
+sudo apt update && sudo apt upgrade -y && sudo apt install libpq-dev -y
 git clone git@github.com:jwonnyleaf/Cadet-Activity-Management.git
 git checkout dev
 git pull
-sudo apt update && sudo apt upgrade -y && sudo apt install libpq-dev -y
 bundle install
+npm install
 ```
+
+Next, follow
+1. Setup Google OAuth On Google's End
+2. Add OAuth ID and Secret to Rails Credentials
+3. Database
+4. To run & test, see Routine (above)
+
 
 ### Setup Google OAuth On Google's End
 
@@ -96,6 +80,8 @@ By following these steps, you have set up the necessary configurations in the Go
   EDITOR=nano rails credentials:edit
 ```
 
+Note: if the previous step fails, you may need to delete `config/credentials.yml.enc` and `config/master.key`.
+
 The credentials file will open in the editor.
 
 Add your Google OAuth credentials to the file in the following format. Make sure to maintain the correct indentation and spacing as shown. There should be 2 spaces before `client_id` and `client_secret`, and a space after the colon:
@@ -111,6 +97,27 @@ Add your Google OAuth credentials to the file in the following format. Make sure
 After adding your credentials, save the changes and exit the editor.
 
 Now, your Google OAuth credentials are securely stored in the Rails credentials file and your application will be able to use them for authentication. Make sure to keep your credentials safe and secret.
+
+### Database
+
+```
+sudo apt install postgresql
+sudo service postgresql start
+sudo -u postgres -i
+psql
+CREATE USER yourusername SUPERUSER;
+ALTER ROLE "yourusername" WITH LOGIN;
+exit # exit postgresql terminal
+exit # exit bash terminal for user postgres
+rake db:create # This will fail if you haven't set up credentials
+bin/rails db:migrate
+bin/rails db:seed
+```
+
+OPTIONAL: To read in the corp of cadet's current database, put the `Overhead - Master Cadet Roster.csv` file in `lib/assets/corpsRoster.csv` and run
+```
+rails runner lib/ingest_roster_file.rb
+```
 
 # Deployment
 
@@ -139,3 +146,12 @@ heroku git:remote -a cadet-activity-management
 
 # JavaScript & CSS
 - https://stackoverflow.com/questions/36602764/how-to-use-npm-packages-in-rails
+
+# First-time deployment
+Create a new app.
+1. Create a new app
+2. Install the Heroku Postgres add-on
+3. Add heroku/nodejs buildpack
+4. Add heroku/ruby buildpack
+5. Set rails master key https://stackoverflow.com/questions/62011541/using-credentials-yml-with-rails-and-heroku and make sure Google Oauth can redirect to the Heroku deployment address
+6. `git push heroku <yourbranch>:master`
