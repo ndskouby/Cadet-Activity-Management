@@ -33,7 +33,7 @@ module SessionHelper
       first_name: names[0],
       last_name: names[1..].join(' '),
       unit: Unit.find_by(name: 'Unassigned Outfit'),
-      profile_picture: auth['info']['image'], 
+      profile_picture: auth['info']['image'],
       admin_flag: false
     )
   end

@@ -58,9 +58,7 @@ class AdminController < ApplicationController
   def impersonate
     impersonated_user = User.find(params[:id])
     if impersonated_user
-      if session[:admin_id].blank?
-        session[:admin_id] = current_user.id
-      end
+      session[:admin_id] = current_user.id if session[:admin_id].blank?
       session[:user_id] = impersonated_user.id
       redirect_to user_path(impersonated_user), notice: "You are now impersonating #{impersonated_user.email}."
     else
@@ -74,15 +72,16 @@ class AdminController < ApplicationController
       session[:user_id] = admin_user.id
       redirect_to user_path(admin_user), notice: "Impersonation stopped, logged back in as #{admin_user.email}"
     else
-      redirect_to dashboard_path, alert: "Not currently impersonating any user"
+      redirect_to dashboard_path, alert: 'Not currently impersonating any user'
     end
   end
 
   private
+
   def authenticate_admin!
-    unless current_user && current_user.admin_flag?
-        redirect_to dashboard_path, alert: "You are not authorized to access this page."
-    end
+    return if current_user&.admin_flag?
+
+    redirect_to dashboard_path, alert: 'You are not authorized to access this page.'
   end
 
   def set_user

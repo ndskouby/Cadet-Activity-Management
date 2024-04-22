@@ -143,7 +143,7 @@ RSpec.describe AdminController, type: :controller do
     end
   end
 
-  describe 'authenticate_admin!' do 
+  describe 'authenticate_admin!' do
     context 'as an admin user' do
       it 'accepts access to admin index' do
         get :index
@@ -170,9 +170,9 @@ RSpec.describe AdminController, type: :controller do
     end
     context 'when impersonated user doesn\'t exist' do
       it 'changes profile' do
-        expect {
+        expect do
           post :impersonate, params: { id: -1 }
-        }.to raise_error(ActiveRecord::RecordNotFound)
+        end.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
     context 'when performing multiple impersonations' do
