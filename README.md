@@ -155,3 +155,7 @@ Create a new app.
 4. Add heroku/ruby buildpack
 5. Set rails master key https://stackoverflow.com/questions/62011541/using-credentials-yml-with-rails-and-heroku and make sure Google Oauth can redirect to the Heroku deployment address
 6. `git push heroku <yourbranch>:master`
+
+# Contact Information
+If you have inquiries please reach out to the primary contact:
+ - Johnny Le jwonnyleaf@tamu.edu (Project Manager)
