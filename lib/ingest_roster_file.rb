@@ -64,7 +64,7 @@ class IngestRosterFile
 
   def create_users(row)
     unit = confirm_unit_name(row)
-    puts "Processing: #{row['Cadet/Email']} - First: '#{row['Cadet/First']}' - Last: '#{row['Cadet/Last']}' - Unit: '#{unit}'"
+    # puts "Processing: #{row['Cadet/Email']} - First: '#{row['Cadet/First']}' - Last: '#{row['Cadet/Last']}' - Unit: '#{unit}'"
 
     existing_user = User.find_by(email: row['Cadet/Email'])
 
