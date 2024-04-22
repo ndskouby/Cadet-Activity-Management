@@ -74,7 +74,7 @@ class AdminController < ApplicationController
       session[:user_id] = admin_user.id
       redirect_to user_path(admin_user), notice: "Impersonation stopped, logged back in as #{admin_user.email}"
     else
-      redirect_to users_path, alert: "Not currently impersonating any user"
+      redirect_to dashboard_path, alert: "Not currently impersonating any user"
     end
   end
 
