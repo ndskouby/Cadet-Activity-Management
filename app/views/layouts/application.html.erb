@@ -60,34 +60,6 @@
             </div>
             <div class="d-flex align-items-center">
               <div class="dropdown">
-                <a
-                  data-mdb-dropdown-init
-                  class="text-reset me-3 dropdown-toggle hidden-arrow"
-                  href="#"
-                  id="navbarDropdownMenuLink"
-                  role="button"
-                  aria-expanded="false"
-                  data-turbo="false"
-                >
-                  <i class="fas fa-bell"></i>
-                  <span class="badge rounded-pill badge-notification bg-danger">1</span>
-                </a>
-                <ul
-                  class="dropdown-menu dropdown-menu-end"
-                  aria-labelledby="navbarDropdownMenuLink"
-                >
-                  <li>
-                    <a class="dropdown-item" href="#">Some news</a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#">Another news</a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                  </li>
-                </ul>
-              </div>
-              <div class="dropdown">
                 <a data-mdb-dropdown-init
                   class="dropdown-toggle d-flex align-items-center hidden-arrow"
                   href="#"
@@ -101,9 +73,6 @@
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
                   <li>
                     <a class="dropdown-item" href="<%= user_path(@current_user) %>">My Profile</a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#">Settings</a>
                   </li>
                   <%= button_to logout_path, method: :get, class: "dropdown-item" do %>
                     <i class="fas fa-sign-out-alt"></i> Logout

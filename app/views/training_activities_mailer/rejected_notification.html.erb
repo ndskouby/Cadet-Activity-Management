@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Training Activity Rejected</title>
+</head>
+<body>
+  <h1>Training Activity Rejected</h1>
+  <p>Dear <%= @training_activity.user.first_name %>,</p>
+  <p>We regret to inform you that your training activity titled "<%= @training_activity.name %>" has been rejected.</p>
+  <p>Please review the comments and consider resubmitting your activity with the necessary modifications. If you have any questions or require further clarification, please do not hesitate to contact us.</p>
+  <p>Thank you for your understanding,</p>
+</body>
+</html>

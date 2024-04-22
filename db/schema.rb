@@ -84,6 +84,15 @@ ActiveRecord::Schema[7.1].define(version: 20_240_421_191_140) do
     t.integer 'unit_id'
   end
 
+  create_table 'training_activity_status_logs', force: :cascade do |t|
+    t.integer 'training_activity_id'
+    t.string 'status'
+    t.string 'updated_by'
+    t.string 'reason'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+  end
+
   create_table 'units', force: :cascade do |t|
     t.string 'name'
     t.string 'cat'
@@ -104,6 +113,9 @@ ActiveRecord::Schema[7.1].define(version: 20_240_421_191_140) do
     t.integer 'unit_id'
     t.string 'profile_picture'
     t.boolean 'admin_flag'
+    t.string 'major'
+    t.string 'minor'
+    t.string 'unit_name'
     t.index ['email'], name: 'index_users_on_email', unique: true
   end
 

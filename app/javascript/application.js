@@ -82,7 +82,7 @@ document.addEventListener("turbo:load", function () {
  * AUDIT ACTIVITY PAGE
  */
 document.addEventListener("turbo:load", () => {
-  const modalButtons = document.querySelectorAll("[data-mdb-target]");
+  const modalButtons = document.querySelectorAll(".audit-btn");
 
   modalButtons.forEach((button) => {
     button.addEventListener("click", (event) => {
