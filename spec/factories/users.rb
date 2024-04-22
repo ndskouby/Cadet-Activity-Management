@@ -15,5 +15,6 @@ FactoryBot.define do
     uid { SecureRandom.random_number(1_000_000_000).to_s }
     provider { 'google_oauth2' }
     unit_id { FactoryBot.create(:unit).id }
+    admin_flag { true }
   end
 end
