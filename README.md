@@ -132,6 +132,31 @@ To deploy the app, please follow the steps below...
 
 # Developing
 
+## Admin Account
+
+To set an admin as a developer:
+
+1. Access database:
+
+```
+heroku login
+heroku pg:psql cadet-activity-management
+```
+
+2. Set admin_flag of desired user to true
+
+```
+UPDATE users SET admin_flag=true WHERE id=<user-id>;
+```
+
+To set an admin from an admin account:
+
+1. Click "Admin" tab once logged-in to an admin account
+2. Select eye icon next to desired user
+3. Click "Edit"
+4. Check "Make Admin"
+5. Click "Update"
+
 ## Routine
 
 ```
