@@ -51,6 +51,10 @@ RSpec.configure do |config|
     Rails.application.load_seed
   end
 
+  config.after(:suite) do 
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
   config.include FactoryBot::Syntax::Methods
 
   # You can uncomment this line to turn off ActiveRecord support entirely.
