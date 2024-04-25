@@ -51,7 +51,7 @@ RSpec.configure do |config|
     Rails.application.load_seed
   end
 
-  config.after(:suite) do 
+  config.after(:suite) do
     DatabaseCleaner.clean_with(:truncation)
   end
 
