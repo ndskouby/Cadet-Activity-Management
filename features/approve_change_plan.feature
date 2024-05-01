@@ -12,3 +12,8 @@ Feature: Approve or Change training plan
   Scenario: Confirm training plan event
     When I press the "Approve" button
     Then the status of "Test Event 0110" should be "approved"
+
+  Scenario: Cancel training plan event
+    When I fill in the reason "Cancelled" for cancelling event
+    And I press the "Cancel Event" button
+    Then the status of "Test Event 0110" should be "cancelled"
