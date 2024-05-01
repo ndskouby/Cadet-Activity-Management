@@ -82,6 +82,11 @@ Then('the status of {string} should be {string}') do |event_name, new_status|
   expect(page).to have_content("Status: #{initial_status_human}")
 end
 
+When('I fill in the reason {string} for cancelling event') do |reason|
+  textarea = page.find(:xpath, "//textarea[@placeholder='Enter reason for cancelling']")
+  textarea.set(reason)
+end
+
 Then('the status of {string} should not be {string}') do |event_name, new_status|
   training_activity = TrainingActivity.find_by(name: event_name)
   initial_status_human = I18n.t("training_activity.status.#{training_activity.status}")
