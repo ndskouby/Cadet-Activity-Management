@@ -12,6 +12,7 @@
 ```
 sudo apt update && sudo apt upgrade -y && sudo apt install libpq-dev -y
 git clone git@github.com:jwonnyleaf/Cadet-Activity-Management.git
+cd Cadet-Activity-Management
 git checkout dev
 git pull
 bundle install
@@ -20,10 +21,10 @@ npm install
 
 Next, follow
 
-1. Setup Google OAuth On Google's End
-2. Add OAuth ID and Secret to Rails Credentials
-3. Database
-4. To run & test, see Routine
+1. [Setup Google OAuth On Google's End](#setup-google-oauth-on-googles-end)
+2. [Add OAuth ID and Secret to Rails Credentials](#add-oauth-id-and-secret-to-rails-credentials)
+3. [Database](#local-database)
+4. To run & test, see [Routine](#routine)
 
 ### Setup Google OAuth On Google's End
 
@@ -115,22 +116,6 @@ OPTIONAL: To read in the corp of cadet's current database, put the `Overhead - M
 rails runner lib/ingest_roster_file.rb
 ```
 
-## First Time Deploy
-
-To deploy the app, please follow the steps below...
-
-1. Visit [Heroku](https://dashboard.heroku.com/apps) and create a new app
-2. Visit the Resources tab of your newly created app and install the Heroku Postgres add-on.
-3. Visit the Settings tab of your app and...
-
-- Add `heroku/nodejs` buildpack
-- Add `heroku/ruby` buildpack
-
-4. Set Rails Master Key to the previously generated master.key [here](#edit-the-credentials)
-   - `heroku config:set RAILS_MASTER_KEY=<key>`
-5. Push the branch to Heroku to be deployed via `git push heroku <yourbranch>:master`
-
-# Developing
 
 ## Admin Account
 
@@ -173,6 +158,21 @@ Currently Deployed to Heroku. <br>
 [Heroku Dashboard](https://dashboard.heroku.com/apps/cadet-activity-management) - https://dashboard.heroku.com/apps/cadet-activity-management <br>
 [Heroku App](https://cadet-activity-management-7ed1c42c26df.herokuapp.com/) - https://cadet-activity-management-7ed1c42c26df.herokuapp.com/ <br>
 [Code Climate](https://codeclimate.com/github/jwonnyleaf/Cadet-Activity-Management) - https://codeclimate.com/github/jwonnyleaf/Cadet-Activity-Management
+
+## First Time Deployment
+
+To deploy the app, please follow the steps below...
+
+1. Visit [Heroku](https://dashboard.heroku.com/apps) and create a new app
+2. Visit the Resources tab of your newly created app and install the Heroku Postgres add-on.
+3. Visit the Settings tab of your app and...
+
+- Add `heroku/nodejs` buildpack
+- Add `heroku/ruby` buildpack
+
+4. Set Rails Master Key to the previously generated master.key [here](#edit-the-credentials)
+   - `heroku config:set RAILS_MASTER_KEY=<key>`
+5. Push the branch to Heroku to be deployed via `git push heroku <yourbranch>:master`
 
 ## Heroku Information/Setup
 
