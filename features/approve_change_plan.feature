@@ -2,7 +2,7 @@ Feature: Approve or Change training plan
 
   As a training officer, unit leader, or upper corps leadership
   So that the event does not count towards the total goal number for that guidance
-  I want to confirm/change training plans, which are not yet executed 
+  I want to confirm/change training plans, which are not yet executed
 
   Background: User is on the Approval Details Page for an Approved "Test Event"
     Given I am a logged-in user with name "John Doe"
@@ -13,6 +13,7 @@ Feature: Approve or Change training plan
     When I press the "Approve" button
     Then the status of "Test Event 0110" should be "approved"
 
-  Scenario: Change training plan
-    When I press the "Cancel" button
+  Scenario: Cancel training plan event
+    When I fill in the reason "Cancelled" for cancelling event
+    And I press the "Cancel Event" button
     Then the status of "Test Event 0110" should be "cancelled"

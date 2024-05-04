@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
 
   def logout
     reset_session
-    redirect_to home_path, notice: 'You are logged out.'
+    redirect_to home_path, alert: 'You are logged out.'
   end
 
   def omniauth

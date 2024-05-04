@@ -11,12 +11,12 @@ Scenario: Send email when creating a new event with all required details
 	Given the user is on the "New Training Activity" page
 	When the user fills in all required fields with event details
 	And the user submits the event creation form
-	Then an email should be sent to "dummy_minor_unit@tamu.edu"
+	Then an email should be sent to "dummy_minor_unit_staff@tamu.edu"
 
 
 Scenario: Creation email not sent to major unit
     Given the user is on the "New Training Activity" page
 	When the user fills in all required fields with event details
 	And the user submits the event creation form
-    Then an email should not be sent to "dummy_major_unit@tamu.edu"
+    Then an email should not be sent to "dummy_major_unit_staff@tamu.edu"
 

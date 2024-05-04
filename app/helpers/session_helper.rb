@@ -2,15 +2,39 @@
 
 module SessionHelper
   def find_or_create_user(auth)
-    User.find_or_create_by(uid: auth['uid'], provider: auth['provider']) do |u|
-      u.email = auth['info']['email']
-      names = auth['info']['name'].split
-      u.first_name = names[0]
-      u.last_name = names[1..].join(' ')
+    # User already set up?
+    u = User.find_by(uid: auth['uid'], provider: auth['provider'])
+    return u if u
 
-      # Making the default Minor Unit point to a Dummy entry
-      # for the time being, since the audit system isn't up yet.
-      u.unit = Unit.find_by(name: 'Unassigned Outfit')
-    end
+    # User pre-loaded in the database, but not set up for authentication yet?
+    # Not sure if this is secure or not
+    u = check_preloaded_database(auth)
+    return u if u
+
+    # User never seen before?
+    create_new_user(auth)
+  end
+
+  def check_preloaded_database(auth)
+    u = User.find_by(email: auth['info']['email'])
+    return unless u
+    raise 'email already associated with a uid??' if u.uid
+
+    u.uid = auth['uid']
+    u.provider = auth['provider']
+    u
+  end
+
+  def create_new_user(auth)
+    names = auth['info']['name'].split
+    User.create!(
+      uid: auth['uid'], provider: auth['provider'],
+      email: auth['info']['email'],
+      first_name: names[0],
+      last_name: names[1..].join(' '),
+      unit: Unit.find_by(name: 'Unassigned Outfit'),
+      profile_picture: auth['info']['image'],
+      admin_flag: false
+    )
   end
 end

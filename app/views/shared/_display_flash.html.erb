@@ -1,8 +1,9 @@
-<div id="flash">
-  <% if flash[:alert] %>
-    <p style="color: red;"><%= flash[:alert] %></p>
-  <% end %>
-  <% if flash[:notice] %>
-    <p style="color: green;"><%= flash[:notice] %></p>
-  <% end %>
+<div id="flash-messages">
+  <% flash.each do |type, messages| %>
+    <% Array(messages).each do |message| %>
+      <div class="flash flash-<%= type %>">
+        <%= message %>
+      </div>
+      <% end %>
+    <% end %>
 </div>

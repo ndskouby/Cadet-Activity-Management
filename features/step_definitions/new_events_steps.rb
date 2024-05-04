@@ -5,7 +5,7 @@ Given('the user is on the training activities page') do
 end
 
 When('the user clicks the "New Activity" link') do
-  click_link 'New Activity'
+  find('#addTrainingActivityButton').click
 end
 
 Then('the activity creation form should be displayed') do
@@ -18,10 +18,11 @@ end
 
 When('the user fills in all required fields with event details') do
   fill_in 'Activity Name', with: 'Leadership Seminar'
-  fill_in 'Activity Date', with: '2024-03-10'
+  fill_in 'Activity Date', with: '2030-12-10'
   choose 'time_ma' # Assuming "MA" is the morning time slot and corresponds to the ID 'time_ma'
   fill_in 'Activity Location', with: 'Auditorium'
   select 'Leaders of Character', from: 'Priority'
+  select 'Demo Outfit', from: 'Unit'
   fill_in 'Justification', with: 'Necessary for leadership development'
 end
 

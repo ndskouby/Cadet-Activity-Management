@@ -5,7 +5,12 @@ class AuditActivitiesController < ApplicationController
   before_action :set_training_activity, only: %i[show approve improve reject resubmit cancel]
 
   def index
-    @training_activities = TrainingActivity.includes(:activity_histories).all
+    # puts current_user.units
+    unit_list = [current_user.unit] + current_user.unit.all_descendants
+    # unit_list.each do |unit|
+    #   puts "Unit Name: #{unit.name}, Unit ID: #{unit.id}"
+    # end
+    @training_activities = TrainingActivity.includes(:activity_histories).where(unit: unit_list)
   end
 
   def show
@@ -25,52 +30,31 @@ class AuditActivitiesController < ApplicationController
     end
   end
 
-  def improve
+  def handle_action(action_method, notice, alert)
     @training_activity.current_user = current_user
-
-    success = improve_success
-
+    @training_activity.comment = params[:comment]
+    success = send(action_method)
     if success
-      redirect_to audit_activity_path(@training_activity), notice: 'Requested Revision for Training Activity.'
+      redirect_to(audit_activity_path(@training_activity), notice:)
     else
-      redirect_to audit_activity_path(@training_activity), alert: 'Failed to Request Revision for Training Activity.'
+      redirect_to audit_activity_path(@training_activity), alert:
     end
+  end
+
+  def improve
+    handle_action(:improve_success, 'Requested Revision for Training Activity.', 'Failed to Request Revision for Training Activity.')
   end
 
   def reject
-    @training_activity.current_user = current_user
-
-    success = @training_activity.reject!
-
-    if success
-      redirect_to audit_activity_path(@training_activity), notice: 'Training Activity Rejected.'
-    else
-      redirect_to audit_activity_path(@training_activity), alert: 'Failed to reject Training Activity.'
-    end
+    handle_action(:reject_success, 'Training Activity Rejected.', 'Failed to reject Training Activity.')
   end
 
   def resubmit
-    @training_activity.current_user = current_user
-
-    success = resubmit_success
-
-    if success
-      redirect_to audit_activity_path(@training_activity), notice: 'Training Activity Resubmitted.'
-    else
-      redirect_to audit_activity_path(@training_activity), alert: 'Failed to resubmit Training Activity.'
-    end
+    handle_action(:resubmit_success, 'Training Activity Resubmitted.', 'Failed to resubmit Training Activity.')
   end
 
   def cancel
-    @training_activity.current_user = current_user
-
-    success = @training_activity.cancel!
-
-    if success
-      redirect_to audit_activity_path(@training_activity), notice: 'Training Activity Cancelled.'
-    else
-      redirect_to audit_activity_path(@training_activity), alert: 'Failed to cancel Training Activity.'
-    end
+    handle_action(:cancel_success, 'Training Activity Cancelled.', 'Failed to cancel Training Activity.')
   end
 
   private
