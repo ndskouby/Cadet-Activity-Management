@@ -3,6 +3,7 @@
 require 'csv'
 
 class IngestRosterFile
+
   def confirm_unit(name, cat, parent)
     return nil if name == ''
 
